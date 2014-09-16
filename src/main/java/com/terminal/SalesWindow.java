@@ -298,7 +298,7 @@ public class SalesWindow {
 			jButtonSale.setFont(new Font("Dialog", Font.BOLD, 18));
 			jButtonSale.addActionListener(new ActionListener() {
 				
-				@Override
+				
 				public void actionPerformed(ActionEvent e) {
 					Float totalAmount = new Float(jTextFieldSubTotal.getText());
 					

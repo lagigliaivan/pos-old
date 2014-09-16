@@ -19,8 +19,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.krysalis.barcode4j.ChecksumMode;
-import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,13 +148,13 @@ public class AddProductWindow {
 			
 			jTextFieldDesc.addKeyListener(new KeyListener() {
 				
-				@Override
+				
 				public void keyTyped(KeyEvent e) {
 					// TODO Auto-generated method stub
 					//showProductsbyDescription();
 				}
 
-				@Override
+				
 				public void keyReleased(KeyEvent e) {
 					
 					if( !jTextFieldProdId.getText().isEmpty() && (tableModel.getRowCount() > 0)){
@@ -168,7 +166,7 @@ public class AddProductWindow {
 					}
 				}
 
-				@Override
+				
 				public void keyPressed(KeyEvent e) {
 
 				}
@@ -190,7 +188,7 @@ public class AddProductWindow {
 
 			jTextFieldPrice.addKeyListener(new KeyListener() {
 
-				@Override
+			
 				public void keyTyped(KeyEvent e) {
 					if(e.getKeyChar() == KeyEvent.VK_ENTER){
 						int n = JOptionPane.showOptionDialog(getJPanelAddProduct(),
@@ -215,12 +213,12 @@ public class AddProductWindow {
 					}
 				}
 
-				@Override
+			
 				public void keyReleased(KeyEvent e) {
 
 				}
 
-				@Override
+			
 				public void keyPressed(KeyEvent e) {
 
 				}
@@ -317,12 +315,12 @@ public class AddProductWindow {
 			jTextFieldProdId = new JTextField("123456");
 			jTextFieldProdId.addKeyListener(new KeyListener() {
 
-				@Override
+				
 				public void keyTyped(KeyEvent e) {
 
 				}
 
-				@Override
+				
 				public void keyReleased(KeyEvent e) {
 						String id = jTextFieldProdId.getText();
 						if(id.matches("[a-zA-z0-9]*")){
@@ -334,7 +332,7 @@ public class AddProductWindow {
 						}
 				}
 
-				@Override
+				
 				public void keyPressed(KeyEvent e) {
 
 				}

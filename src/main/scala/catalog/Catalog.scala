@@ -1,0 +1,15 @@
+package com.terminal.catalog
+
+import com.terminal.db.Database;
+import com.terminal.db.dto.Product;
+import com.terminal.db.dto.Sale;
+
+class Catalog(database: Database) {
+	
+	def getProduct(id: String) = database.getProductById(id);
+	def addProduct(product: Product, amount: Int) : Unit = database.addProduct(product, amount);
+	def addProduct(product: Product) : Unit = addProduct(product, 1);
+	def getStock(id: String) = database.getStock(id);
+	def sell(date: Date, products: Map[Product, Int], totalPrice: Float) = database.save(new Sale(date, products, totalPrice));
+	def save(product: Product) = {};
+}

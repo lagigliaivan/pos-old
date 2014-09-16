@@ -52,6 +52,17 @@
 		<version>1.8.4</version>
 		<scope>test</scope>		
 	</dependency>
+	<dependency>
+		<groupId>org.scala-tools</groupId>
+		<artifactId>maven-scala-plugin</artifactId>
+		<version>2.15.2</version>
+	</dependency>
+	<dependency>
+	<groupId>org.scala-lang</groupId>
+		<artifactId>scala-compiler</artifactId>
+		<version>2.11.2</version>
+	</dependency>
+	
 
 </dependencies>
 
@@ -59,11 +70,7 @@
   		<defaultGoal>install</defaultGoal>
   		<directory>${basedir}/target</directory>
   		<finalName>${project.artifactId}-${project.version}</finalName>
-		<!--sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-	    	<scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
-	    	<testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
-	    	<outputDirectory>${basedir}/target/classes</outputDirectory>
-	    	<testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory-->
+		
 		<resources>
         		<resource>
             			<directory>${basedir}/resources</directory>
@@ -72,18 +79,58 @@
 
 	
 		<plugins>
-		      <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.1</version>
-			<configuration>
-			  <!-- or whatever version you use -->
-			  <source>1.6</source>
-			  <target>1.6</target>
-			</configuration>
-		      </plugin>
-	        </plugins> 
-
+		        
+	        <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jvmArgs>
+            <jvmArg>-Xms64m</jvmArg>
+            <jvmArg>-Xmx1024m</jvmArg>
+          </jvmArgs>
+        </configuration>
+      </plugin> 
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/main/scala</source>
+              </sources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/test/scala</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+</plugins>
 	</build>
 
 </project>

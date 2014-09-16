@@ -76,7 +76,7 @@ public class MainWindow {
 			
 			jMenuItemAddProduct.addActionListener(new ActionListener() {
 				
-				@Override
+				
 				public void actionPerformed(ActionEvent e) {
 					getJFrameVenta().remove(saleWindow.getJPanelMain());
 					getJFrameVenta().setTitle("Agregar/Consultar Producto");
@@ -105,8 +105,8 @@ public class MainWindow {
 			
 			jMenuItemSale.addActionListener(new ActionListener() {
 				
-				@Override
-				public void actionPerformed(ActionEvent e) {
+				
+				 public void actionPerformed(ActionEvent e) {
 					getJFrameVenta().remove(addProductWindow.getJPanelAddProduct());
 					getJFrameVenta().setTitle("Venta");
 					getJFrameVenta().add(saleWindow.getJPanelMain());

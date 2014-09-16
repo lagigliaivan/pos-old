@@ -162,7 +162,7 @@ public class DBConnection implements Database {
     	return productHbm;
 	}
 	
-	@Override
+	
 	public void save(Product product) throws TerminalException{
 		
 		Session session = null;
@@ -206,13 +206,13 @@ public class DBConnection implements Database {
 		return existingProducts;
 	}
 
-	@Override
+	
 	public void addProduct(Product product, Integer amount) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public Integer getStock(String id) {
 		// TODO Auto-generated method stub
 		return null;
