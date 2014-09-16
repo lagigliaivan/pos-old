@@ -30,6 +30,4 @@ public class Product_Sale {
 	public void setproductamount(Integer productamount) {
 		this.productamount = productamount;
 	}
-    
-    
 }
