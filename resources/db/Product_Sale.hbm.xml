@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.terminal.db.Product_Sale" table="product_sale">
+
+<composite-id name="ProductSaleKey">
+	<key-property name="idproduct" column="idproduct" type="long" />
+	<key-property name="idsale" column="idsale" type="long" />
+</composite-id>
+
+<property name="productamount" column="productamount" type="integer" />
+</class>
+
+</hibernate-mapping>

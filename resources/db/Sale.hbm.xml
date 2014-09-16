@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.terminal.db.SaleHbm" table="sales">
+<meta attribute="class-description">This class contains products details.</meta>
+
+<id name="idsale" type="long">
+ 	<column name="idsale" />
+ 	<generator class="native" />
+</id>
+
+<set name="products" table="product_sale">
+<key column="idsale" />
+	<many-to-many column="idproduct"  class="com.terminal.db.ProductHbm" />
+</set>
+
+<property name="description" type="string" column="description" />
+<property name="date" column="date" type="date" />
+</class>
+
+</hibernate-mapping>
