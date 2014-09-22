@@ -3,8 +3,6 @@ package ar.com.pos.db
 import java.util.Date
 import java.util.HashSet
 
-import com.terminal.db.ProductHbm
-
 class SaleHbm {
 	
   var _idsale: Long = 0;

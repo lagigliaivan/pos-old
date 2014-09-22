@@ -1,12 +1,10 @@
+package ar.com.terminal.db.dto;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import ar.com.terminal.Catalog;
-
-import com.terminal.db.Database;
-import com.terminal.db.dto.Product;
-
-import static org.mockito.Mockito.*;
+import ar.com.terminal.db.Database;
 
 public class StockTest {
 
@@ -14,7 +12,7 @@ public class StockTest {
 	public void returnAmountOfProductCorrecltyWhenAddingOneByOne(){
 		
 		Database database = mock(Database.class);
-		Catalog stock = new Catalog(database);
+		ar.com.pos.Catalog stock = new ar.com.pos.Catalog(database);
 		Product product = new Product("1",0.0F, "product1");
 		stock.addProduct(product);
 		stock.addProduct(product);
@@ -32,7 +30,7 @@ public class StockTest {
 	public void returnAmountOfProductCorrectlyWhenAddingAll(){
 		
 		Database database = mock(Database.class);
-		Catalog catalog = new Catalog(database);
+		ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(database);
 		Product product = new Product("1",0.0F, "product1");
 		catalog.addProduct(product, 3);
 		Integer amount = catalog.getStock(product.getId());
@@ -44,7 +42,7 @@ public class StockTest {
 	public void returnAmountOfProductCorrectlyWhenAddingThemMultipleTimes(){
 		
 		Database database = mock(Database.class);
-		Catalog catalog = new Catalog(database);
+		ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(database);
 		Product product = new Product("1",0.0F, "product1");
 		catalog.addProduct(product, 3);
 		

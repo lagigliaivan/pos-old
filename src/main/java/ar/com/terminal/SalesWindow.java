@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import com.terminal.db.dto.Product;
+import ar.com.terminal.db.dto.Product;
 
 public class SalesWindow {
 
@@ -157,7 +157,7 @@ public class SalesWindow {
 					
 					if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 						
-						Catalog catalog = new Catalog(DBConnection.getInstance());
+						ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection.getInstance());
 						Product product = catalog.getProduct(productIdTextField.getText());
 						
 						jTextFieldProductDesc.setText(product.getDescription());
@@ -302,7 +302,7 @@ public class SalesWindow {
 				public void actionPerformed(ActionEvent e) {
 					Float totalAmount = new Float(jTextFieldSubTotal.getText());
 					
-					Catalog catalog = new Catalog(DBConnection.getInstance());
+					ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection.getInstance());
 					catalog.sell(new Date(), productsToBeSold, totalAmount);
 					
 					clearPreviousSaleData();

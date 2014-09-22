@@ -1,7 +1,7 @@
-package com.terminal.db;
+package ar.com.terminal.db;
 
-import com.terminal.db.dto.Product;
-import com.terminal.db.dto.Sale;
+import ar.com.terminal.db.dto.Product;
+import ar.com.terminal.db.dto.Sale;
 
 public interface Database {
 	

@@ -22,8 +22,8 @@ import javax.swing.event.ListSelectionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.terminal.db.dto.Product;
-import com.terminal.exception.TerminalException;
+import ar.com.terminal.db.dto.Product;
+import ar.com.terminal.exception.TerminalException;
 
 
 public class AddProductWindow {
@@ -202,7 +202,7 @@ public class AddProductWindow {
 							product.setDescription(jTextFieldDesc.getText());
 							//product.setstock(new Integer(jTextFieldStock.getText()));
 							try{
-								Catalog catalog = new Catalog(DBConnection.getInstance());
+								ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection.getInstance());
 								catalog.save(product);
 							}catch(TerminalException ex){
 								Log.error(ex.getMessage());

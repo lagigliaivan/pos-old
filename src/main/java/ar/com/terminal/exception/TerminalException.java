@@ -1,4 +1,4 @@
-package com.terminal.exception;
+package ar.com.terminal.exception;
 
 public class TerminalException extends RuntimeException {
 

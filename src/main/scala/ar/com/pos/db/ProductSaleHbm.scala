@@ -1,6 +1,6 @@
 package ar.com.pos.db
 
-import com.terminal.db.ProductSaleKey
+import ar.com.terminal.db.ProductSaleKey;
 
 class ProductSaleHbm {
 

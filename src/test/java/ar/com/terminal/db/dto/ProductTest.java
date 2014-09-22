@@ -1,4 +1,4 @@
-package com.terminal.db.dto;
+package ar.com.terminal.db.dto;
 
 import java.security.InvalidParameterException;
 
@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ar.com.terminal.db.dto.Product;
 
 public class ProductTest {
 

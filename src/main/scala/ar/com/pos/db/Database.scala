@@ -1,6 +1,6 @@
 package ar.com.pos.db
 
-import com.terminal.db.dto.Sale;
+import ar.com.terminal.db.dto.Sale;
 
 trait Database {
 	def getProductById (id:String):Product;

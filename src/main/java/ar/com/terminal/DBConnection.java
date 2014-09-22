@@ -16,13 +16,13 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.terminal.db.Database;
-import com.terminal.db.ProductHbm;
-import com.terminal.db.SaleHbm;
-import com.terminal.db.SessionFactoryUtil;
-import com.terminal.db.dto.Product;
-import com.terminal.db.dto.Sale;
-import com.terminal.exception.TerminalException;
+import ar.com.terminal.db.Database;
+import ar.com.terminal.db.ProductHbm;
+import ar.com.terminal.db.SaleHbm;
+import ar.com.terminal.db.SessionFactoryUtil;
+import ar.com.terminal.db.dto.Product;
+import ar.com.terminal.db.dto.Sale;
+import ar.com.terminal.exception.TerminalException;
 
 
 

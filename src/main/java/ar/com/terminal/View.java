@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
-import com.terminal.db.dto.Product;
+import ar.com.terminal.db.dto.Product;
 
 public class View {
 

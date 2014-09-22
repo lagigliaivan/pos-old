@@ -1,4 +1,4 @@
-package com.terminal.db.dto;
+package ar.com.terminal.db.dto;
 
 import java.security.InvalidParameterException;
 import java.util.Date;

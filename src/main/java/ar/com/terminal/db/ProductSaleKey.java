@@ -1,4 +1,4 @@
-package com.terminal.db;
+package ar.com.terminal.db;
 
 import java.io.Serializable;
 

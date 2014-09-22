@@ -1,4 +1,4 @@
-package com.terminal.db;
+package ar.com.terminal.db;
 
 public class Product_Sale {
  	private Long idproduct = null;

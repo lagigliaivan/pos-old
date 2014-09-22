@@ -1,8 +1,9 @@
 package ar.com.pos
 
-import com.terminal.db.Database;
-import com.terminal.db.dto.Product;
-import com.terminal.db.dto.Sale;
+import ar.com.terminal.db.Database;
+import ar.com.terminal.db.dto.Product;
+import ar.com.terminal.db.dto.Sale;
+
 import java.util.Date;
 import java.util.Map;
 
