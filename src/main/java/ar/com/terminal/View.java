@@ -1,4 +1,4 @@
-package com.terminal;
+package ar.com.terminal;
 
 import java.util.ArrayList;
 import java.util.List;

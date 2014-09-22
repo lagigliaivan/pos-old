@@ -1,4 +1,4 @@
-package com.terminal.catalog
+package ar.com.pos
 
 import com.terminal.db.Database;
 import com.terminal.db.dto.Product;

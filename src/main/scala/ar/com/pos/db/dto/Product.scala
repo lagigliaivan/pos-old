@@ -1,4 +1,4 @@
-package com.pos.db.dto
+package ar.com.pos.db.dto
 
 class Product (val id: String, val price: Float, val description: String){
 

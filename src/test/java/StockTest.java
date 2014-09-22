@@ -1,9 +1,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.terminal.Catalog;
+import ar.com.terminal.Catalog;
+
 import com.terminal.db.Database;
 import com.terminal.db.dto.Product;
+
 import static org.mockito.Mockito.*;
 
 public class StockTest {

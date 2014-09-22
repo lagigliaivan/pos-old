@@ -1,4 +1,4 @@
-package com.pos.db
+package ar.com.pos.db
 
 import com.terminal.db.dto.Sale;
 

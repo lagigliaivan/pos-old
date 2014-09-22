@@ -1,4 +1,4 @@
-package com.terminal;
+package ar.com.terminal;
 
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;

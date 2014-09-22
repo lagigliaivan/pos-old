@@ -46,6 +46,4 @@ public class ProductHbm {
 	public void setprice(Float price) {
 		this.price = price;
 	}
-	
-	
 }
