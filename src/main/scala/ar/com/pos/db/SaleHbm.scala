@@ -25,5 +25,5 @@ class SaleHbm {
   def products_= (value:HashSet[ProductHbm]):Unit = {_products = value} 
 
   def totalAmount = _totalAmount; 
-  def totalAmount_= (value:Int):Unit = {_totalAmount = value} 
+  def totalAmount_= (value:Float):Unit = {_totalAmount = value} 
 }
