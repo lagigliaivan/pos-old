@@ -5,6 +5,8 @@ import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 
+import scala.collection.JavaConverters._
+
 import org.hibernate.HibernateException
 import org.hibernate.Query
 import org.hibernate.Session
@@ -13,8 +15,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import ar.com.pos.db.dto.Product
-import ar.com.terminal.db.SessionFactoryUtil
 import ar.com.pos.db.dto.Sale
+import ar.com.terminal.db.SessionFactoryUtil
 import javax.persistence.NoResultException
 
 object DBConnection extends Database{
@@ -172,10 +174,10 @@ object DBConnection extends Database{
 		
 		var hqlQuery = session.createQuery(query);
 					
-		var products = hqlQuery.list();
+		var products = hqlQuery.asInstanceOf[List[ProductHbm]];
 
-		for( product <- products){	
-			var existingProduct = new Product(product.getidproduct(), product.getprice(), product.getdescription());
+		for( product <- products.asScala){	
+			var existingProduct = new Product(product.idproduct, product.price, product.description);
 			existingProducts.add(existingProduct);
 		}
 		
@@ -184,5 +186,6 @@ object DBConnection extends Database{
 
 		return existingProducts;
 	}
-
+	
+	
 }
