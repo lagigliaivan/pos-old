@@ -53,84 +53,59 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.alchim31.maven</groupId>
-			<artifactId>scala-maven-plugin</artifactId>
-			<version>3.2.0</version>
-		</dependency>
+    <groupId>org.scala-lang</groupId>
+    <artifactId>scala-library</artifactId>
+    <version>2.7.2</version>
+</dependency>
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.3.2</version>
 		</dependency>
-		
+	
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.11.2</version>
+		</dependency>
 	</dependencies>
+		
 
 	<build>
-		<defaultGoal>install</defaultGoal>
-		<directory>${basedir}/target</directory>
-		<finalName>${project.artifactId}-${project.version}</finalName>
+     
+        <plugins>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+               <artifactId>maven-scala-plugin</artifactId>
+ 
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                        <goal>compile</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+ 
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                        <goal>testCompile</goal>
+                        </goals>
+                        <phase>test-compile</phase>
+                    </execution>
+ 
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-		<resources>
-			<resource>
-				<directory>${basedir}/resources</directory>
-			</resource>
-		</resources>
-
-
-		<plugins>
-
-			<plugin>
-				<groupId>org.scala-tools</groupId>
-				<artifactId>maven-scala-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<jvmArgs>
-						<jvmArg>-Xms64m</jvmArg>
-						<jvmArg>-Xmx1024m</jvmArg>
-					</jvmArgs>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/main/scala</source>
-							</sources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>add-test-source</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/test/scala</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

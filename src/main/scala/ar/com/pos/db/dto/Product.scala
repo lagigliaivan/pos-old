@@ -1,7 +1,11 @@
 package ar.com.pos.db.dto
 
-class Product (private val prodId: String, private val prodPrice: Float, private val prodDescr: String){
+class Product (private val prodId: String = "", private val prodPrice: Float, private val prodDescr: String){
 
+	require(prodId != null && prodId.isEmpty() == false, "Product prodId cannot be empty/null");
+	require(prodPrice != null && prodPrice >= 0F , "Product price cannot be negative");
+	require(prodDescr != null && prodDescr.isEmpty() == false , "Product description cannot be empty/null");
+	
 	private var _stock: Int = 1;
 
 	def id = prodId;
