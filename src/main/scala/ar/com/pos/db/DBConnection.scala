@@ -25,7 +25,7 @@ object DBConnection extends Database {
 
   def getAllProducts(): List[Product] = {
 
-    var products = new ArrayList[Product]();
+    val products = new ArrayList[Product]();
 
     try {
       products.addAll(getItemsUsingTheFollowingQuery("from Product"));
@@ -44,7 +44,7 @@ object DBConnection extends Database {
       throw new InvalidParameterException("Product ID cannot be null or empty");
     }
 
-    var products = new ArrayList[Product]();
+    val products = new ArrayList[Product]();
 
     try {
       products.addAll(getItemsUsingTheFollowingQuery("from Product u where u.id like " + id + "%"));
@@ -64,7 +64,7 @@ object DBConnection extends Database {
       throw new InvalidParameterException("Product description cannot be null or empty");
     }
 
-    var products = new ArrayList[Product]();
+    val products = new ArrayList[Product]();
 
     try {
       products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.description like %" + productDesc + "%"));
@@ -83,7 +83,7 @@ object DBConnection extends Database {
       throw new InvalidParameterException("Product ID cannot be null or empty");
     }
 
-    var products = new ArrayList[Product]();
+    val products = new ArrayList[Product]();
 
     try {
       products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.idproduct = " + id));
@@ -103,20 +103,20 @@ object DBConnection extends Database {
   def save(sale: Sale) = {
 
     try {
-      var session = SessionFactoryUtil.getSessionFactory().openSession();
-      var transaction = session.beginTransaction();
-      var products = new HashSet[ProductHbm]();
+      val session = SessionFactory.openSession;
+      val transaction = session.beginTransaction;
+      val products = new HashSet[ProductHbm]();
 
-      var productsEntry = sale.products;
+      val productsEntry = sale.products.asScala;
 
       for (productAndStock <- productsEntry) {
-        var product = productAndStock._1;
-        var productHbm = getProductHbm(product);
+        val product = productAndStock._1;
+        val productHbm = getProductHbm(product);
         productHbm.stock = productAndStock._2;
         products.add(productHbm);
       }
 
-      var saleHbm = new SaleHbm();
+      val saleHbm = new SaleHbm();
       saleHbm.date = sale.date;
       saleHbm.products = products;
       saleHbm.totalAmount = sale.totalPrice;
@@ -135,7 +135,7 @@ object DBConnection extends Database {
 
   protected def getProductHbm(product: Product): ProductHbm = {
 
-    var productHbm = new ProductHbm();
+    val productHbm = new ProductHbm();
     productHbm.idproduct = product.id;
     productHbm.description = product.description;
     productHbm.price = product.price;
@@ -146,8 +146,8 @@ object DBConnection extends Database {
   def save(product: Product) = {
 
     try {
-      var session = SessionFactoryUtil.getSessionFactory().openSession();
-      var transaction = session.beginTransaction();
+      val session = SessionFactory.openSession;
+      val transaction = session.beginTransaction();
 
       session.save(product);
       session.flush();
@@ -164,21 +164,19 @@ object DBConnection extends Database {
 
   protected def getItemsUsingTheFollowingQuery(query: String): List[Product] = {
 
-    var existingProducts = new ArrayList[Product]();
+    val existingProducts = new ArrayList[Product]();
+    val session = SessionFactory.openSession;
 
-    var session = SessionFactoryUtil.getSessionFactory.openSession;
-    
     session.beginTransaction;
 
-    var hqlQuery = session.createQuery(query);
+    val hqlQuery = session.createQuery(query);
 
-    var products = hqlQuery.asInstanceOf[List[ProductHbm]];
+    val products = hqlQuery.asInstanceOf[List[ProductHbm]];
 
     for (product <- products.asScala) {
-      var existingProduct = new Product(product.idproduct, product.price, product.description);
+      val existingProduct = new Product(product.idproduct, product.price, product.description);
       existingProducts.add(existingProduct);
     }
-
     session.getTransaction.commit;
     session.close;
 

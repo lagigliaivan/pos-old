@@ -22,7 +22,7 @@ import javax.swing.event.ListSelectionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ar.com.terminal.db.dto.Product;
+import ar.com.pos.db.dto.Product;
 import ar.com.terminal.exception.TerminalException;
 
 
@@ -142,6 +142,7 @@ public class AddProductWindow {
 	 * @return javax.swing.JTextField
 	 */
 	private JTextField getJTextFieldDesc() {
+		
 		if (jTextFieldDesc == null) {
 			jTextFieldDesc = new JTextField();
 			jTextFieldDesc.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -158,9 +159,9 @@ public class AddProductWindow {
 				public void keyReleased(KeyEvent e) {
 					
 					if( !jTextFieldProdId.getText().isEmpty() && (tableModel.getRowCount() > 0)){
-						List <Product> products = DBConnection.getInstance().getProductsbyDescription(jTextFieldDesc.getText());
-				        View view = new View();
-				        view.addProductsToTheFollowingTable(tableModel, products);
+						List <Product> products = ar.com.pos.db.DBConnection$.MODULE$.getProductsbyDescription(jTextFieldDesc.getText());
+						ar.com.pos.ui.View view = new ar.com.pos.ui.View();
+						view.addProductsToTheFollowingTable(tableModel, products);
 						enableAddingProduct(true);
 						jTableProductList.setModel(tableModel);
 					}
@@ -199,16 +200,15 @@ public class AddProductWindow {
 						
 						if(n == JOptionPane.YES_OPTION){
 							Product product = new Product(jTextFieldProdId.getText(),new Float(jTextFieldPrice.getText()), jTextFieldDesc.getText());
-							product.setDescription(jTextFieldDesc.getText());
 							//product.setstock(new Integer(jTextFieldStock.getText()));
 							try{
-								ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection.getInstance());
+								ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
 								catalog.save(product);
 							}catch(TerminalException ex){
 								Log.error(ex.getMessage());
 								return;
 							}
-							//enableAddingProduct(DBConnection.getInstance().showProductsbyDescription(tableModel, jTextFieldDesc.getText()));
+							//enableAddingProduct(ar.com.pos.db.DBConnection$.MODULE$.showProductsbyDescription(tableModel, jTextFieldDesc.getText()));
 						}
 					}
 				}
@@ -288,7 +288,7 @@ public class AddProductWindow {
 
 		}
 
-		//DBConnection.getInstance().getAllProducts();
+		//ar.com.pos.db.DBConnection$.MODULE$.getAllProducts();
 		jTableProductList.setModel(tableModel);
 		return jTableProductList;
 	}
@@ -325,8 +325,8 @@ public class AddProductWindow {
 						String id = jTextFieldProdId.getText();
 						if(id.matches("[a-zA-z0-9]*")){
 							
-							List<Product> products = DBConnection.getInstance().getProductsbyId(id);
-							View view = new View();
+							List<Product> products = ar.com.pos.db.DBConnection$.MODULE$.getProductsbyId(id);
+							ar.com.pos.ui.View view = new ar.com.pos.ui.View();
 							view.addProductsToTheFollowingTable(tableModel, products);
 							enableAddingProduct(true);
 						}

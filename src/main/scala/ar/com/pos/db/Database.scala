@@ -1,6 +1,6 @@
 package ar.com.pos.db
 
-import ar.com.terminal.db.dto.Sale;
+import ar.com.pos.db.dto.Sale;
 
 
 trait Database {

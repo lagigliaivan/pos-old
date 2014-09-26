@@ -23,7 +23,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import ar.com.terminal.db.dto.Product;
+import ar.com.pos.db.DBConnection$;
+import ar.com.pos.db.dto.Product;
+
 
 public class SalesWindow {
 
@@ -156,19 +158,20 @@ public class SalesWindow {
 				public void keyPressed(KeyEvent evt) {
 					
 					if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					
+						ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
+						ar.com.pos.db.dto.Product product = catalog.getProduct(productIdTextField.getText());
 						
-						ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection.getInstance());
-						Product product = catalog.getProduct(productIdTextField.getText());
+						jTextFieldProductDesc.setText(product.description());
+						jTextFieldPrice.setText(Float.toString(product.price()));
+						subtotal += product.price();
 						
-						jTextFieldProductDesc.setText(product.getDescription());
-						jTextFieldPrice.setText(Float.toString(product.getPrice()));
-						subtotal += product.getPrice();
 						
-						View view = new View();
 						
 						List<Product> products = new ArrayList<Product>();
 						products.add(product);
 						
+						ar.com.pos.ui.View view = new ar.com.pos.ui.View();
 						view.addProductsToTheFollowingTable(tableModel, products);
 												
 						jTableProducts.setModel(tableModel);
@@ -300,12 +303,13 @@ public class SalesWindow {
 				
 				
 				public void actionPerformed(ActionEvent e) {
-					Float totalAmount = new Float(jTextFieldSubTotal.getText());
-					
-					ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection.getInstance());
-					catalog.sell(new Date(), productsToBeSold, totalAmount);
-					
-					clearPreviousSaleData();
+
+					if(!jTextFieldSubTotal.getText().isEmpty()){
+						Float totalAmount = new Float(jTextFieldSubTotal.getText());
+						ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection$.MODULE$);
+						catalog.sell(new Date(), productsToBeSold, totalAmount);
+						clearPreviousSaleData();
+					}
 				}
 			});
 		}
