@@ -7,14 +7,13 @@ import java.awt.event.ActionListener
 
 import org.slf4j.LoggerFactory
 
-import ar.com.terminal.AddProductWindow
-import ar.com.terminal.SalesWindow
+
 import javax.swing.JFrame
 import javax.swing.JMenu
 import javax.swing.JMenuBar
 import javax.swing.JMenuItem
 
-class MainWindow(saleWindow: SalesWindow, addProductWindow: AddProductWindow) {
+class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.com.terminal.AddProductWindow) {
 
   private val jFrameVenta = new JFrame();
   private val jJMenuBar = new JMenuBar();

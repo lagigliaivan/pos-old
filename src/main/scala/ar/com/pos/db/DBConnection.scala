@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory
 
 import ar.com.pos.db.dto.Product
 import ar.com.pos.db.dto.Sale
-import ar.com.terminal.db.SessionFactoryUtil
 import javax.persistence.NoResultException
 
 object DBConnection extends Database {
@@ -185,6 +184,5 @@ object DBConnection extends Database {
 
   def addProduct(product: ar.com.pos.db.dto.Product, amount: Integer): Unit = {}
   def getStock(id: String): Integer = { return Integer.getInteger(id) }
-  def save(sale: ar.com.terminal.db.dto.Sale): Unit = {}
-
+  
 }

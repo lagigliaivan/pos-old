@@ -1,4 +1,4 @@
-package ar.com.terminal;
+package ar.com.pos.ui;
 
 import java.util.ArrayList;
 import java.util.List;

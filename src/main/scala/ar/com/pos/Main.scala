@@ -1,10 +1,8 @@
 package ar.com.pos
 
-import java.awt.Frame
-import ar.com.terminal.AddProductWindow
-import ar.com.terminal.SalesWindow
-import javax.swing.JFrame
 import ar.com.pos.ui.MainWindow
+import ar.com.terminal.SalesWindow
+import ar.com.terminal.AddProductWindow
 
 
 object Main {
