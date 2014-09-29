@@ -4,8 +4,8 @@
 <hibernate-mapping>
 <class name="ar.com.pos.db.ProductSaleHbm" table="product_sale">
 
-<composite-id name="ProductSaleKeyHbm">
-	<key-property name="idproduct" column="idproduct" type="long" />
+<composite-id name="ProductSaleKey" class="ar.com.pos.db.ProductSaleKeyHbm">
+	<key-property name="idproduct" column="idproduct" type="string" />
 	<key-property name="idsale" column="idsale" type="long" />
 </composite-id>
 

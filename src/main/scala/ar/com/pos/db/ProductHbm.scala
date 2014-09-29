@@ -8,16 +8,16 @@ class ProductHbm {
 	private var _price: Float = 0;
 	private var _sales: Set[Long] = _;
 
-	def idproduct = _idproduct;
-	def description = _description;
-	def stock = _stock;
-	def price = _price;
-	def sales = _sales;
+	def getIdproduct = _idproduct;
+	def getDescription = _description;
+	def getStock = _stock;
+	def getPrice = _price;
+	def getSales = _sales;
 	
-	def idproduct_= (value:String):Unit = _idproduct = value;
-	def description_= (value:String):Unit = _description = value;
-	def stock_= (value:Integer):Unit = _stock = value;
-	def price_= (value:Float):Unit = _price = value;
-	def sales_= (value:Set[Long]):Unit = _sales = value;
+	def setIdproduct (value:String):Unit = _idproduct = value;
+	def setDescription (value:String):Unit = _description = value;
+	def setStock (value:Integer):Unit = _stock = value;
+	def setPrice (value:Float):Unit = _price = value;
+	def setSales (value:Set[Long]):Unit = _sales = value;
 
 }

@@ -166,8 +166,6 @@ public class SalesWindow {
 						jTextFieldPrice.setText(Float.toString(product.price()));
 						subtotal += product.price();
 						
-						
-						
 						List<Product> products = new ArrayList<Product>();
 						products.add(product);
 						

@@ -111,14 +111,14 @@ object DBConnection extends Database {
       for (productAndStock <- productsEntry) {
         val product = productAndStock._1;
         val productHbm = getProductHbm(product);
-        productHbm.stock = productAndStock._2;
+        productHbm.setStock (productAndStock._2);
         products.add(productHbm);
       }
 
-      val saleHbm = new SaleHbm();
-      saleHbm.date = sale.date;
-      saleHbm.products = products;
-      saleHbm.totalAmount = sale.totalPrice;
+      val saleHbm = new SaleHbm;
+      saleHbm.setDate(sale.date);
+      saleHbm.setProducts(products);
+      saleHbm.setTotalAmount(sale.totalPrice);
 
       session.save(saleHbm);
       session.flush();
@@ -135,9 +135,9 @@ object DBConnection extends Database {
   protected def getProductHbm(product: Product): ProductHbm = {
 
     val productHbm = new ProductHbm();
-    productHbm.idproduct = product.id;
-    productHbm.description = product.description;
-    productHbm.price = product.price;
+    productHbm.setIdproduct (product.id);
+    productHbm.setDescription (product.description);
+    productHbm.setPrice (product.price);
 
     return productHbm;
   }
@@ -173,7 +173,7 @@ object DBConnection extends Database {
     val products = hqlQuery.asInstanceOf[List[ProductHbm]];
 
     for (product <- products.asScala) {
-      val existingProduct = new Product(product.idproduct, product.price, product.description);
+      val existingProduct = new Product(product.getIdproduct, product.getPrice, product.getDescription);
       existingProducts.add(existingProduct);
     }
     session.getTransaction.commit;

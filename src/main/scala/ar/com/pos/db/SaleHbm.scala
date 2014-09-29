@@ -12,18 +12,21 @@ class SaleHbm {
   var _products = new HashSet[ProductHbm]();
   var _totalAmount: Float = 0;
 
-  def idsale = _idsale; 
-  def idsale_= (value:Int):Unit = {_idsale = value}
+  def getIdsale = _idsale; 
+  def setIdsale (value:Int):Unit = {_idsale = value}
   
-  def idproduct = _description; 
-  def idproduct_= (value:Int):Unit = {_idproduct = value}
+  def getIdproduct = _idproduct; 
+  def setIdproduct (value:Int):Unit = {_idproduct = value}
   
-  def date = _date; 
-  def date_= (value:Date):Unit = {_date = value} 
+  def getDescription = _description; 
+  def setDescription (value:String):Unit = {_description = value}
+  
+  def getDate = _date; 
+  def setDate (value:Date):Unit = {_date = value} 
 
-  def products = _products; 
-  def products_= (value:HashSet[ProductHbm]):Unit = {_products = value} 
+  def getProducts = _products; 
+  def setProducts (value:HashSet[ProductHbm]):Unit = {_products = value} 
 
-  def totalAmount = _totalAmount; 
-  def totalAmount_= (value:Float):Unit = {_totalAmount = value} 
+  def getTotalAmount = _totalAmount; 
+  def setTotalAmount (value:Float):Unit = {_totalAmount = value} 
 }

@@ -42,9 +42,9 @@
     <property name="hibernate.show_sql">true</property>
 
 	<!-- mapping files -->
-	<mapping resource="db/Product.hbm.xml" />
-	<mapping resource="db/Sale.hbm.xml" />
-	<mapping resource="db/Product_Sale.hbm.xml" />
+	<mapping resource="Product.hbm.xml" />
+	<mapping resource="Sale.hbm.xml" />
+	<mapping resource="Product_Sale.hbm.xml" />
 
 </session-factory>
 </hibernate-configuration>
