@@ -11,7 +11,7 @@
 </id>
 
 <set name="products" table="product_sale">
-<key column="idsale" />
+    <key column="idsale" />
 	<many-to-many column="idproduct"  class="ar.com.pos.db.ProductHbm" />
 </set>
 
