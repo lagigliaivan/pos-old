@@ -186,8 +186,7 @@ object DBConnection extends Database {
 
     }
 
-
-    return existingProducts
+    existingProducts
   }
 
   def addProduct(product: ar.com.pos.db.dto.Product, amount: Integer): Unit = {}
