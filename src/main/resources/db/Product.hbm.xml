@@ -8,8 +8,8 @@
 <id name="idproduct" type="string" column="idproduct"></id>
 
 <set name="sales" table="product_sale" >
-<key column="idproduct" />
-<many-to-many column="idsale"  class="ar.com.pos.db.SaleHbm" />
+    <key column="idproduct" />
+    <many-to-many column="idsale"  class="ar.com.pos.db.SaleHbm" />
 </set>
 
 <property name="description" type="string" column="description" />

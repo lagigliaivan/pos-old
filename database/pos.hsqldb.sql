@@ -11,7 +11,7 @@ INSERT INTO products VALUES (10,'goma',2,0.5),(5262,'tigera',2,2.1),(12123,'lapi
 
 
 CREATE TABLE product_sale (
-  idproduct bigint NOT NULL,
+  idproduct varchar(20) NOT NULL,
   idsale bigint NOT NULL,
   PRIMARY KEY (idproduct,idsale)
 ) 
