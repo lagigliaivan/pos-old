@@ -1,4 +1,4 @@
-package ar.com.pos.db.dto;
+package ar.com.pos.db.dto
 
 import org.slf4j.Logger
 import org.junit.Assert
@@ -9,71 +9,71 @@ import org.junit.Test
 
 class ProductTest {
 
-	val logger = LoggerFactory.getLogger("ProductTest");
+	val logger = LoggerFactory.getLogger("ProductTest")
 	
 	@Test
-	def productCanBeCreatedWhenParametersAreOk = {
-		val id = "1";
-		val price = 0.0F;
-		val desc = "producto1";
+	def productCanBeCreatedWhenParametersAreOk() = {
+		val id = "1"
+		val price = 0.0F
+		val desc = "producto1"
 		
-		val product = new Product(id, price, desc);
+		val product = new Product(id, price, desc)
 		
-		Assert.assertEquals(id, product.id);
-		Assert.assertEquals(price, product.price,1);
-		Assert.assertEquals(desc, product.description);
+		Assert.assertEquals(id, product.id)
+		Assert.assertEquals(price, product.price,1)
+		Assert.assertEquals(desc, product.description)
 	}
 	
 	@Test
 	def productCanNotBeCreatedWithNegativeOrNullPrice(): Unit = {
-		val id = "1";
-		val desc = "producto1";
+		val id = "1"
+		val desc = "producto1"
 			
 		try{
-			val product = new Product(id, -1F, desc);
+			val product = new Product(id, -1F, desc)
 		}catch{
 		  case exception: IllegalArgumentException => {
-			logger.info("Product could not be created with a negative or null price");
-			return;
+			logger.info("Product could not be created with a negative or null price")
+			return
 		  }
 		}	
 		
-		Assert.fail();
+		Assert.fail()
 		
 	}
 	
 	@Test
 	def productCanNotBeCreatedWithEmptyOrNullDescription() : Unit= {
-		val id = "1";
-		val price = 1F;
+		val id = "1"
+		val price = 1F
 		
 		try{
-			val product = new Product(id, price, null);
+			val product = new Product(id, price, null)
 		}catch{
 		  case exception: IllegalArgumentException => {
-			logger.info("Product could not be created with a empty or null name");
-			return;
+			logger.info("Product could not be created with a empty or null name")
+			return
 		  }
 		}	
 		
-		Assert.fail();
+		Assert.fail()
 	}
 	@Test
 	def productCanNotBeCreatedWithEmptyOrNullId() : Unit = {
 
-		val price = 1.0F;
-		val desc = "producto1";
+		val price = 1.0F
+		val desc = "producto1"
 		
 		try{
-			val product = new Product("", price, desc);
+			val product = new Product("", price, desc)
 		}catch{
 		  case exception: IllegalArgumentException => {
-		    logger.info("Product could not be created with a negative or null id");
-		    return;
+		    logger.info("Product could not be created with a negative or null id")
+		    return
 		  }
 			
 		}	
-		Assert.fail();
+		Assert.fail()
 		
 	}
 	

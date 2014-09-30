@@ -20,5 +20,5 @@ class ProductHbm {
 	def setDescription (value:String):Unit = _description = value
 	def setStock (value:Integer):Unit = _stock = value
 	def setPrice (value:Float):Unit = _price = value
-	def setSales (value:util.HashSet[SaleHbm]):Unit = _sales = value
+	def setSales (value: util.HashSet[SaleHbm]):Unit = _sales = value
 }

@@ -29,24 +29,24 @@ import ar.com.pos.db.dto.Product;
 
 public class SalesWindow {
 
-	private JPanel jPanelMain = null; // @jve:decl-index=0:visual-constraint="10,10"
+	private JPanel jPanelMain = new JPanel();
 	private JTextField productIdTextField = null;
 	private JLabel jLabelProductDesc = null;
 	private JScrollPane jScrollPaneProducts = null;
 	private JTable jTableProducts = null;
-	private ProductTableModel tableModel = null;
+	private ProductTableModel tableModel = new ProductTableModel();
 	private JLabel jLabel = null;
 	private JLabel jLabel1 = null;
 	private JTextField jTextFieldProductDesc = null;
 	private JTextField jTextFieldPrice = null;
-	private JTextField jTextFieldSubTotal = null;
+	private JTextField jTextFieldSubTotal = new JTextField();
 	private JLabel jLabelSpace = null;
 	private Float subtotal = 0.0F;
 	private JButton jButtonSale = null;
 	private List <String> columsName = new ArrayList <String>();
 	private Map<Product, Integer> productsToBeSold = new HashMap<Product, Integer>();  //  @jve:decl-index=0:
-	
-	
+    private ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
+
 	public SalesWindow(){
 		columsName.add("Codigo");
 		columsName.add("Descripcion");
@@ -62,82 +62,82 @@ public class SalesWindow {
 	 * @wbp.parser.entryPoint
 	 */
 	public JPanel getJPanelMain() {
-		if (jPanelMain == null) {
-			GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
-			gridBagConstraints12.gridx = 2;
-			gridBagConstraints12.fill = GridBagConstraints.NONE;
-			gridBagConstraints12.gridy = 6;
-			GridBagConstraints gridBagConstraints8 = new GridBagConstraints();
-			gridBagConstraints8.gridx = 1;
-			gridBagConstraints8.gridy = 2;
-			jLabelSpace = new JLabel();
-			jLabelSpace.setText("  ");
-			GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
-			gridBagConstraints3.fill = GridBagConstraints.BOTH;
-			gridBagConstraints3.gridy = 1;
-			gridBagConstraints3.weightx = 1.0;
-			gridBagConstraints3.gridx = 2;
-			GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
-			gridBagConstraints2.fill = GridBagConstraints.BOTH;
-			gridBagConstraints2.gridy = 1;
-			gridBagConstraints2.weightx = 1.0;
-			gridBagConstraints2.gridx = 1;
-			GridBagConstraints gridBagConstraints11 = new GridBagConstraints();
-			gridBagConstraints11.fill = GridBagConstraints.BOTH;
-			gridBagConstraints11.gridy = 1;
-			gridBagConstraints11.weightx = 1.0;
-			gridBagConstraints11.gridx = 0;
-			GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
-			gridBagConstraints1.gridx = 2;
-			gridBagConstraints1.gridy = 0;
-			jLabel1 = new JLabel();
-			jLabel1.setText("Sub Total");
-			jLabel1.setFont(new Font("Dialog", Font.BOLD, 18));
-			GridBagConstraints gridBagConstraints = new GridBagConstraints();
-			gridBagConstraints.gridx = 1;
-			gridBagConstraints.gridy = 0;
-			jLabel = new JLabel();
-			jLabel.setText("Precio Unitario");
-			jLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-			GridBagConstraints gridBagConstraints121 = new GridBagConstraints();
-			gridBagConstraints121.anchor = GridBagConstraints.CENTER;
-			gridBagConstraints121.insets = new Insets(0, 0, 0, 0);
-			gridBagConstraints121.gridheight = 1;
-			gridBagConstraints121.gridwidth = 3;
-			gridBagConstraints121.gridx = 0;
-			gridBagConstraints121.gridy = 4;
-			gridBagConstraints121.weightx = 1.0;
-			gridBagConstraints121.weighty = 1.0;
-			gridBagConstraints121.ipadx = 0;
-			gridBagConstraints121.fill = GridBagConstraints.BOTH;
-			GridBagConstraints gridBagConstraints111 = new GridBagConstraints();
-			gridBagConstraints111.gridx = 0;
-			gridBagConstraints111.gridy = 0;
-			jLabelProductDesc = new JLabel();
-			jLabelProductDesc.setText("Total de Items");
-			jLabelProductDesc.setFont(new Font("Dialog", Font.BOLD, 18));
-			GridBagConstraints gridBagConstraints13 = new GridBagConstraints();
-			gridBagConstraints13.anchor = GridBagConstraints.CENTER;
-			gridBagConstraints13.insets = new Insets(11, 35, 12, 35);
-			gridBagConstraints13.gridwidth = 1;
-			gridBagConstraints13.gridx = 1;
-			gridBagConstraints13.gridy = 6;
-			gridBagConstraints13.weightx = 1.0;
-			gridBagConstraints13.fill = GridBagConstraints.BOTH;
-			jPanelMain = new JPanel();
-			jPanelMain.setLayout(new GridBagLayout());
-			jPanelMain.setSize(new Dimension(1282, 1036));
-			jPanelMain.add(getProductId(), gridBagConstraints13);
-			jPanelMain.add(jLabelProductDesc, gridBagConstraints111);
-			jPanelMain.add(getJScrollPaneProducts(), gridBagConstraints121);
-			jPanelMain.add(jLabel, gridBagConstraints);
-			jPanelMain.add(jLabel1, gridBagConstraints1);
-			jPanelMain.add(getJTextFieldProductDesc(), gridBagConstraints11);
-			jPanelMain.add(getJTextFieldPrice(), gridBagConstraints2);
-			jPanelMain.add(getJTextFieldSubTotal(), gridBagConstraints3);
-			jPanelMain.add(jLabelSpace, gridBagConstraints8);
-			jPanelMain.add(getJButtonSale(), gridBagConstraints12);
-		}
+
+        GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
+        gridBagConstraints12.gridx = 2;
+        gridBagConstraints12.fill = GridBagConstraints.NONE;
+        gridBagConstraints12.gridy = 6;
+        GridBagConstraints gridBagConstraints8 = new GridBagConstraints();
+        gridBagConstraints8.gridx = 1;
+        gridBagConstraints8.gridy = 2;
+        jLabelSpace = new JLabel();
+        jLabelSpace.setText("  ");
+        GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
+        gridBagConstraints3.fill = GridBagConstraints.BOTH;
+        gridBagConstraints3.gridy = 1;
+        gridBagConstraints3.weightx = 1.0;
+        gridBagConstraints3.gridx = 2;
+        GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
+        gridBagConstraints2.fill = GridBagConstraints.BOTH;
+        gridBagConstraints2.gridy = 1;
+        gridBagConstraints2.weightx = 1.0;
+        gridBagConstraints2.gridx = 1;
+        GridBagConstraints gridBagConstraints11 = new GridBagConstraints();
+        gridBagConstraints11.fill = GridBagConstraints.BOTH;
+        gridBagConstraints11.gridy = 1;
+        gridBagConstraints11.weightx = 1.0;
+        gridBagConstraints11.gridx = 0;
+        GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
+        gridBagConstraints1.gridx = 2;
+        gridBagConstraints1.gridy = 0;
+        jLabel1 = new JLabel();
+        jLabel1.setText("Sub Total");
+        jLabel1.setFont(new Font("Dialog", Font.BOLD, 18));
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jLabel = new JLabel();
+        jLabel.setText("Precio Unitario");
+        jLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+        GridBagConstraints gridBagConstraints121 = new GridBagConstraints();
+        gridBagConstraints121.anchor = GridBagConstraints.CENTER;
+        gridBagConstraints121.insets = new Insets(0, 0, 0, 0);
+        gridBagConstraints121.gridheight = 1;
+        gridBagConstraints121.gridwidth = 3;
+        gridBagConstraints121.gridx = 0;
+        gridBagConstraints121.gridy = 4;
+        gridBagConstraints121.weightx = 1.0;
+        gridBagConstraints121.weighty = 1.0;
+        gridBagConstraints121.ipadx = 0;
+        gridBagConstraints121.fill = GridBagConstraints.BOTH;
+        GridBagConstraints gridBagConstraints111 = new GridBagConstraints();
+        gridBagConstraints111.gridx = 0;
+        gridBagConstraints111.gridy = 0;
+        jLabelProductDesc = new JLabel();
+        jLabelProductDesc.setText("Total de Items");
+        jLabelProductDesc.setFont(new Font("Dialog", Font.BOLD, 18));
+        GridBagConstraints gridBagConstraints13 = new GridBagConstraints();
+        gridBagConstraints13.anchor = GridBagConstraints.CENTER;
+        gridBagConstraints13.insets = new Insets(11, 35, 12, 35);
+        gridBagConstraints13.gridwidth = 1;
+        gridBagConstraints13.gridx = 1;
+        gridBagConstraints13.gridy = 6;
+        gridBagConstraints13.weightx = 1.0;
+        gridBagConstraints13.fill = GridBagConstraints.BOTH;
+
+        jPanelMain.setLayout(new GridBagLayout());
+        jPanelMain.setSize(new Dimension(1282, 1036));
+        jPanelMain.add(getProductId(), gridBagConstraints13);
+        jPanelMain.add(jLabelProductDesc, gridBagConstraints111);
+        jPanelMain.add(getJScrollPaneProducts(), gridBagConstraints121);
+        jPanelMain.add(jLabel, gridBagConstraints);
+        jPanelMain.add(jLabel1, gridBagConstraints1);
+        jPanelMain.add(getJTextFieldProductDesc(), gridBagConstraints11);
+        jPanelMain.add(getJTextFieldPrice(), gridBagConstraints2);
+        jPanelMain.add(getJTextFieldSubTotal(), gridBagConstraints3);
+        jPanelMain.add(jLabelSpace, gridBagConstraints8);
+        jPanelMain.add(getJButtonSale(), gridBagConstraints12);
+
 		return jPanelMain;
 	}
 
@@ -159,7 +159,6 @@ public class SalesWindow {
 					
 					if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 					
-						ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
 						ar.com.pos.db.dto.Product product = catalog.getProduct(productIdTextField.getText());
 						
 						jTextFieldProductDesc.setText(product.description());
@@ -170,17 +169,17 @@ public class SalesWindow {
 						products.add(product);
 						
 						ar.com.pos.ui.View view = new ar.com.pos.ui.View();
-						view.addProductsToTheFollowingTable(tableModel, products);
+						view.addProductsToTheFollowingTable(getTableModel(), products);
 												
-						jTableProducts.setModel(tableModel);
+						jTableProducts.setModel(getTableModel());
 						jTextFieldSubTotal.setText(Float.toString(subtotal));
 						productIdTextField.setText(null);
 						
-						Integer amountAllreadySold = 0;
+						Integer amountAlreadySold = 0;
 						if(productsToBeSold.containsKey(product)){
-							amountAllreadySold = productsToBeSold.get(product);
+							amountAlreadySold = productsToBeSold.get(product);
 						}
-						productsToBeSold.put(product, amountAllreadySold + new Integer(1));						
+						productsToBeSold.put(product, amountAlreadySold + new Integer(1));
 					}
 				}
 			});
@@ -213,9 +212,6 @@ public class SalesWindow {
 	 * @return javax.swing.table.DefaultTableModel
 	 */
 	private ProductTableModel getTableModel() {
-		if (tableModel == null) {
-			tableModel = new ProductTableModel();
-		}
 		return tableModel;
 	}
 
@@ -225,6 +221,7 @@ public class SalesWindow {
 	 * @return javax.swing.JTable
 	 */
 	public JTable getJTableProducts() {
+
 		if (jTableProducts == null) {
 			jTableProducts = new JTable(getTableModel());
 			jTableProducts.setPreferredSize(new Dimension(900, 900));
@@ -279,14 +276,11 @@ public class SalesWindow {
 	 * @return javax.swing.JTextField
 	 */
 	private JTextField getJTextFieldSubTotal() {
-		if (jTextFieldSubTotal == null) {
-			jTextFieldSubTotal = new JTextField();
-			jTextFieldSubTotal.setFont(new Font("Dialog", Font.PLAIN, 18));
-		}
+
+		jTextFieldSubTotal.setFont(new Font("Dialog", Font.PLAIN, 18));
 		return jTextFieldSubTotal;
 	}
 	
-
 	/**
 	 * This method initializes jButtonSale	
 	 * 	
@@ -304,7 +298,6 @@ public class SalesWindow {
 
 					if(!jTextFieldSubTotal.getText().isEmpty()){
 						Float totalAmount = new Float(jTextFieldSubTotal.getText());
-						ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(DBConnection$.MODULE$);
 						catalog.sell(new Date(), productsToBeSold, totalAmount);
 						clearPreviousSaleData();
 					}

@@ -15,27 +15,27 @@ import javax.swing.JMenuItem
 
 class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.com.terminal.AddProductWindow) {
 
-  private val jFrameVenta = new JFrame();
-  private val jJMenuBar = new JMenuBar();
+  private val jFrameVenta = new JFrame()
+  private val jJMenuBar = new JMenuBar()
 
-  private val jMenuFile = new JMenu();
-  private val jMenuItemAddProduct = new JMenuItem();
-  private val jMenuItemSale = new JMenuItem();
-  private val log = LoggerFactory.getLogger("MainWindow");
+  private val jMenuFile = new JMenu()
+  private val jMenuItemAddProduct = new JMenuItem()
+  private val jMenuItemSale = new JMenuItem()
+  private val log = LoggerFactory.getLogger("MainWindow")
 	
   
   protected def getJFrameVenta(): JFrame = {
 
-    jFrameVenta.setSize(new Dimension(540, 326));
-    jFrameVenta.setJMenuBar(getJJMenuBar());
+    jFrameVenta.setSize(new Dimension(540, 326))
+    jFrameVenta.setJMenuBar(getJJMenuBar())
     jFrameVenta.addWindowListener(new java.awt.event.WindowAdapter() {
       override def windowClosing(e: java.awt.event.WindowEvent) {
-        System.exit(0);
-        log.info("windowClosing()");
+        System.exit(0)
+        log.info("windowClosing()")
       }
-    });
+    })
 
-    return jFrameVenta;
+    return jFrameVenta
   }
 
   /**
@@ -45,8 +45,8 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
    */
   protected def getJJMenuBar(): JMenuBar = {
 
-    jJMenuBar.add(getJMenuFile());
-    return jJMenuBar;
+    jJMenuBar.add(getJMenuFile())
+    return jJMenuBar
   }
 
   /**
@@ -55,10 +55,10 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
    * @return javax.swing.JMenu
    */
   protected def getJMenuFile(): JMenu = {
-    jMenuFile.setText("File");
-    jMenuFile.add(getJMenuItemAddProduct());
-    jMenuFile.add(getJMenuItemSale());
-    return jMenuFile;
+    jMenuFile.setText("File")
+    jMenuFile.add(getJMenuItemAddProduct())
+    jMenuFile.add(getJMenuItemSale())
+    return jMenuFile
   }
 
   /**
@@ -67,22 +67,22 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
    * @return javax.swing.JMenuItem
    */
   protected def getJMenuItemAddProduct(): JMenuItem = {
-    jMenuItemAddProduct.setText("Agregar/Consultar Producto");
+    jMenuItemAddProduct.setText("Agregar/Consultar Producto")
 
     jMenuItemAddProduct.addActionListener(new ActionListener() {
 
       def actionPerformed(e: ActionEvent) {
-        getJFrameVenta().remove(saleWindow.getJPanelMain());
-        getJFrameVenta().setTitle("Agregar/Consultar Producto");
-        getJFrameVenta().add(addProductWindow.getJPanelAddProduct());
-        addProductWindow.getJPanelAddProduct().setVisible(false);
-        addProductWindow.getJPanelAddProduct().repaint();
-        addProductWindow.getJPanelAddProduct().setVisible(true);
-        getJFrameVenta().repaint();
+        getJFrameVenta().remove(saleWindow.getJPanelMain())
+        getJFrameVenta().setTitle("Agregar/Consultar Producto")
+        getJFrameVenta().add(addProductWindow.getJPanelAddProduct())
+        addProductWindow.getJPanelAddProduct().setVisible(false)
+        addProductWindow.getJPanelAddProduct().repaint()
+        addProductWindow.getJPanelAddProduct().setVisible(true)
+        getJFrameVenta().repaint()
       }
-    });
+    })
 
-    return jMenuItemAddProduct;
+    return jMenuItemAddProduct
   }
 
   /**
@@ -92,27 +92,27 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
    */
   protected def getJMenuItemSale(): JMenuItem = {
 
-    jMenuItemSale.setText("Venta");
+    jMenuItemSale.setText("Venta")
     jMenuItemSale.addActionListener(new ActionListener() {
 
       def actionPerformed(e: ActionEvent) {
-        getJFrameVenta().remove(addProductWindow.getJPanelAddProduct());
-        getJFrameVenta().setTitle("Venta");
-        getJFrameVenta().add(saleWindow.getJPanelMain());
-        saleWindow.getJPanelMain().setVisible(false);
-        saleWindow.getJPanelMain().repaint();
-        saleWindow.getJPanelMain().setVisible(true);
-        getJFrameVenta().repaint();
+        getJFrameVenta().remove(addProductWindow.getJPanelAddProduct())
+        getJFrameVenta().setTitle("Venta")
+        getJFrameVenta().add(saleWindow.getJPanelMain())
+        saleWindow.getJPanelMain().setVisible(false)
+        saleWindow.getJPanelMain().repaint()
+        saleWindow.getJPanelMain().setVisible(true)
+        getJFrameVenta().repaint()
       }
-    });
-    return jMenuItemSale;
+    })
+    return jMenuItemSale
   }
 
   def run() = {
 
-    getJFrameVenta().add(saleWindow.getJPanelMain());
-    getJFrameVenta().add(saleWindow.getJPanelMain());
-    getJFrameVenta().setExtendedState(Frame.MAXIMIZED_BOTH);
-    getJFrameVenta().setVisible(true);
+    getJFrameVenta().add(saleWindow.getJPanelMain())
+    getJFrameVenta().add(saleWindow.getJPanelMain())
+    getJFrameVenta().setExtendedState(Frame.MAXIMIZED_BOTH)
+    getJFrameVenta().setVisible(true)
   }
 }

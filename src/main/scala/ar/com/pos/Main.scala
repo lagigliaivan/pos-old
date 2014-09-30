@@ -9,10 +9,10 @@ object Main {
 	
   def main(args: Array[String]){
 	  	
-	  	val saleWindow = new SalesWindow();
-		val addProductWindow = new AddProductWindow();
-		val mainWindow = new MainWindow(saleWindow, addProductWindow);
+	  val saleWindow = new SalesWindow()
+		val addProductWindow = new AddProductWindow()
+		val mainWindow = new MainWindow(saleWindow, addProductWindow)
 
-		mainWindow.run();
+		mainWindow.run()
   }
 }
