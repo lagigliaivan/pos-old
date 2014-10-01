@@ -109,8 +109,7 @@
             <resource>
 				<directory>src/main/resources</directory>              
                 <includes>
-                    <include>*.hbm.xml</include>
-                    <include>*.cfg.xml</include>
+                    <include>*.xml</include>
                 </includes>
             </resource>
             <resource>

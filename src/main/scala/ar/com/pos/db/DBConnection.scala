@@ -184,6 +184,7 @@ object DBConnection extends Database {
         println(e.printStackTrace())
       }
 
+
     }
 
     existingProducts
