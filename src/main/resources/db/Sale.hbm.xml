@@ -2,17 +2,17 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="ar.com.pos.db.SaleHbm" table="sales">
+    <class name="ar.com.pos.db.SaleHbm" table="sale">
         <meta attribute="class-description">This class contains products details.</meta>
 
         <id name="idsale" type="long">
-            <column name="idsale" />
+            <column name="id_sale" />
             <generator class="native" />
         </id>
 
-        <set name="products" table="product_sale">
+        <set name="detail" table="sale_detail">
             <key column="idsale" />
-            <many-to-many column="idproduct"  class="ar.com.pos.db.ProductHbm" />
+            <one-to-many class="ar.com.pos.db.ProductHbm" />
         </set>
 
         <property name="description" type="string" column="description" />

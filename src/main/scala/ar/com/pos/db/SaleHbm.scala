@@ -9,7 +9,7 @@ class SaleHbm {
   var _idsale: Long = 0
   var _description: String = _
   var _date: Date = _
-  var _products: java.util.Set[ProductHbm] = _
+  var _detail: java.util.Set[SaleDetailHbm] = _
   var _totalAmount: Float = 0
 
   def getIdsale = _idsale 
@@ -21,8 +21,8 @@ class SaleHbm {
   def getDate = _date 
   def setDate (value:Date):Unit = {_date = value} 
 
-  def getProducts = _products 
-  def setProducts (value: java.util.Set[ProductHbm]):Unit = {_products = value}
+  def getDetail = _detail
+  def setDetail (value: java.util.Set[SaleDetailHbm]):Unit = {_detail  = value}
 
   def getTotalAmount = _totalAmount 
   def setTotalAmount (value:Float):Unit = {_totalAmount = value} 

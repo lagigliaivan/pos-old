@@ -38,13 +38,12 @@
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
-        <!-- this will show us all sql statements -->
-        <property name="hibernate.show_sql">true</property>
 
         <!-- mapping files -->
         <mapping resource="Product.hbm.xml" />
         <mapping resource="Sale.hbm.xml" />
-        <mapping resource="Product_Sale.hbm.xml" />
+        <!--mapping resource="Product_Sale.hbm.xml" /-->
+        <mapping resource="Sale_Detail.hbm.xml" />
 
     </session-factory>
 </hibernate-configuration>

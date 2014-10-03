@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.com.pos.db.SaleDetailtHbm" table="sale_detail">
+
+        <meta attribute="class-description">This class contains sail detail.</meta>
+
+        <composite-id name="SaleDetailKey" class="ar.com.pos.db.SaleDetailKeyHbm">
+            <key-property name="idsale" column="idsale" type="long" />
+            <key-property name="idproduct" column="idproduct" type="string" />
+        </composite-id>
+
+        <property name="productamount" type="integer" column="product_amount" />
+
+    </class>
+
+</hibernate-mapping>
