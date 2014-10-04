@@ -155,10 +155,8 @@ public class AddProductWindow {
 				
 				public void keyTyped(KeyEvent e) {
 					// TODO Auto-generated method stub
-					//showProductsbyDescription();
 				}
 
-				
 				public void keyReleased(KeyEvent e) {
 					
 					if( !jTextFieldProdId.getText().isEmpty() && (tableModel.getRowCount() > 0)){
@@ -285,10 +283,10 @@ public class AddProductWindow {
 								//row[i] = jTableProductList.getModel().getValueAt(viewRow, i);
 								row[i] = tableModel.getValueAt(viewRow, i);
 							}
-							jTextFieldProdId.setText(Long.toString((Long) row[0]));
+							jTextFieldProdId.setText((String) row[0]);
 							jTextFieldDesc.setText((String) row[1]);
-							jTextFieldStock.setText(Integer.toString((Integer) row[2]));
-							jTextFieldPrice.setText(Double.toString((Double) row[3]));
+							jTextFieldStock.setText(Float.toString((Float) row[2]));
+						//	jTextFieldPrice.setText(Double.toString((Double) row[3]));
 						}
 					}
 				}

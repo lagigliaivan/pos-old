@@ -107,7 +107,6 @@ object DBConnection extends Database {
       for (productAndAmount <- productsEntry) {
         val product = productAndAmount._1
         val amount = productAndAmount._2
-
         val saleDetail = getSaleDetail(product.id, amount)
 
         saleDetails.add(saleDetail)
