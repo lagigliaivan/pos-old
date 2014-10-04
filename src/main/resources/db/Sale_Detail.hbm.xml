@@ -7,19 +7,16 @@
         <meta attribute="class-description">This class contains sail detail.</meta>
 
         <composite-id name="SaleDetailKey" class="ar.com.pos.db.SaleDetailKeyHbm">
-            <key-property name="idsale" column="idsale" type="long" />
-            <key-property name="idproduct" column="idproduct" type="string" />
+            <key-property name="idsale" column="id_sale" type="long" />
+            <key-property name="idproduct" column="id_product" type="string" />
         </composite-id>
 
 
         <many-to-one name="sale" class="ar.com.pos.db.SaleHbm" fetch="select" insert="false" update="false">
-            <column name="idsale" not-null="true" />
+            <column name="id_sale" not-null="true" />
         </many-to-one>
 
         <property name="amount" type="integer" column="product_amount" />
-
-
-
 
     </class>
 

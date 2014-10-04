@@ -19,6 +19,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import ar.com.pos.db.*;
+import ar.com.pos.ui.*;
+import ar.com.pos.ui.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -259,6 +262,12 @@ public class AddProductWindow {
 			for (String colum : columsName) {
 				tableModel.addColumn(colum);
 			}
+
+            List<Product> allProducts = ar.com.pos.db.DBConnection.getAllProducts();
+
+            ar.com.pos.ui.View view = new View();
+            view.addProductsToTheFollowingTable(tableModel, allProducts);
+
 
 			ListSelectionListener listener = new ListSelectionListener() {
 

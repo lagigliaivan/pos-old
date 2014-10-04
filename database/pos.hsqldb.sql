@@ -8,7 +8,6 @@ CREATE TABLE product (
 
 INSERT INTO product VALUES (10,'goma',2,0.5),(5262,'tigera',2,2.1),(12123,'lapicera',2,2);
 
-
 CREATE TABLE sale (
   id_sale bigint  NOT NULL IDENTITY,
   date datetime DEFAULT NULL,

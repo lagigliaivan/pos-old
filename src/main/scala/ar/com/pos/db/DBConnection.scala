@@ -24,14 +24,14 @@ object DBConnection extends Database {
     val products = new ArrayList[Product]()
 
     try {
-      products.addAll(getItemsUsingTheFollowingQuery("from Product"))
+      products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm"))
     } catch {
       case e: Exception => e match {
         case _: HibernateException | _: Exception => log.error("Error when getting products from DB", e.getMessage())
       }
     }
 
-    return products
+    products
   }
 
   def getProductsbyId(id: String): List[Product] = {
@@ -43,7 +43,7 @@ object DBConnection extends Database {
     val products = new ArrayList[Product]()
 
     try {
-      products.addAll(getItemsUsingTheFollowingQuery("from Product u where u.id like " + id + "%"))
+      products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.id like " + id + "%"))
     } catch {
       case e: Exception => e match {
         case _: HibernateException | _: Exception => log.error("Error when getting products from DB", e.getMessage())

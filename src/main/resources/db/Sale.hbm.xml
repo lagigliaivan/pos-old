@@ -11,7 +11,7 @@
         </id>
 
         <set name="detail" inverse="true" cascade="all" table="sale_detail">
-            <key column="idsale" not-null="true"/>
+            <key column="id_sale" not-null="true"/>
             <one-to-many class="ar.com.pos.db.SaleDetailHbm" />
         </set>
 
