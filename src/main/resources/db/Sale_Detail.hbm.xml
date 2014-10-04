@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="ar.com.pos.db.SaleDetailtHbm" table="sale_detail">
+    <class name="ar.com.pos.db.SaleDetailHbm" table="sale_detail">
 
         <meta attribute="class-description">This class contains sail detail.</meta>
 
@@ -11,7 +11,15 @@
             <key-property name="idproduct" column="idproduct" type="string" />
         </composite-id>
 
-        <property name="productamount" type="integer" column="product_amount" />
+
+        <many-to-one name="sale" class="ar.com.pos.db.SaleHbm" fetch="select" insert="false" update="false">
+            <column name="idsale" not-null="true" />
+        </many-to-one>
+
+        <property name="amount" type="integer" column="product_amount" />
+
+
+
 
     </class>
 

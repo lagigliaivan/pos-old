@@ -10,9 +10,9 @@
             <generator class="native" />
         </id>
 
-        <set name="detail" table="sale_detail">
-            <key column="idsale" />
-            <one-to-many class="ar.com.pos.db.ProductHbm" />
+        <set name="detail" inverse="true" cascade="all" table="sale_detail">
+            <key column="idsale" not-null="true"/>
+            <one-to-many class="ar.com.pos.db.SaleDetailHbm" />
         </set>
 
         <property name="description" type="string" column="description" />

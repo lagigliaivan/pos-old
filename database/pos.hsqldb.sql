@@ -4,28 +4,20 @@ CREATE TABLE product (
   stock int  NULL,
   price double DEFAULT '0',
   PRIMARY KEY (id_product)
-) 
-
+) ;
 
 INSERT INTO product VALUES (10,'goma',2,0.5),(5262,'tigera',2,2.1),(12123,'lapicera',2,2);
 
-
---CREATE TABLE product_sale (
---  id_product varchar(20) NOT NULL,
---  id_sale bigint NOT NULL,
---  PRIMARY KEY (id_product,id_sale)
---)
 
 CREATE TABLE sale (
   id_sale bigint  NOT NULL IDENTITY,
   date datetime DEFAULT NULL,
   description varchar(200) DEFAULT NULL,
-  PRIMARY KEY (id_sale)
-)
+ );
 
 CREATE TABLE sale_detail(
   id_sale bigint  NOT NULL,
   id_product varchar(20) NOT NULL,
   product_amount int NOT NULL,
   PRIMARY KEY (id_sale,id_product)
-)
+);
