@@ -187,6 +187,7 @@ object DBConnection extends Database {
       for (product <- products.asScala) {
         val p = product.asInstanceOf[ar.com.pos.db.ProductHbm]
         val existingProduct = new Product(p.getIdproduct, p.getPrice, p.getDescription)
+        existingProduct.stock = p.getStock
         existingProducts.add(existingProduct)
       }
 

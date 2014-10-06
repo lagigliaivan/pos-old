@@ -10,8 +10,8 @@ class SaleDetailHbm extends Serializable{
   def getSale = _sale
   def getSaleDetailKey = _saleDetailKey
 
-  def setIdsale (value:Long):Unit = value
-  def setIdproduct (value:String):Unit = value
+  //def setIdsale (value:Long):Unit = value
+  //def setIdproduct (value:String):Unit = value
   def setSaleDetailKey (value: SaleDetailKeyHbm) : Unit = _saleDetailKey = value
   def setAmount (value:Integer):Unit = _amount = value
   def setSale (value: SaleHbm):Unit = _sale = value

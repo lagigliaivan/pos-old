@@ -15,4 +15,9 @@ class Product (private val prodId: String = "", private val prodPrice: Float, pr
   def stock = _stock
   def stock_= (value:Int):Unit = {_stock = value}
 
+  override def hashCode = prodId.hashCode + prodDescr.hashCode
+  override def equals(other: Any) = other match {
+    case that: Product => this.prodId == that.prodId && this.prodId == that.prodId
+    case _ => false
+  }
 }
