@@ -100,11 +100,6 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
     jMenuItemAddProduct
   }
 
-  /**
-   * This method initializes jMenuItemSale
-   *
-   * @return javax.swing.JMenuItem
-   */
   protected def getJMenuItemSale: JMenuItem = {
 
     if(jMenuItemSale == null) {
@@ -129,9 +124,10 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
 
   def run() = {
 
-    getJFrameVenta.add(saleWindow.getJPanelMain)
+    //getJFrameVenta.add(saleWindow.getJPanelMain)
     getJFrameVenta.add(saleWindow.getJPanelMain)
     getJFrameVenta.setExtendedState(Frame.MAXIMIZED_BOTH)
     getJFrameVenta.setVisible(true)
+    saleWindow.focusProductId();
   }
 }
