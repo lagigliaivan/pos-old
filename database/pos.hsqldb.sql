@@ -15,8 +15,11 @@ CREATE TABLE sale (
  );
 
 CREATE TABLE sale_detail(
+  id bigint  NOT NULL IDENTITY,
   id_sale bigint  NOT NULL,
   id_product varchar(20) NOT NULL,
   product_amount int NOT NULL,
-  PRIMARY KEY (id_sale,id_product)
 );
+
+
+ALTER TABLE sale_detail ADD CONSTRAINT key_pair UNIQUE (id_sale, id_product);

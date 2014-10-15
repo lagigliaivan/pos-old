@@ -7,11 +7,6 @@
 
         <id name="idproduct" type="string" column="id_product"></id>
 
-        <!--set name="sales" table="product_sale" >
-            <key column="idproduct" />
-            <many-to-many column="idsale"  class="ar.com.pos.db.SaleHbm" />
-        </set-->
-
         <property name="description" type="string" column="description" />
         <property name="price" column="price" type="float" />
         <property name="stock" column="stock" type="integer" />

@@ -114,17 +114,19 @@ object DBConnection extends Database {
 
       val saleHbm = new SaleHbm
       saleHbm.setDate(sale.date)
-      saleHbm.setDetail(saleDetails)
+      //saleHbm.setDetail(saleDetails)
       saleHbm.setTotalAmount(sale.totalPrice)
 
-      session.save(saleHbm)
+      var saleId = session.save(saleHbm).asInstanceOf[String]
+
+
       session.flush()
       transaction.commit()
       session.close()
 
     } catch {
       case e: Exception => e match {
-        case _: HibernateException | _: Exception => log.error("Error when getting products from DB", e.getMessage())
+        case _: HibernateException | _: Exception => log.error("Error when saving Sale", e)
       }
     }
   }
@@ -141,12 +143,9 @@ object DBConnection extends Database {
 
   protected def getSaleDetail(productId: String, amount: Integer): SaleDetailHbm = {
 
-    val saleDetailKeyHbm = new SaleDetailKeyHbm()
     val saleDetailHbm  = new SaleDetailHbm()
 
-    saleDetailKeyHbm.setIdproduct(productId)
-
-    saleDetailHbm.setSaleDetailKey(saleDetailKeyHbm)
+    saleDetailHbm.setIdProduct(productId)
     saleDetailHbm.setAmount(amount)
 
     saleDetailHbm

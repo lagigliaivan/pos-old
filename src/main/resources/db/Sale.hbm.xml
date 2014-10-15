@@ -7,16 +7,18 @@
 
         <id name="idsale" type="long">
             <column name="id_sale" />
-            <generator class="native" />
+            <generator class="identity" />
         </id>
 
-        <set name="detail" inverse="true" cascade="all" table="sale_detail">
-            <key column="id_sale" not-null="true"/>
+        <set name="detail" inverse="true" cascade="save-update" table="sale_detail" lazy="true" fetch="select">
+            <key column="id" not-null="true"/>
+
             <one-to-many class="ar.com.pos.db.SaleDetailHbm" />
         </set>
 
         <property name="description" type="string" column="description" />
         <property name="date" column="date" type="date" />
+
     </class>
 
 </hibernate-mapping>
