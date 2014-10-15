@@ -319,4 +319,8 @@ public class SalesWindow {
 		jTextFieldSubTotal.setText(Float.toString(subtotal));
 		productsToBeSold.clear();
 	}
+
+    public void focusProductId(){
+        getProductId().requestFocusInWindow();
+    }
 }
