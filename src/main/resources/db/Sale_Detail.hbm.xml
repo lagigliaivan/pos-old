@@ -11,10 +11,12 @@
             <generator class="identity" />
         </id>
 
+        <!--property name="id_sale" column="id_sale" type="long"/-->
         <property name="idProduct" column="id_product" type="string" />
 
+        <property name="idSale" column="id_sale" type="long" />
 
-        <!--many-to-one name="sale" class="ar.com.pos.db.SaleHbm" cascade="save-update" fetch="select">
+        <!--many-to-one name="idSale" class="ar.com.pos.db.SaleHbm" fetch="select">
             <column name="id_sale" not-null="true" />
         </many-to-one-->
 

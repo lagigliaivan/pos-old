@@ -5,7 +5,7 @@
     <class name="ar.com.pos.db.SaleHbm" table="sale">
         <meta attribute="class-description">This class contains products details.</meta>
 
-        <id name="idsale" type="long">
+        <id name="idSale" type="long">
             <column name="id_sale" />
             <generator class="identity" />
         </id>

@@ -12,8 +12,8 @@ class SaleHbm {
   var _detail: java.util.Set[SaleDetailHbm] = _
   var _totalAmount: Float = 0
 
-  def getIdsale = _idsale 
-  def setIdsale (value:Long):Unit = {_idsale = value}
+  def getIdSale = _idsale 
+  def setIdSale (value:Long):Unit = {_idsale = value}
 
   def getDescription = _description
   def setDescription (value:String):Unit = {_description = value}

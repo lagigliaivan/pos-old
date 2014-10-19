@@ -98,27 +98,24 @@ object DBConnection extends Database {
   def save(sale: Sale) = {
 
     try {
+
       val session = SessionFactory.openSession
       val transaction = session.beginTransaction
-      val saleDetails = new HashSet[SaleDetailHbm]()
+
+      val saleHbm = new SaleHbm
+      saleHbm.setDate(sale.date)
+      saleHbm.setTotalAmount(sale.totalPrice)
+
+      val saleId = session.save(saleHbm).asInstanceOf[Long]
 
       val productsEntry = sale.products.asScala
 
       for (productAndAmount <- productsEntry) {
         val product = productAndAmount._1
         val amount = productAndAmount._2
-        val saleDetail = getSaleDetail(product.id, amount)
-
-        saleDetails.add(saleDetail)
+        val saleDetail = getSaleDetail(saleId, product.id, amount)
+        session.save(saleDetail)
       }
-
-      val saleHbm = new SaleHbm
-      saleHbm.setDate(sale.date)
-      //saleHbm.setDetail(saleDetails)
-      saleHbm.setTotalAmount(sale.totalPrice)
-
-      var saleId = session.save(saleHbm).asInstanceOf[String]
-
 
       session.flush()
       transaction.commit()
@@ -141,10 +138,11 @@ object DBConnection extends Database {
     return productHbm
   }
 
-  protected def getSaleDetail(productId: String, amount: Integer): SaleDetailHbm = {
+  protected def getSaleDetail(saleId: Long, productId: String, amount: Integer): SaleDetailHbm = {
 
     val saleDetailHbm  = new SaleDetailHbm()
 
+    saleDetailHbm.setIdSale(saleId)
     saleDetailHbm.setIdProduct(productId)
     saleDetailHbm.setAmount(amount)
 
