@@ -95,6 +95,38 @@ object DBConnection extends Database {
     return products.get(0)
   }
 
+
+  override def getSales(): List[ar.com.pos.db.dto.Sale] = {
+
+    val existingSales = new ArrayList[ar.com.pos.db.dto.Sale]()
+
+    try {
+
+      val session = SessionFactory.openSession
+
+      session.beginTransaction
+
+      val hqlQuery = session.createQuery("from SaleHbm")
+      val sales = hqlQuery.list()
+
+      for (sale <- sales.asScala) {
+        val s = sale.asInstanceOf[ar.com.pos.db.SaleHbm]
+        val existingSale = new Sale(s.getDate, new java.util.HashMap[Product, Integer], s.getTotalAmount)
+        existingSales.add(existingSale)
+      }
+
+      session.getTransaction.commit
+      session.close
+    }catch {
+      case e: HibernateException => {
+        println(e)
+        println(e.printStackTrace())
+      }
+    }
+    existingSales
+  }
+
+
   def save(sale: Sale) = {
 
     try {
@@ -195,10 +227,7 @@ object DBConnection extends Database {
         println(e)
         println(e.printStackTrace())
       }
-
-
     }
-
     existingProducts
   }
 

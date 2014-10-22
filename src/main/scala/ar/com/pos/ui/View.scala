@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel
 import scala.collection.JavaConverters._
 
 import ar.com.pos.db.dto.Product
+import ar.com.pos.db.dto.Sale
+
 
 class View {
 
@@ -24,16 +26,31 @@ class View {
 			    result.add(row)
 		}
 		
-		return result
+		result
 	}
-	
+
+  def getSalesInRows(sales: List[Sale]):List [Vector [Object]] = {
+
+    val result = new ArrayList[Vector[Object]]()
+
+    for ( sale <- sales.asScala ) {
+      val row = new Vector [Object]()
+      row.add(sale.date)
+      row.add(sale.description)
+      row.add(Float.box(sale.totalPrice))
+      result.add(row)
+    }
+
+    result
+  }
+
 	def addProductsToTheFollowingTable(table: DefaultTableModel, products: List [Product]): DefaultTableModel = {
 		
 		for (row <- getProductsInRows(products).asScala){
 			table.addRow(row)
 		}
 		
-		return table
+		table
 	}
 	
 	def addProductToTheFollowingTable(table: DefaultTableModel, product: Product): DefaultTableModel = {
@@ -43,6 +60,15 @@ class View {
 		
 		addProductsToTheFollowingTable(table, products)
 		
-		return table
+		table
 	}
+
+  def addSalesToTheFollowingTable(table: DefaultTableModel, sales: List [Sale]) :DefaultTableModel = {
+
+    for (row <- getSalesInRows(sales).asScala){
+      table.addRow(row)
+    }
+
+    table
+  }
 }

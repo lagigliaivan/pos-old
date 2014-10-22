@@ -12,10 +12,12 @@ import javax.swing.JFrame
 import javax.swing.JMenu
 import javax.swing.JMenuBar
 import javax.swing.JMenuItem
+import ar.com.terminal.SalesReportWindow
+import ar.com.pos.db.DBConnection
 
-class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.com.terminal.AddProductWindow) {
+class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.com.terminal.AddProductWindow, salesReportWindow: SalesReportWindow) {
 
-  private var jFrameVenta : JFrame = _
+  private var jFrameMainContainer : JFrame = _
   private var jMenuBar : JMenuBar = _
 
   private var jMenuFile : JMenu = _
@@ -25,20 +27,20 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
   private val log = LoggerFactory.getLogger("MainWindow")
 	
   
-  protected def getJFrameVenta: JFrame = {
+  protected def getJFrameMainContainer: JFrame = {
 
-    if(jFrameVenta == null) {
-      jFrameVenta = new JFrame()
-      jFrameVenta.setSize(new Dimension(540, 326))
-      jFrameVenta.setJMenuBar(getJJMenuBar)
-      jFrameVenta.addWindowListener(new java.awt.event.WindowAdapter() {
+    if(jFrameMainContainer == null) {
+      jFrameMainContainer = new JFrame()
+      jFrameMainContainer.setSize(new Dimension(540, 326))
+      jFrameMainContainer.setJMenuBar(getJJMenuBar)
+      jFrameMainContainer.addWindowListener(new java.awt.event.WindowAdapter() {
         override def windowClosing(e: java.awt.event.WindowEvent) {
           System.exit(0)
           log.info("windowClosing()")
         }
       })
     }
-    jFrameVenta
+    jFrameMainContainer
   }
 
   /**
@@ -88,13 +90,15 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
       jMenuItemAddProduct.addActionListener(new ActionListener() {
 
         def actionPerformed(e: ActionEvent) {
-          getJFrameVenta.remove(saleWindow.getJPanelMain)
-          getJFrameVenta.setTitle("Agregar/Consultar Producto")
-          getJFrameVenta.add(addProductWindow.getJPanelAddProduct)
+          getJFrameMainContainer.remove(saleWindow.getJPanelMain)
+          getJFrameMainContainer.remove(salesReportWindow.getJPanelSalesReport)
+
+          getJFrameMainContainer.setTitle("Agregar/Consultar Producto")
+          getJFrameMainContainer.add(addProductWindow.getJPanelAddProduct)
           addProductWindow.getJPanelAddProduct.setVisible(false)
           addProductWindow.getJPanelAddProduct.repaint()
           addProductWindow.getJPanelAddProduct.setVisible(true)
-          getJFrameVenta.repaint()
+          getJFrameMainContainer.repaint()
         }
       })
     }
@@ -110,13 +114,14 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
       jMenuItemSale.addActionListener(new ActionListener() {
 
         def actionPerformed(e: ActionEvent) {
-          getJFrameVenta.remove(addProductWindow.getJPanelAddProduct)
-          getJFrameVenta.setTitle("Venta")
-          getJFrameVenta.add(saleWindow.getJPanelMain)
+          getJFrameMainContainer.remove(addProductWindow.getJPanelAddProduct)
+          getJFrameMainContainer.remove(salesReportWindow.getJPanelSalesReport)
+          getJFrameMainContainer.setTitle("Venta")
+          getJFrameMainContainer.add(saleWindow.getJPanelMain)
           saleWindow.getJPanelMain.setVisible(false)
           saleWindow.getJPanelMain.repaint()
           saleWindow.getJPanelMain.setVisible(true)
-          getJFrameVenta.repaint()
+          getJFrameMainContainer.repaint()
         }
       })
       }
@@ -124,19 +129,27 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
     }
     protected def getJMenuItemSalesReport: JMenuItem = {
 
+
+
       if(jMenuItemSalesReport == null) {
         jMenuItemSalesReport = new JMenuItem()
         jMenuItemSalesReport.setText("Total de Ventas")
         jMenuItemSalesReport.addActionListener(new ActionListener() {
 
+
           def actionPerformed(e: ActionEvent) {
-            getJFrameVenta.remove(addProductWindow.getJPanelAddProduct)
-            getJFrameVenta.setTitle("Total de Ventas")
-            getJFrameVenta.add(saleWindow.getJPanelMain)
-            saleWindow.getJPanelMain.setVisible(false)
-            saleWindow.getJPanelMain.repaint()
-            saleWindow.getJPanelMain.setVisible(true)
-            getJFrameVenta.repaint()
+           getJFrameMainContainer.remove(saleWindow.getJPanelMain)
+           getJFrameMainContainer.remove(addProductWindow.getJPanelAddProduct)
+           getJFrameMainContainer.setTitle("Total de Ventas")
+           getJFrameMainContainer.add(salesReportWindow.getJPanelSalesReport)
+
+           salesReportWindow.setData(DBConnection.getSales())
+
+           salesReportWindow.getJPanelSalesReport.setVisible(false)
+           salesReportWindow.getJPanelSalesReport.repaint()
+           salesReportWindow.getJPanelSalesReport.setVisible(true)
+
+           getJFrameMainContainer.repaint()
           }
         })
       }
@@ -146,10 +159,9 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
 
   def run() = {
 
-    //getJFrameVenta.add(saleWindow.getJPanelMain)
-    getJFrameVenta.add(saleWindow.getJPanelMain)
-    getJFrameVenta.setExtendedState(Frame.MAXIMIZED_BOTH)
-    getJFrameVenta.setVisible(true)
+    getJFrameMainContainer.add(saleWindow.getJPanelMain)
+    getJFrameMainContainer.setExtendedState(Frame.MAXIMIZED_BOTH)
+    getJFrameMainContainer.setVisible(true)
     saleWindow.focusProductId()
   }
 }

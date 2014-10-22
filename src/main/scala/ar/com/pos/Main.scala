@@ -1,8 +1,7 @@
 package ar.com.pos
 
 import ar.com.pos.ui.MainWindow
-import ar.com.terminal.SalesWindow
-import ar.com.terminal.AddProductWindow
+import ar.com.terminal.{SalesReportWindow, SalesWindow, AddProductWindow}
 
 
 object Main {
@@ -11,7 +10,8 @@ object Main {
 	  	
 	  val saleWindow = new SalesWindow()
 		val addProductWindow = new AddProductWindow()
-		val mainWindow = new MainWindow(saleWindow, addProductWindow)
+    val salesWindowReport = new SalesReportWindow()
+		val mainWindow = new MainWindow(saleWindow, addProductWindow, salesWindowReport)
 
 		mainWindow.run()
   }
