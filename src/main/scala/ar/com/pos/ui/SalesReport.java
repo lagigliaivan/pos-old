@@ -5,8 +5,10 @@ import javax.swing.*;
 /**
  * Created by yo on 19/10/14.
  */
-public class SalesReport {
+public class SalesReport extends JFrame {
+
     private JTextField textField1;
     private JTextField textField2;
     private JList list1;
+
 }

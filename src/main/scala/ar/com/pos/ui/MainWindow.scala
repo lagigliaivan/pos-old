@@ -21,6 +21,7 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
   private var jMenuFile : JMenu = _
   private var jMenuItemAddProduct : JMenuItem = _
   private var jMenuItemSale: JMenuItem = _
+  private var jMenuItemSalesReport : JMenuItem = _
   private val log = LoggerFactory.getLogger("MainWindow")
 	
   
@@ -66,6 +67,7 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
       jMenuFile.setText("File")
       jMenuFile.add(getJMenuItemAddProduct)
       jMenuFile.add(getJMenuItemSale)
+      jMenuFile.add(getJMenuItemSalesReport)
     }
 
     jMenuFile
@@ -100,7 +102,7 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
     jMenuItemAddProduct
   }
 
-  protected def getJMenuItemSale: JMenuItem = {
+  protected def getJMenuItemSale: JMenuItem  = {
 
     if(jMenuItemSale == null) {
       jMenuItemSale = new JMenuItem()
@@ -117,9 +119,29 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
           getJFrameVenta.repaint()
         }
       })
+      }
+      jMenuItemSale
     }
+    protected def getJMenuItemSalesReport: JMenuItem = {
 
-    jMenuItemSale
+      if(jMenuItemSalesReport == null) {
+        jMenuItemSalesReport = new JMenuItem()
+        jMenuItemSalesReport.setText("Total de Ventas")
+        jMenuItemSalesReport.addActionListener(new ActionListener() {
+
+          def actionPerformed(e: ActionEvent) {
+            getJFrameVenta.remove(addProductWindow.getJPanelAddProduct)
+            getJFrameVenta.setTitle("Total de Ventas")
+            getJFrameVenta.add(saleWindow.getJPanelMain)
+            saleWindow.getJPanelMain.setVisible(false)
+            saleWindow.getJPanelMain.repaint()
+            saleWindow.getJPanelMain.setVisible(true)
+            getJFrameVenta.repaint()
+          }
+        })
+      }
+
+    jMenuItemSalesReport
   }
 
   def run() = {
@@ -128,6 +150,6 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
     getJFrameVenta.add(saleWindow.getJPanelMain)
     getJFrameVenta.setExtendedState(Frame.MAXIMIZED_BOTH)
     getJFrameVenta.setVisible(true)
-    saleWindow.focusProductId();
+    saleWindow.focusProductId()
   }
 }
