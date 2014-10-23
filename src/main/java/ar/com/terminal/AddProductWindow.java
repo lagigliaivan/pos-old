@@ -47,6 +47,8 @@ public class AddProductWindow {
 	private JTextField jTextFieldProdId = null;
 	
 	private Logger Log = LoggerFactory.getLogger(AddProductWindow.class);  //  @jve:decl-index=0:
+
+    AddProductWindowEventManager eventManager = new AddProductWindowEventManager(this);
 				
 	public AddProductWindow() {
 
@@ -151,21 +153,18 @@ public class AddProductWindow {
 			jTextFieldDesc.setFont(new Font("Dialog", Font.PLAIN, 18));
 			
 			jTextFieldDesc.addKeyListener(new KeyListener() {
-				
-				
-				public void keyTyped(KeyEvent e) {
-					// TODO Auto-generated method stub
-				}
+
+				public void keyTyped(KeyEvent e) {}
 
 				public void keyReleased(KeyEvent e) {
-					
-					if( !jTextFieldProdId.getText().isEmpty() && (tableModel.getRowCount() > 0)){
-						List <Product> products = ar.com.pos.db.DBConnection$.MODULE$.getProductsbyDescription(jTextFieldDesc.getText());
+
+					/*if( !jTextFieldProdId.getText().isEmpty() && (tableModel.getRowCount() > 0)){
 						ar.com.pos.ui.View view = new ar.com.pos.ui.View();
 						view.addProductsToTheFollowingTable(tableModel, products);
 						enableAddingProduct(true);
-						jTableProductList.setModel(tableModel);
-					}
+						jTableProductList.setModel(tableModel);*/
+                        eventManager.executeWhenLookingForProductByDescription();
+					//}
 				}
 
 				
@@ -215,14 +214,10 @@ public class AddProductWindow {
 				}
 
 			
-				public void keyReleased(KeyEvent e) {
-
-				}
+				public void keyReleased(KeyEvent e) {}
 
 			
-				public void keyPressed(KeyEvent e) {
-
-				}
+				public void keyPressed(KeyEvent e) {}
 			});
 		}
 
@@ -271,7 +266,7 @@ public class AddProductWindow {
 
 				public void valueChanged(ListSelectionEvent e) {
 
-					Object[] row = new Object[tableModel.getColumnCount()];
+					/*Object[] row = new Object[tableModel.getColumnCount()];
 
 					if ((e.getSource() == jTableProductList.getSelectionModel())
 							&& jTableProductList.getRowSelectionAllowed()) {
@@ -280,15 +275,17 @@ public class AddProductWindow {
 
 						if(viewRow >= 0){
 							for (int i = 0; i < tableModel.getColumnCount(); i++) {
-								//row[i] = jTableProductList.getModel().getValueAt(viewRow, i);
+
 								row[i] = tableModel.getValueAt(viewRow, i);
 							}
 							jTextFieldProdId.setText((String) row[0]);
 							jTextFieldDesc.setText((String) row[1]);
 							jTextFieldStock.setText(Float.toString((Float) row[2]));
-						//	jTextFieldPrice.setText(Double.toString((Double) row[3]));
+
 						}
-					}
+					}*/
+
+                    eventManager.executeWhenChangingSelectionInProductWindow(e);
 				}
 			};
 			jTableProductList.getSelectionModel().addListSelectionListener(listener);
@@ -322,21 +319,19 @@ public class AddProductWindow {
 			jTextFieldProdId = new JTextField("123456");
 			jTextFieldProdId.addKeyListener(new KeyListener() {
 
-				
-				public void keyTyped(KeyEvent e) {
+				public void keyTyped(KeyEvent e) {}
 
-				}
-
-				
 				public void keyReleased(KeyEvent e) {
-						String id = jTextFieldProdId.getText();
+
+                         eventManager.executeWhenLookingForProductById();
+						/*String id = jTextFieldProdId.getText();
 						if(id.matches("[a-zA-z0-9]*")){
 							
 							List<Product> products = ar.com.pos.db.DBConnection$.MODULE$.getProductsbyId(id);
 							ar.com.pos.ui.View view = new ar.com.pos.ui.View();
 							view.addProductsToTheFollowingTable(tableModel, products);
 							enableAddingProduct(true);
-						}
+						}*/
 				}
 
 				
@@ -348,9 +343,36 @@ public class AddProductWindow {
 		return jTextFieldProdId;
 	}
 
-	private void enableAddingProduct(boolean value){
+	public void enableAddingProduct(boolean value){
 		getJTextFieldStock().setEditable(value);
 		getJTextFieldPrice().setEditable(value);
 	}
+
+    public String getProductDescription(){
+        return jTextFieldDesc.getText();
+    }
+
+    public String getProductId(){
+        return jTextFieldProdId.getText();
+    }
+
+    public ProductTableModel getTableModel(){
+        return tableModel;
+    }
+
+    public JTable getTableProductList(){
+        return jTableProductList;
+    }
+
+    public void writeInFieldProductId(String value){
+        jTextFieldProdId.setText(value);
+    }
+
+    public void writeInFieldProductDescription(String value){
+        jTextFieldDesc.setText(value);
+    }
+    public void writeInFieldProductStock(String value){
+        jTextFieldStock.setText(value);
+    }
 
 }

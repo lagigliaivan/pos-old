@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import ar.com.pos.db.dto.Product;
+import ar.com.pos.ui.SalesWindowEventManager;
 
 
 public class SalesWindow {
@@ -45,6 +45,7 @@ public class SalesWindow {
 	private List <String> columnsName = new ArrayList <String>();
 	private Map<Product, Integer> productsToBeSold = new HashMap<Product, Integer>();
     private ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
+    private final SalesWindowEventManager eventManager = new SalesWindowEventManager(this);
 
 	public SalesWindow(){
 		columnsName.add("Codigo");
@@ -151,7 +152,7 @@ public class SalesWindow {
 	private JTextField getProductId() {
 		
 		if (productIdTextField == null) {
-			productIdTextField = new JTextField();
+            productIdTextField = new JTextField();
 			productIdTextField.setFont(new Font("Dialog", Font.BOLD, 24));
 			productIdTextField.setHorizontalAlignment(JTextField.CENTER);
 			productIdTextField.addKeyListener(new KeyAdapter() {
@@ -160,28 +161,7 @@ public class SalesWindow {
 				public void keyPressed(KeyEvent evt) {
 					
 					if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-					
-						ar.com.pos.db.dto.Product product = catalog.getProduct(productIdTextField.getText());
-						
-						jTextFieldProductDesc.setText(product.description());
-						jTextFieldPrice.setText(Float.toString(product.price()));
-						subtotal += product.price();
-						
-						List<Product> products = new ArrayList<Product>();
-						products.add(product);
-						
-						ar.com.pos.ui.View view = new ar.com.pos.ui.View();
-						view.addProductsToTheFollowingTable(getTableModel(), products);
-												
-						jTableProducts.setModel(getTableModel());
-						jTextFieldSubTotal.setText(Float.toString(subtotal));
-						productIdTextField.setText(null);
-						
-						Integer amountAlreadySold = 0;
-						if(productsToBeSold.containsKey(product)){
-							amountAlreadySold = productsToBeSold.get(product);
-						}
-						productsToBeSold.put(product, amountAlreadySold + new Integer(1));
+                        eventManager.executeWhenPressingEnterForSellingAProduct();
 					}
 				}
 			});
@@ -197,11 +177,9 @@ public class SalesWindow {
 	public JScrollPane getJScrollPaneProducts() {
 		if (jScrollPaneProducts == null) {
 			jScrollPaneProducts = new JScrollPane();
-			jScrollPaneProducts
-					.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+			jScrollPaneProducts.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 			jScrollPaneProducts.setBorder(null);
-			jScrollPaneProducts
-					.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			jScrollPaneProducts.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			jScrollPaneProducts.setViewportView(getJTableProducts());
 			jScrollPaneProducts.setPreferredSize(new Dimension(300, 33));
 		}
@@ -213,7 +191,7 @@ public class SalesWindow {
 	 * 
 	 * @return javax.swing.table.DefaultTableModel
 	 */
-	private ProductTableModel getTableModel() {
+	public ProductTableModel getTableModel() {
 		return tableModel;
 	}
 
@@ -230,8 +208,7 @@ public class SalesWindow {
 			jTableProducts.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			jTableProducts.setRowHeight(35);
 			jTableProducts.setShowGrid(true);
-			jTableProducts
-					.setComponentOrientation(ComponentOrientation.UNKNOWN);
+			jTableProducts.setComponentOrientation(ComponentOrientation.UNKNOWN);
 			jTableProducts.setFont(new Font("Dialog", Font.BOLD, 14));
 
 			tableModel = new ProductTableModel();
@@ -299,10 +276,7 @@ public class SalesWindow {
 				public void actionPerformed(ActionEvent e) {
 
 					if(!jTextFieldSubTotal.getText().isEmpty()){
-						Float totalAmount = new Float(jTextFieldSubTotal.getText());
-						catalog.sell(new Date(), productsToBeSold, totalAmount);
-
-						clearPreviousSaleData();
+                        eventManager.executeWhenPressingButtonToSaveASale();
 					}
 				}
 			});
@@ -310,7 +284,7 @@ public class SalesWindow {
 		return jButtonSale;
 	}
 	
-	private void clearPreviousSaleData(){
+	public void clearPreviousSaleData(){
 		subtotal = 0.0F;
 		getTableModel().clear();
 		jTextFieldProductDesc.setText("");
@@ -322,4 +296,47 @@ public class SalesWindow {
     public void focusProductId(){
         getProductId().requestFocusInWindow();
     }
+
+    public void writeInFieldProductDesc(String value){
+        jTextFieldProductDesc.setText(value);
+    }
+    public void writeInFieldProductPrice(String value){
+        jTextFieldPrice.setText(value);
+    }
+    public void writeInFieldSubTotal(String value){
+        jTextFieldSubTotal.setText(value);
+    }
+    public void clearFieldProductId(){
+        productIdTextField.setText(null);
+    }
+    public Float getSubTotal(){
+
+        Float value = 0F;
+
+        if(!jTextFieldSubTotal.getText().isEmpty()){
+            value = new Float(jTextFieldSubTotal.getText());
+        }
+
+        return value;
+    }
+
+    public String getProductIdFromField(){
+
+        return productIdTextField.getText();
+    }
+
+    public void addProductToCurrentSale(Product product){
+        Integer amountAlreadySold = 0;
+
+        if(productsToBeSold.containsKey(product)){
+            amountAlreadySold = productsToBeSold.get(product);
+        }
+
+        productsToBeSold.put(product, amountAlreadySold + new Integer(1));
+    }
+
+    public Map<Product, Integer> getProductsToBeSold(){
+        return productsToBeSold;
+    }
+
 }
