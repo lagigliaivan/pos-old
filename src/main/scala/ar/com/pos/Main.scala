@@ -10,8 +10,8 @@ object Main {
 	  	
 	  val saleWindow = new SalesWindow()
 		val addProductWindow = new AddProductWindow()
-    val salesWindowReport = new SalesReportWindow()
-		val mainWindow = new MainWindow(saleWindow, addProductWindow, salesWindowReport)
+    val salesReportWindow = new SalesReportWindow()
+		val mainWindow = new MainWindow(saleWindow, addProductWindow, salesReportWindow)
 
 		mainWindow.run()
   }

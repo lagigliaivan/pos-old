@@ -82,10 +82,12 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
    */
   protected def getJMenuItemAddProduct: JMenuItem = {
 
+    val title = "Agregar/Consultar Producto"
+
     if(jMenuItemAddProduct == null) {
 
       jMenuItemAddProduct = new JMenuItem()
-      jMenuItemAddProduct.setText("Agregar/Consultar Producto")
+      jMenuItemAddProduct.setText(title)
 
       jMenuItemAddProduct.addActionListener(new ActionListener() {
 
@@ -93,7 +95,7 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
           getJFrameMainContainer.remove(saleWindow.getJPanelMain)
           getJFrameMainContainer.remove(salesReportWindow.getJPanelSalesReport)
 
-          getJFrameMainContainer.setTitle("Agregar/Consultar Producto")
+          getJFrameMainContainer.setTitle(title)
           getJFrameMainContainer.add(addProductWindow.getJPanelAddProduct)
           addProductWindow.getJPanelAddProduct.setVisible(false)
           addProductWindow.getJPanelAddProduct.repaint()
@@ -128,8 +130,6 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
       jMenuItemSale
     }
     protected def getJMenuItemSalesReport: JMenuItem = {
-
-
 
       if(jMenuItemSalesReport == null) {
         jMenuItemSalesReport = new JMenuItem()

@@ -23,7 +23,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import ar.com.pos.db.DBConnection$;
 import ar.com.pos.db.dto.Product;
 
 
@@ -43,14 +42,14 @@ public class SalesWindow {
 	private JLabel jLabelSpace = null;
 	private Float subtotal = 0.0F;
 	private JButton jButtonSale = null;
-	private List <String> columsName = new ArrayList <String>();
+	private List <String> columnsName = new ArrayList <String>();
 	private Map<Product, Integer> productsToBeSold = new HashMap<Product, Integer>();
     private ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
 
 	public SalesWindow(){
-		columsName.add("Codigo");
-		columsName.add("Descripcion");
-		columsName.add("Precio Unitario");
+		columnsName.add("Codigo");
+		columnsName.add("Descripcion");
+		columnsName.add("Precio Unitario");
 	}
 	
 	/**
@@ -238,7 +237,7 @@ public class SalesWindow {
 			tableModel = new ProductTableModel();
 
 			// Adding columns.
-			for(String colum : columsName){
+			for(String colum : columnsName){
 				tableModel.addColumn(colum);
 			}
 		}
