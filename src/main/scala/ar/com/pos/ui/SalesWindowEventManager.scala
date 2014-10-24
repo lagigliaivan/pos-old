@@ -39,6 +39,8 @@ class SalesWindowEventManager (val salesWindow: SalesWindow) {
   }
 
   def executeWhenPressingButtonToSaveASale() = {
+
+    val catalog = new Catalog(DBConnection)
     catalog.sell(new Date, salesWindow.getProductsToBeSold(), salesWindow.getSubTotal)
     salesWindow.clearPreviousSaleData
   }

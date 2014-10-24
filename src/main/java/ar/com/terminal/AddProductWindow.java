@@ -157,17 +157,9 @@ public class AddProductWindow {
 				public void keyTyped(KeyEvent e) {}
 
 				public void keyReleased(KeyEvent e) {
-
-					/*if( !jTextFieldProdId.getText().isEmpty() && (tableModel.getRowCount() > 0)){
-						ar.com.pos.ui.View view = new ar.com.pos.ui.View();
-						view.addProductsToTheFollowingTable(tableModel, products);
-						enableAddingProduct(true);
-						jTableProductList.setModel(tableModel);*/
-                        eventManager.executeWhenLookingForProductByDescription();
-					//}
+			        eventManager.executeWhenLookingForProductByDescription();
 				}
 
-				
 				public void keyPressed(KeyEvent e) {
 
 				}
@@ -200,7 +192,6 @@ public class AddProductWindow {
 						
 						if(n == JOptionPane.YES_OPTION){
 							Product product = new Product(jTextFieldProdId.getText(),new Float(jTextFieldPrice.getText()), jTextFieldDesc.getText());
-							//product.setstock(new Integer(jTextFieldStock.getText()));
 							try{
 								ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
 								catalog.save(product);
@@ -208,7 +199,6 @@ public class AddProductWindow {
 								Log.error(ex.getMessage());
 								return;
 							}
-							//enableAddingProduct(ar.com.pos.db.DBConnection$.MODULE$.showProductsbyDescription(tableModel, jTextFieldDesc.getText()));
 						}
 					}
 				}
@@ -265,26 +255,6 @@ public class AddProductWindow {
 			ListSelectionListener listener = new ListSelectionListener() {
 
 				public void valueChanged(ListSelectionEvent e) {
-
-					/*Object[] row = new Object[tableModel.getColumnCount()];
-
-					if ((e.getSource() == jTableProductList.getSelectionModel())
-							&& jTableProductList.getRowSelectionAllowed()) {
-
-						int viewRow = jTableProductList.getSelectedRow();
-
-						if(viewRow >= 0){
-							for (int i = 0; i < tableModel.getColumnCount(); i++) {
-
-								row[i] = tableModel.getValueAt(viewRow, i);
-							}
-							jTextFieldProdId.setText((String) row[0]);
-							jTextFieldDesc.setText((String) row[1]);
-							jTextFieldStock.setText(Float.toString((Float) row[2]));
-
-						}
-					}*/
-
                     eventManager.executeWhenChangingSelectionInProductWindow(e);
 				}
 			};
@@ -292,7 +262,6 @@ public class AddProductWindow {
 
 		}
 
-		//ar.com.pos.db.DBConnection$.MODULE$.getAllProducts();
 		jTableProductList.setModel(tableModel);
 		return jTableProductList;
 	}
@@ -322,22 +291,10 @@ public class AddProductWindow {
 				public void keyTyped(KeyEvent e) {}
 
 				public void keyReleased(KeyEvent e) {
-
-                         eventManager.executeWhenLookingForProductById();
-						/*String id = jTextFieldProdId.getText();
-						if(id.matches("[a-zA-z0-9]*")){
-							
-							List<Product> products = ar.com.pos.db.DBConnection$.MODULE$.getProductsbyId(id);
-							ar.com.pos.ui.View view = new ar.com.pos.ui.View();
-							view.addProductsToTheFollowingTable(tableModel, products);
-							enableAddingProduct(true);
-						}*/
+                    eventManager.executeWhenLookingForProductById();
 				}
 
-				
-				public void keyPressed(KeyEvent e) {
-
-				}
+				public void keyPressed(KeyEvent e) {}
 			});
 		}
 		return jTextFieldProdId;

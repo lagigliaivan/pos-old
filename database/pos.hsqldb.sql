@@ -12,6 +12,8 @@ CREATE TABLE sale (
   id_sale bigint  NOT NULL IDENTITY,
   date datetime DEFAULT NULL,
   description varchar(200) DEFAULT NULL,
+  total_amount double NOT NULL
+
  );
 
 CREATE TABLE sale_detail(

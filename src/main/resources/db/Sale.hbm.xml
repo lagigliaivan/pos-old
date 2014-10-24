@@ -18,6 +18,7 @@
 
         <property name="description" type="string" column="description" />
         <property name="date" column="date" type="date" />
+        <property name="totalAmount" column="total_amount" type="double" />
 
     </class>
 
