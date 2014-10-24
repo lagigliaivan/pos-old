@@ -43,7 +43,7 @@
         </constraints>
         <properties/>
       </component>
-      <scrollpane id="b6568">
+      <scrollpane id="b6568" binding="scrollPane">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="1.0" weighty="1.0"/>
@@ -54,8 +54,14 @@
           <component id="4f084" class="javax.swing.JTable" binding="tableSales">
             <constraints/>
             <properties>
-              <enabled value="false"/>
+              <autoCreateRowSorter value="true"/>
+              <autoResizeMode value="4"/>
+              <enabled value="true"/>
+              <showVerticalLines value="true"/>
             </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="true"/>
+            </clientProperties>
           </component>
         </children>
       </scrollpane>

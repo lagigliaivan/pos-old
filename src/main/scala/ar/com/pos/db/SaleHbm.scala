@@ -6,14 +6,14 @@ import java.util.HashSet
 
 class SaleHbm {
 	
-  var _idsale: Long = 0
+  var _idSale: Long = 0
   var _description: String = _
   var _date: Date = _
   var _detail: java.util.Set[SaleDetailHbm] = _
-  var _totalAmount: Float = 0
+  var _totalAmount: Double = 0
 
-  def getIdSale = _idsale 
-  def setIdSale (value:Long):Unit = {_idsale = value}
+  def getIdSale = _idSale
+  def setIdSale (value:Long):Unit = {_idSale = value}
 
   def getDescription = _description
   def setDescription (value:String):Unit = {_description = value}
@@ -25,5 +25,5 @@ class SaleHbm {
   def setDetail (value: java.util.Set[SaleDetailHbm]):Unit = {_detail  = value}
 
   def getTotalAmount = _totalAmount 
-  def setTotalAmount (value:Float):Unit = {_totalAmount = value} 
+  def setTotalAmount (value:Double):Unit = {_totalAmount = value}
 }

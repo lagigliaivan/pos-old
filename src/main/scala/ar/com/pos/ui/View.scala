@@ -36,8 +36,8 @@ class View {
     for ( sale <- sales.asScala ) {
       val row = new Vector [Object]()
       row.add(sale.date)
+      row.add(Double.box(sale.totalPrice))
       row.add(sale.description)
-      row.add(Float.box(sale.totalPrice))
       result.add(row)
     }
 
@@ -64,10 +64,12 @@ class View {
 	}
 
   def addSalesToTheFollowingTable(table: DefaultTableModel, sales: List [Sale]) :DefaultTableModel = {
-
-    for (row <- getSalesInRows(sales).asScala){
+    val rows : List [Vector [Object]] = getSalesInRows(sales)
+    table.addRow(rows.get(0))
+    table.addRow(rows.get(1))
+    /*for (row <- rows.asScala){
       table.addRow(row)
-    }
+    }*/
 
     table
   }

@@ -17,6 +17,7 @@ public class SalesReportWindow {
     private JTextField textField2;
     private JPanel JPanelSalesReport;
     private JTable tableSales;
+    private JScrollPane scrollPane;
 
     public JPanel getJPanelSalesReport() {
         return JPanelSalesReport;
@@ -30,17 +31,26 @@ public class SalesReportWindow {
 
         for(Sale sale : data){
             Vector sales = new Vector();
+            sales.add(sale.id());
             sales.add(sale.date());
             sales.add(sale.totalPrice());
+            sales.add(sale.description());
         }
 
         ar.com.pos.ui.View view = new ar.com.pos.ui.View();
         view.addSalesToTheFollowingTable((DefaultTableModel)tableSales.getModel(), data);
+
+
+        getJPanelSalesReport().setVisible(true);
+        scrollPane.setVisible(true);
+        scrollPane.repaint();
         tableSales.setVisible(true);
         tableSales.repaint();
+
     }
 
     public boolean isModified(SalesReportListData data) {
         return false;
     }
+
 }

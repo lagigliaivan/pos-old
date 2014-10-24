@@ -112,6 +112,7 @@ object DBConnection extends Database {
       for (sale <- sales.asScala) {
         val s = sale.asInstanceOf[ar.com.pos.db.SaleHbm]
         val existingSale = new Sale(s.getDate, new java.util.HashMap[Product, Integer], s.getTotalAmount)
+        existingSale.id_= (s.getIdSale)
         existingSales.add(existingSale)
       }
 
