@@ -214,8 +214,8 @@ public class SalesWindow {
 			tableModel = new ProductTableModel();
 
 			// Adding columns.
-			for(String colum : columnsName){
-				tableModel.addColumn(colum);
+			for(String column : columnsName){
+				tableModel.addColumn(column);
 			}
 		}
 

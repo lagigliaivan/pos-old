@@ -7,10 +7,14 @@ class Sale (val date:Date , val products: java.util.Map[Product, Integer], val t
 
   private var _description: String = _
   private var _id : Long = 0
+  private var _productsTotalAmount = 0
 
   def id = _id
   def id_= (value: Long): Unit = _id = value
+
   def description() : String = _description
   def description_= (value: String):Unit = _description = value
 
+  def productsTotalAmount = _productsTotalAmount
+  def productsTotalAmount_= (value: Integer) = _productsTotalAmount = value
 }

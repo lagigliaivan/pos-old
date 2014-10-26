@@ -7,6 +7,7 @@ import java.util.List
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 import scala.collection.JavaConverters.mapAsScalaMapConverter
+import scala.collection.JavaConverters.asScalaSetConverter
 
 import org.hibernate.HibernateException
 import org.slf4j.LoggerFactory
@@ -113,9 +114,17 @@ object DBConnection extends Database {
         val s = sale.asInstanceOf[ar.com.pos.db.SaleHbm]
         val existingSale = new Sale(s.getDate, new java.util.HashMap[Product, Integer], s.getTotalAmount)
         existingSale.id_= (s.getIdSale)
+
+        var productsTotalAmount = 0
+
+        for (saleDetail <- s.getDetail.asScala){
+         val sDetail = saleDetail.asInstanceOf[ar.com.pos.db.SaleDetailHbm]
+         productsTotalAmount += saleDetail.getAmount
+        }
+
+        existingSale.productsTotalAmount_=(productsTotalAmount)
         existingSales.add(existingSale)
       }
-
       session.getTransaction.commit
       session.close
     }catch {

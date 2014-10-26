@@ -19,7 +19,7 @@
 
 
         <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="connection.url">jdbc:hsqldb:file:C:\Users\kpbg68\workspace\pos\database\posdb</property>
+        <property name="connection.url">jdbc:hsqldb:file:/home/yo/Desktop/workspace/pos/database/posdb</property>
         <property name="connection.username">SA</property>
         <property name="connection.password"></property>
 

@@ -5,6 +5,7 @@ import ar.com.pos.ui.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,6 +20,20 @@ public class SalesReportWindow {
     private JTable tableSales;
     private JScrollPane scrollPane;
 
+    public SalesReportWindow(){
+        List <String> columnsName = new ArrayList<String>();
+        columnsName.add("#");
+        columnsName.add("Fecha");
+        columnsName.add("Total Vendido");
+        columnsName.add("Cantidad de productos");
+
+        DefaultTableModel tableModel = (DefaultTableModel)tableSales.getModel();
+
+        for(String column : columnsName){
+            tableModel.addColumn(column);
+        }
+    }
+
     public JPanel getJPanelSalesReport() {
         return JPanelSalesReport;
     }
@@ -29,24 +44,22 @@ public class SalesReportWindow {
 
     public void setData(List<Sale> data) {
 
-        for(Sale sale : data){
+        /*for(Sale sale : data){
             Vector sales = new Vector();
             sales.add(sale.id());
             sales.add(sale.date());
             sales.add(sale.totalPrice());
-            sales.add(sale.description());
-        }
+            sales.add(sale.productsTotalAmount());
+        }*/
 
         ar.com.pos.ui.View view = new ar.com.pos.ui.View();
         view.addSalesToTheFollowingTable((DefaultTableModel)tableSales.getModel(), data);
-
 
         getJPanelSalesReport().setVisible(true);
         scrollPane.setVisible(true);
         scrollPane.repaint();
         tableSales.setVisible(true);
         tableSales.repaint();
-
     }
 
     public boolean isModified(SalesReportListData data) {
