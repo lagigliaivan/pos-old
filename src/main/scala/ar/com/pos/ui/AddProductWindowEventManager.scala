@@ -15,7 +15,6 @@ class AddProductWindowEventManager(addProductWindow: AddProductWindow) {
     val tableModel = addProductWindow.getTableModel
     val productId = addProductWindow.getProductId
 
-
     if( !productId.isEmpty() && (tableModel.getRowCount() > 0)){
 
       val products  = DBConnection.getProductsbyDescription(addProductWindow.getProductDescription)
@@ -68,7 +67,7 @@ class AddProductWindowEventManager(addProductWindow: AddProductWindow) {
 
       addProductWindow.writeInFieldProductId(row(0).asInstanceOf[String]);
       addProductWindow.writeInFieldProductDescription(row(1).asInstanceOf[String])
-      addProductWindow.writeInFieldProductStock(row(2).asInstanceOf[Float].toString)
+      addProductWindow.writeInFieldProductStock(row(2).asInstanceOf[Integer].toString)
 
       }
     }

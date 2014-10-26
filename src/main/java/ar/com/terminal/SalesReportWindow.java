@@ -44,26 +44,27 @@ public class SalesReportWindow {
 
     public void setData(List<Sale> data) {
 
-        /*for(Sale sale : data){
-            Vector sales = new Vector();
-            sales.add(sale.id());
-            sales.add(sale.date());
-            sales.add(sale.totalPrice());
-            sales.add(sale.productsTotalAmount());
-        }*/
-
         ar.com.pos.ui.View view = new ar.com.pos.ui.View();
+        clearTableData();
         view.addSalesToTheFollowingTable((DefaultTableModel)tableSales.getModel(), data);
 
         getJPanelSalesReport().setVisible(true);
+
         scrollPane.setVisible(true);
         scrollPane.repaint();
         tableSales.setVisible(true);
         tableSales.repaint();
     }
 
+    private void clearTableData(){
+        DefaultTableModel model = (DefaultTableModel)tableSales.getModel();
+
+        for(int i= model.getRowCount(); i>0; --i){
+            model.removeRow(i-1);
+        }
+    }
+
     public boolean isModified(SalesReportListData data) {
         return false;
     }
-
 }

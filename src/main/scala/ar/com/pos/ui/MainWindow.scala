@@ -94,7 +94,6 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
         def actionPerformed(e: ActionEvent) {
           getJFrameMainContainer.remove(saleWindow.getJPanelMain)
           getJFrameMainContainer.remove(salesReportWindow.getJPanelSalesReport)
-
           getJFrameMainContainer.setTitle(title)
           getJFrameMainContainer.add(addProductWindow.getJPanelAddProduct)
           addProductWindow.getJPanelAddProduct.setVisible(false)
@@ -120,8 +119,10 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
           getJFrameMainContainer.remove(salesReportWindow.getJPanelSalesReport)
           getJFrameMainContainer.setTitle("Venta")
           getJFrameMainContainer.add(saleWindow.getJPanelMain)
+
           saleWindow.getJPanelMain.setVisible(false)
           saleWindow.getJPanelMain.repaint()
+
           saleWindow.getJPanelMain.setVisible(true)
           getJFrameMainContainer.repaint()
         }
@@ -136,29 +137,25 @@ class MainWindow(saleWindow: ar.com.terminal.SalesWindow, addProductWindow: ar.c
         jMenuItemSalesReport.setText("Total de Ventas")
         jMenuItemSalesReport.addActionListener(new ActionListener() {
 
-
           def actionPerformed(e: ActionEvent) {
            getJFrameMainContainer.remove(saleWindow.getJPanelMain)
            getJFrameMainContainer.remove(addProductWindow.getJPanelAddProduct)
            getJFrameMainContainer.setTitle("Total de Ventas")
            getJFrameMainContainer.add(salesReportWindow.getJPanelSalesReport)
-
            salesReportWindow.setData(DBConnection.getSales())
 
            salesReportWindow.getJPanelSalesReport.setVisible(false)
            salesReportWindow.getJPanelSalesReport.repaint()
-           salesReportWindow.getJPanelSalesReport.setVisible(true)
 
+           salesReportWindow.getJPanelSalesReport.setVisible(true)
            getJFrameMainContainer.repaint()
           }
         })
       }
-
     jMenuItemSalesReport
   }
 
   def run() = {
-
     getJFrameMainContainer.add(saleWindow.getJPanelMain)
     getJFrameMainContainer.setExtendedState(Frame.MAXIMIZED_BOTH)
     getJFrameMainContainer.setVisible(true)

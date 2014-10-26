@@ -18,7 +18,7 @@ public class ProductTableModel extends DefaultTableModel {
 	public void clear(){
 		
 		if(this != null){
-			for(int i=this.getRowCount();i>0;--i){
+			for(int i=this.getRowCount(); i>0; --i){
 				this.removeRow(i-1);      
 			}
 		}
@@ -72,6 +72,5 @@ public class ProductTableModel extends DefaultTableModel {
 			row.add(prod.getPrice());
 			addRow(row);
 		}
-		
 	}
 }
