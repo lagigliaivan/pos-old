@@ -35,7 +35,7 @@ object DBConnection extends Database {
     products
   }
 
-  def getProductsbyId(id: String): List[Product] = {
+  def getProductsById(id: String): List[Product] = {
 
     if ((id == null) || (id.isEmpty())) {
       throw new InvalidParameterException("Product ID cannot be null or empty")

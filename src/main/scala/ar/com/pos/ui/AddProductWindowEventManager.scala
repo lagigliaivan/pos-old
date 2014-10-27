@@ -42,7 +42,7 @@ class AddProductWindowEventManager(addProductWindow: AddProductWindow) {
     var products: List[Product] = null
 
     if(productId.matches("[a-zA-Z0-9]+")) {
-      products = DBConnection.getProductsbyId(productId)
+      products = DBConnection.getProductsById(productId)
     }else{
       products = DBConnection.getAllProducts()
     }
