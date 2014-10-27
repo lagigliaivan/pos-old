@@ -181,32 +181,14 @@ public class AddProductWindow {
 
 			jTextFieldPrice.addKeyListener(new KeyListener() {
 
-			
 				public void keyTyped(KeyEvent e) {
 					if(e.getKeyChar() == KeyEvent.VK_ENTER){
-						int n = JOptionPane.showOptionDialog(getJPanelAddProduct(),
-								"Esta seguro que quiere agregar este articulo? ",
-								null,
-								JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE, null, null, null);
-						
-						if(n == JOptionPane.YES_OPTION){
-							Product product = new Product(jTextFieldProdId.getText(),new Float(jTextFieldPrice.getText()), jTextFieldDesc.getText());
-							try{
-								ar.com.pos.Catalog catalog = new ar.com.pos.Catalog(ar.com.pos.db.DBConnection$.MODULE$);
-								catalog.save(product);
-							}catch(TerminalException ex){
-								Log.error(ex.getMessage());
-								return;
-							}
-						}
+                        eventManager.executeWhenSavingAProduct();
 					}
 				}
 
-			
 				public void keyReleased(KeyEvent e) {}
 
-			
 				public void keyPressed(KeyEvent e) {}
 			});
 		}
@@ -242,8 +224,8 @@ public class AddProductWindow {
 			tableModel = new ProductTableModel();
 
 			// Adding columns.
-			for (String colum : columsName) {
-				tableModel.addColumn(colum);
+			for (String column : columsName) {
+				tableModel.addColumn(column);
 			}
 
             List<Product> allProducts = ar.com.pos.db.DBConnection.getAllProducts();
@@ -312,6 +294,13 @@ public class AddProductWindow {
     public String getProductId(){
         return jTextFieldProdId.getText();
     }
+    public String getProductStock(){
+        return jTextFieldStock.getText();
+    }
+
+    public String getProductPrice(){
+        return jTextFieldPrice.getText();
+    }
 
     public ProductTableModel getTableModel(){
         return tableModel;
@@ -320,6 +309,7 @@ public class AddProductWindow {
     public JTable getTableProductList(){
         return jTableProductList;
     }
+
 
     public void writeInFieldProductId(String value){
         jTextFieldProdId.setText(value);

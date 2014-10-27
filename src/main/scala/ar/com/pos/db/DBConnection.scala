@@ -44,7 +44,7 @@ object DBConnection extends Database {
     val products = new ArrayList[Product]()
 
     try {
-      products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.id like " + id + "%"))
+      products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.id like '" + id + "%'"))
     } catch {
       case e: Exception => e match {
         case _: HibernateException | _: Exception => log.error("Error when getting products from DB", e.getMessage())
@@ -64,7 +64,7 @@ object DBConnection extends Database {
     val products = new ArrayList[Product]()
 
     try {
-      products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.description like %" + productDesc + "%"))
+      products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.description like '%" + productDesc + "%'"))
     } catch {
       case e: Exception => e match {
         case _: HibernateException | _: Exception => log.error("Error when getting products from DB", e.getMessage())
@@ -141,7 +141,7 @@ object DBConnection extends Database {
 
     try {
 
-      val session = SessionFactory.openSession
+      val session = SessionFactory.openSession()
       val transaction = session.beginTransaction
 
       val saleHbm = new SaleHbm
@@ -197,14 +197,20 @@ object DBConnection extends Database {
       val session = SessionFactory.openSession
       val transaction = session.beginTransaction()
 
-      session.save(product)
+      val productHbm = new ProductHbm()
+      productHbm.setIdproduct(product.id)
+      productHbm.setPrice(product.price)
+      productHbm.setDescription(product.description)
+      productHbm.setStock(product.stock)
+
+      session.save(productHbm)
       session.flush()
       transaction.commit()
       session.close()
 
     } catch {
       case e: Exception => e match {
-        case _: HibernateException | _: Exception => log.error("Error when getting products from DB", e.getMessage())
+        case _: HibernateException | _: Exception => log.error("Error when saving products in the DB", e)
       }
     }
 

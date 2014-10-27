@@ -4,10 +4,7 @@ import java.awt.Dimension
 import java.awt.Frame
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-
 import org.slf4j.LoggerFactory
-
-
 import javax.swing.JFrame
 import javax.swing.JMenu
 import javax.swing.JMenuBar
