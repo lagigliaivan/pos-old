@@ -7,25 +7,47 @@ import ar.com.pos.Catalog
 import ar.com.pos.db.DBConnection
 import java.util.{Date, ArrayList}
 import ar.com.terminal.SalesWindow
+import ar.com.pos.db.dto.Product
 
 /**
  * Created by yo on 22/10/14.
  */
 class SalesWindowEventManager (val salesWindow: SalesWindow) {
 
+  private def addProductToTheSaleList(catalog: Catalog, product: Product):Float = {
+    val view = new View
+    val products: java.util.List[ar.com.pos.db.dto.Product] = new ArrayList[ar.com.pos.db.dto.Product]()
+    products.add(product)
+    view.addProductsToTheFollowingTable(salesWindow.getTableModel(), products)
+    var subTotal = salesWindow.getSubTotal
+    subTotal += product.price
+    subTotal
+  }
+
+  private def removeProductFromSaleList(catalog: Catalog, product: Product):Float = {
+    val view = new View
+    view.removeProductFromTheFollowingTable(salesWindow.getTableModel, product)
+    var subTotal = salesWindow.getSubTotal
+    subTotal -= product.price
+    subTotal
+  }
+
   def executeWhenPressingEnterForSellingAProduct() = {
 
     val catalog = new Catalog(DBConnection)
-    val product = catalog.getProduct(salesWindow.getProductIdFromField())
+    var productId = salesWindow.getProductIdFromField()
+    var modifyProductList: (Catalog, Product) => Float = addProductToTheSaleList;
+    var modifyAlreadySoldProducts : (Product) => Unit = salesWindow.addProductToCurrentSale
 
-    val products: java.util.List[ar.com.pos.db.dto.Product] = new ArrayList[ar.com.pos.db.dto.Product]()
-    products.add(product)
+    if(productId.startsWith("-")){
+      productId = productId.substring(1)
+      modifyProductList = removeProductFromSaleList;
+      modifyAlreadySoldProducts = salesWindow.removeProductFromCurrentSale
+    }
 
-    val view = new View
-    view.addProductsToTheFollowingTable(salesWindow.getTableModel(), products)
+    val product = catalog.getProduct(productId)
 
-    var subTotal = salesWindow.getSubTotal
-    subTotal += product.price
+    val subTotal = modifyProductList(catalog, product)
 
     salesWindow.writeInFieldProductDesc(product.description)
     salesWindow.writeInFieldProductPrice(product.price.toString)
@@ -33,7 +55,7 @@ class SalesWindowEventManager (val salesWindow: SalesWindow) {
     salesWindow.writeInFieldSubTotal(subTotal.toString)
     salesWindow.clearFieldProductId()
 
-    val productsToBeSold = salesWindow.addProductToCurrentSale(product)
+    val productsToBeSold = modifyAlreadySoldProducts(product)
 
     productsToBeSold
   }

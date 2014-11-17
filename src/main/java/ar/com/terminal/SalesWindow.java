@@ -140,6 +140,7 @@ public class SalesWindow {
             jPanelMain.add(getJTextFieldSubTotal(), gridBagConstraints3);
             jPanelMain.add(jLabelSpace, gridBagConstraints8);
             jPanelMain.add(getJButtonSale(), gridBagConstraints12);
+
         }
         return jPanelMain;
     }
@@ -210,6 +211,7 @@ public class SalesWindow {
 			jTableProducts.setShowGrid(true);
 			jTableProducts.setComponentOrientation(ComponentOrientation.UNKNOWN);
 			jTableProducts.setFont(new Font("Dialog", Font.BOLD, 14));
+            jTableProducts.setEnabled(false);
 
 			tableModel = new ProductTableModel();
 
@@ -334,6 +336,14 @@ public class SalesWindow {
 
         productsToBeSold.put(product, amountAlreadySold + new Integer(1));
     }
+
+    public void removeProductFromCurrentSale(Product product){
+
+        if(productsToBeSold.containsKey(product)){
+            productsToBeSold.remove(product);
+        }
+    }
+
 
     public Map<Product, Integer> getProductsToBeSold(){
         return productsToBeSold;

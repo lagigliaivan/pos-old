@@ -11,6 +11,7 @@ import scala.collection.JavaConverters._
 import ar.com.pos.db.dto.Product
 import ar.com.pos.db.dto.Sale
 
+import scala.util.control.Breaks._
 
 class View {
 
@@ -53,7 +54,19 @@ class View {
 		
 		table
 	}
-	
+
+  def removeProductFromTheFollowingTable(table: DefaultTableModel, product: Product): DefaultTableModel = {
+
+    for( i <- 0 to (table.getRowCount - 1 )){
+
+      if(table.getValueAt(i,0) == product.id){
+        table.removeRow(i)
+        break
+      }
+    }
+    table
+  }
+
 	def addProductToTheFollowingTable(table: DefaultTableModel, product: Product): DefaultTableModel = {
 		
 		val products = new ArrayList[Product]()

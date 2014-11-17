@@ -13,7 +13,18 @@ class Catalog(database: Database) {
 	def addProduct(product: Product, amount: Int) : Unit = database.addProduct(product, amount)
 	def addProduct(product: Product) : Unit = addProduct(product, 1)
 	def getStock(id: String) = database.getStock(id)
-	def sell(date: Date, products: java.util.Map[Product, Integer], totalPrice: Float) = database.save(new Sale(date, products, totalPrice))
-	def save(product: Product) = {database.save(product)}
+
+  def sell(date: Date, products: java.util.Map[Product, Integer], totalPrice: Float) = {
+
+    require(!products.isEmpty, "Sale cannot be empty")
+    require(date != null, "Sale date cannot be null")
+
+    database.save(new Sale(date, products, totalPrice))
+  }
+
+  def save(product: Product) = {
+    require(product != null, "Product cannot be null")
+    database.save(product)
+  }
 	
 }
