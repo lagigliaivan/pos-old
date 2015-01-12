@@ -1,15 +1,14 @@
 package ar.com.pos.ui
 
-import java.util.{List, ArrayList}
+import java.util.List
 import javax.swing.JOptionPane
+import javax.swing.event.ListSelectionEvent
 
 import ar.com.pos.Catalog
+import ar.com.pos.db.DBConnection
 import ar.com.pos.db.dto.Product
 import ar.com.terminal.AddProductWindow
-import ar.com.pos.db.DBConnection
-import javax.swing.event.ListSelectionEvent
 import ar.com.terminal.exception.TerminalException
-import org.hsqldb.lib.ArrayListIdentity
 import org.slf4j.LoggerFactory
 
 
