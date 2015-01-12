@@ -1,15 +1,13 @@
 package ar.com.pos
 
 import java.util.Date
-import java.util.Map
 
 import ar.com.pos.db.Database
-import ar.com.pos.db.dto.Product
-import ar.com.pos.db.dto.Sale
+import ar.com.pos.db.dto.{Product, Sale}
 
 class Catalog(database: Database) {
 	
-	def getProduct(id: String) = database.getProductById(id);
+	def getProduct(id: String) = database.getProductById(id)
 	def addProduct(product: Product, amount: Int) : Unit = database.addProduct(product, amount)
 	def addProduct(product: Product) : Unit = addProduct(product, 1)
 	def getStock(id: String) = database.getStock(id)

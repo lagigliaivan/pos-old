@@ -47,9 +47,9 @@ class AddProductWindowEventManager(addProductWindow: AddProductWindow) {
       products = DBConnection.getAllProducts()
     }
 
-    addProductWindow.getTableModel().clear();
+    addProductWindow.getTableModel.clear()
     val view = new View
-    view.addProductsToTheFollowingTable(addProductWindow.getTableModel(), products)
+    view.addProductsToTheFollowingTable(addProductWindow.getTableModel, products)
     addProductWindow.enableAddingProduct(true)
   }
 

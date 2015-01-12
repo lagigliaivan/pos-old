@@ -273,9 +273,8 @@ public class SalesWindow {
 			jButtonSale.setText("Vender");
 			jButtonSale.setFont(new Font("Dialog", Font.BOLD, 18));
 			jButtonSale.addActionListener(new ActionListener() {
-				
-				
-				public void actionPerformed(ActionEvent e) {
+
+                public void actionPerformed(ActionEvent e) {
 
 					if(!jTextFieldSubTotal.getText().isEmpty()){
                         eventManager.executeWhenPressingButtonToSaveASale();

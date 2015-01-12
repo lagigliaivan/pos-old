@@ -1,13 +1,11 @@
 package ar.com.pos.ui
 
-import javax.swing.{JTable, JTextField}
-import javax.swing.table.DefaultTableModel
+import java.util.Date
 
 import ar.com.pos.Catalog
 import ar.com.pos.db.DBConnection
-import java.util.{Date, ArrayList}
-import ar.com.terminal.SalesWindow
 import ar.com.pos.db.dto.Product
+import ar.com.terminal.SalesWindow
 
 /**
  * Created by yo on 22/10/14.
@@ -16,9 +14,9 @@ class SalesWindowEventManager (val salesWindow: SalesWindow) {
 
   private def addProductToTheSaleList(catalog: Catalog, product: Product):Float = {
     val view = new View
-    val products: java.util.List[ar.com.pos.db.dto.Product] = new ArrayList[ar.com.pos.db.dto.Product]()
+    val products: java.util.List[ar.com.pos.db.dto.Product] = new java.util.ArrayList[ar.com.pos.db.dto.Product]
     products.add(product)
-    view.addProductsToTheFollowingTable(salesWindow.getTableModel(), products)
+    view.addProductsToTheFollowingTable(salesWindow.getTableModel, products)
     var subTotal = salesWindow.getSubTotal
     subTotal += product.price
     subTotal
@@ -35,13 +33,13 @@ class SalesWindowEventManager (val salesWindow: SalesWindow) {
   def executeWhenPressingEnterForSellingAProduct() = {
 
     val catalog = new Catalog(DBConnection)
-    var productId = salesWindow.getProductIdFromField()
-    var modifyProductList: (Catalog, Product) => Float = addProductToTheSaleList;
+    var productId = salesWindow.getProductIdFromField
+    var modifyProductList: (Catalog, Product) => Float = addProductToTheSaleList
     var modifyAlreadySoldProducts : (Product) => Unit = salesWindow.addProductToCurrentSale
 
     if(productId.startsWith("-")){
       productId = productId.substring(1)
-      modifyProductList = removeProductFromSaleList;
+      modifyProductList = removeProductFromSaleList
       modifyAlreadySoldProducts = salesWindow.removeProductFromCurrentSale
     }
 
@@ -63,7 +61,7 @@ class SalesWindowEventManager (val salesWindow: SalesWindow) {
   def executeWhenPressingButtonToSaveASale() = {
 
     val catalog = new Catalog(DBConnection)
-    catalog.sell(new Date, salesWindow.getProductsToBeSold(), salesWindow.getSubTotal)
-    salesWindow.clearPreviousSaleData
+    catalog.sell(new Date, salesWindow.getProductsToBeSold, salesWindow.getSubTotal)
+    salesWindow.clearPreviousSaleData()
   }
 }
