@@ -326,20 +326,22 @@ public class SalesWindow {
         return productIdTextField.getText();
     }
 
-    public void addProductToCurrentSale(Product product){
+    public void addProductToCurrentSale(Product product, Integer amount){
         Integer amountAlreadySold = 0;
 
         if(productsToBeSold.containsKey(product)){
             amountAlreadySold = productsToBeSold.get(product);
         }
 
-        productsToBeSold.put(product, amountAlreadySold + new Integer(1));
+        productsToBeSold.put(product, amountAlreadySold + amount);
     }
 
-    public void removeProductFromCurrentSale(Product product){
+    public void removeProductFromCurrentSale(Product product, Integer amount){
 
-        if(productsToBeSold.containsKey(product)){
-            productsToBeSold.remove(product);
+        for(int i = 1; i <= amount; i++) {
+            if (productsToBeSold.containsKey(product)) {
+                productsToBeSold.remove(product);
+            }
         }
     }
 

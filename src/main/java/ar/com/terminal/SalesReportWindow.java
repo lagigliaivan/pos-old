@@ -32,6 +32,8 @@ public class SalesReportWindow {
         for(String column : columnsName){
             tableModel.addColumn(column);
         }
+
+
     }
 
     public JPanel getJPanelSalesReport() {

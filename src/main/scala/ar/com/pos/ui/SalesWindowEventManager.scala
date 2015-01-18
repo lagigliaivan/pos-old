@@ -12,19 +12,31 @@ import ar.com.terminal.SalesWindow
  */
 class SalesWindowEventManager (val salesWindow: SalesWindow) {
 
-  private def addProductToTheSaleList(catalog: Catalog, product: Product):Float = {
+  private def addProductToTheSaleList(catalog: Catalog, product: Product, amount: Integer): Float ={
     val view = new View
     val products: java.util.List[ar.com.pos.db.dto.Product] = new java.util.ArrayList[ar.com.pos.db.dto.Product]
-    products.add(product)
+
+    for( i <- 1 to amount){
+      products.add(product)
+    }
+
     view.addProductsToTheFollowingTable(salesWindow.getTableModel, products)
     var subTotal = salesWindow.getSubTotal
-    subTotal += product.price
+
+    subTotal += (product.price * amount)
+
     subTotal
   }
 
-  private def removeProductFromSaleList(catalog: Catalog, product: Product):Float = {
+  private def addProductToTheSaleList(catalog: Catalog, product: Product):Float = {
+    addProductToTheSaleList(catalog, product, 1);
+  }
+
+  private def removeProductFromSaleList(catalog: Catalog, product: Product, amount: Integer):Float = {
     val view = new View
-    view.removeProductFromTheFollowingTable(salesWindow.getTableModel, product)
+    for(i <- 1 to amount) {
+      view.removeProductFromTheFollowingTable(salesWindow.getTableModel, product)
+    }
     var subTotal = salesWindow.getSubTotal
     subTotal -= product.price
     subTotal
@@ -33,19 +45,30 @@ class SalesWindowEventManager (val salesWindow: SalesWindow) {
   def executeWhenPressingEnterForSellingAProduct() = {
 
     val catalog = new Catalog(DBConnection)
-    var productId = salesWindow.getProductIdFromField
-    var modifyProductList: (Catalog, Product) => Float = addProductToTheSaleList
-    var modifyAlreadySoldProducts : (Product) => Unit = salesWindow.addProductToCurrentSale
+    var productIdAndAmount = salesWindow.getProductIdFromField
+    var modifyProductList: (Catalog, Product, Integer) => Float = addProductToTheSaleList
+    var modifyAlreadySoldProducts : (Product, Integer) => Unit = salesWindow.addProductToCurrentSale
+    var productId = productIdAndAmount;
+    var productAmount = 1;
 
-    if(productId.startsWith("-")){
-      productId = productId.substring(1)
+    if(productIdAndAmount.startsWith("-")){
+
+      productId = productIdAndAmount.substring(1)
       modifyProductList = removeProductFromSaleList
       modifyAlreadySoldProducts = salesWindow.removeProductFromCurrentSale
+
+    }else if(productIdAndAmount.matches("^\\d+[xX]\\d+")){  //2x1212121, 6X12341212 this conditional gives the option of inserting multiple products in one time.
+
+      productIdAndAmount = productIdAndAmount.toLowerCase
+      val indexOfMultiplicationChar: Int = productIdAndAmount.indexOf("x")
+      var productAmountAsString = productIdAndAmount.substring(0, indexOfMultiplicationChar)
+      productId = productIdAndAmount.substring(indexOfMultiplicationChar + 1, productIdAndAmount.length)
+      productAmount = Integer.valueOf(productAmountAsString)
     }
 
     val product = catalog.getProduct(productId)
 
-    val subTotal = modifyProductList(catalog, product)
+    val subTotal = modifyProductList(catalog, product, productAmount)
 
     salesWindow.writeInFieldProductDesc(product.description)
     salesWindow.writeInFieldProductPrice(product.price.toString)
@@ -53,7 +76,7 @@ class SalesWindowEventManager (val salesWindow: SalesWindow) {
     salesWindow.writeInFieldSubTotal(subTotal.toString)
     salesWindow.clearFieldProductId()
 
-    val productsToBeSold = modifyAlreadySoldProducts(product)
+    val productsToBeSold = modifyAlreadySoldProducts(product, productAmount)
 
     productsToBeSold
   }

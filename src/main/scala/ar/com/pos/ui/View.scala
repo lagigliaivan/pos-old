@@ -57,13 +57,15 @@ class View {
 
   def removeProductFromTheFollowingTable(table: DefaultTableModel, product: Product): DefaultTableModel = {
 
-    for( i <- 0 to (table.getRowCount - 1 )){
+    breakable {
+      for (i <- 0 to (table.getRowCount - 1)) {
 
-      if(table.getValueAt(i,0) == product.id){
-        table.removeRow(i)
-        break
-      }
-    }
+        if (table.getValueAt(i, 0) == product.id) {
+          table.removeRow(i)
+          break
+        }
+  }
+}
     table
   }
 
