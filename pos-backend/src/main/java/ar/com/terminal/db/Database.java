@@ -11,6 +11,6 @@ public interface Database {
 
 	public void save(Sale sale);
 	public void save(Item item);
-	
 
+    public void remove(Item item);
 }

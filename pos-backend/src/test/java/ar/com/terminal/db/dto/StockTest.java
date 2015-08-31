@@ -1,11 +1,11 @@
 package ar.com.terminal.db.dto;
-import static org.mockito.Mockito.mock;
 
 import ar.com.terminal.Catalog;
+import ar.com.terminal.db.Database;
 import org.junit.Assert;
 import org.junit.Ignore;
 
-import ar.com.terminal.db.Database;
+import static org.mockito.Mockito.mock;
 
 public class StockTest {
 

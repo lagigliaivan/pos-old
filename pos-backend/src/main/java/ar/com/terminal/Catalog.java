@@ -42,5 +42,10 @@ public class Catalog {
 		// TODO Auto-generated method stub
 		
 	}
+
+    public void remove(Item item) {
+        database.remove(item);
+        return;
+    }
 }
 

@@ -183,8 +183,13 @@ public class DBConnection implements Database {
 		}
 		
 	}
-	
-	protected List <Item> getItemsUsingTheFollowingQuery(String query) throws HibernateException, Exception{
+
+    @Override
+    public void remove(Item item) {
+
+    }
+
+    protected List <Item> getItemsUsingTheFollowingQuery(String query) throws HibernateException, Exception{
 		
 		List <Item> existingItems = new ArrayList<Item>();
 		
