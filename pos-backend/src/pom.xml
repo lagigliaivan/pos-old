@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.pos</groupId>
-	<artifactId>pos</artifactId>
+	<artifactId>backend</artifactId>
 	<version>0.1.0</version>
 	<packaging>jar</packaging>
 
@@ -52,23 +52,13 @@
 			<version>1.8.4</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-    <groupId>org.scala-lang</groupId>
-    <artifactId>scala-library</artifactId>
-    <version>2.7.2</version>
-</dependency>
-
+		
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.3.2</version>
 		</dependency>
 	
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.11.2</version>
-		</dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
@@ -83,44 +73,17 @@
 		
 
 	<build>
-     
+        <sourceDirectory>./main/java</sourceDirectory>
+        <testSourceDirectory>./test/java</testSourceDirectory>
         <plugins>
-            <plugin>
-                <groupId>org.scala-tools</groupId>
-               <artifactId>maven-scala-plugin</artifactId>
 
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <goals>
-                        <goal>compile</goal>
-                        </goals>
-                        <phase>compile</phase>
-                    </execution>
- 
-                    <execution>
-                        <id>test-compile</id>
-                        <goals>
-                        <goal>testCompile</goal>
-                        </goals>
-                        <phase>test-compile</phase>
-                    </execution>
- 
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
                 <executions>
                     <execution>
@@ -136,13 +99,13 @@
         </plugins>
                 <resources>
             <resource>
-				<directory>src/main/resources</directory>              
+				<directory>main/resources</directory>
                 <includes>
                     <include>*.xml</include>
                 </includes>
             </resource>
             <resource>
-				<directory>src/main/resources/db</directory>              
+				<directory>main/resources/db</directory>
                 <includes>
                     <include>*.hbm.xml</include>
                 </includes>

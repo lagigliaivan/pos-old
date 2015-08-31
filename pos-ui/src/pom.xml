@@ -52,11 +52,11 @@
 			<version>1.8.4</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-    <groupId>org.scala-lang</groupId>
-    <artifactId>scala-library</artifactId>
-    <version>2.7.2</version>
-</dependency>
+		<!--<dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.7.2</version>
+</dependency>-->
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -83,9 +83,10 @@
 		
 
 	<build>
-     
+        <sourceDirectory>./main/java</sourceDirectory>
+        <testSourceDirectory>./test/java</testSourceDirectory>
         <plugins>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.scala-tools</groupId>
                <artifactId>maven-scala-plugin</artifactId>
 
@@ -113,14 +114,15 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
                 <executions>
                     <execution>
@@ -136,13 +138,13 @@
         </plugins>
                 <resources>
             <resource>
-				<directory>src/main/resources</directory>              
+				<directory>main/resources</directory>
                 <includes>
                     <include>*.xml</include>
                 </includes>
             </resource>
             <resource>
-				<directory>src/main/resources/db</directory>              
+				<directory>main/resources/db</directory>
                 <includes>
                     <include>*.hbm.xml</include>
                 </includes>
