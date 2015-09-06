@@ -7,10 +7,10 @@ import java.util.Map;
 public class Sale {
 
 	private Date date;
-	private Map<Item, Integer> products;
+	private Map<Product, Integer> products;
 	private Float totalAmount;
 	
-	public Sale(Date date, Map<Item, Integer> products, Float totalPrice){
+	public Sale(Date date, Map<Product, Integer> products, Float totalPrice){
 		this.date = date;
 		this.products = products;
 		this.totalAmount = totalPrice;
@@ -28,7 +28,7 @@ public class Sale {
 		}
 	}
 	
-	public Map<Item, Integer> getProducts(){
+	public Map<Product, Integer> getProducts(){
 		return this.products;
 	}
 

@@ -1,6 +1,5 @@
 package ar.com.terminal;
 
-
 import ar.com.terminal.service.PointOfSaleService;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -31,13 +30,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /*SalesWindow saleWindow = new SalesWindow();
-        AddProductWindow addProductWindow = new AddProductWindow();
-        SalesReportWindow salesReportWindow = new SalesReportWindow();*/
 
-        //MainWindow mainWindow = new MainWindow(saleWindow, addProductWindow, salesReportWindow);
-
-        //mainWindow.run();
     }
 
 }

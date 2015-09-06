@@ -1,6 +1,6 @@
 package ar.com.terminal.db.dto;
 
-import ar.com.terminal.model.Item;
+import ar.com.terminal.model.Product;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import java.security.InvalidParameterException;
 
-public class ItemTest {
+public class ProductTest {
 
-	Logger logger = LoggerFactory.getLogger(ItemTest.class);
+	Logger logger = LoggerFactory.getLogger(ProductTest.class);
 	
 	@Test
 	public void product_can_be_created_when_parameters_are_ok(){
@@ -19,13 +19,13 @@ public class ItemTest {
 		Float price = 0.0F;
 		String desc = "producto1";
 		
-		Item item = new Item(id, price, desc);
+		Product product = new Product(id, price, desc);
 		
-		Assert.assertEquals(id, item.getId());
-		Assert.assertEquals(price, item.getPrice());
-		Assert.assertEquals(desc, item.getDescription());
+		Assert.assertEquals(id, product.getId());
+		Assert.assertEquals(price, product.getPrice());
+		Assert.assertEquals(desc, product.getDescription());
 				
-		item.setDescription("first product");
+		product.setDescription("first product");
 		
 	}
 	
@@ -36,8 +36,8 @@ public class ItemTest {
 		String desc = "producto1";
 			
 		try{
-			Item item = new Item(id, null, desc);
-			item = new Item(id, -1F, desc);
+			Product product = new Product(id, null, desc);
+			product = new Product(id, -1F, desc);
 		}catch(InvalidParameterException ex){
 			logger.info("Product could not be created with a negative or null price");
 			return;
@@ -53,8 +53,8 @@ public class ItemTest {
 		Float price = 1F;
 		
 		try{
-			Item item = new Item(id, price, null);
-			item = new Item(id, -1F, "");
+			Product product = new Product(id, price, null);
+			product = new Product(id, -1F, "");
 		}catch(InvalidParameterException ex){
 			logger.info("Product could not be created with a empty or null name");
 			return;
@@ -70,8 +70,8 @@ public class ItemTest {
 		String desc = "product_1";
 		
 		try{
-			Item item = new Item(null, price, desc);
-			item = new Item("", price, desc);
+			Product product = new Product(null, price, desc);
+			product = new Product("", price, desc);
 		}catch(InvalidParameterException ex){
 			logger.info("Product could not be created with a negative or null id");
 			return;

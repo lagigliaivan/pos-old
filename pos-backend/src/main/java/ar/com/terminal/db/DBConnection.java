@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.persistence.NoResultException;
 
-import ar.com.terminal.model.Item;
+import ar.com.terminal.model.Product;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -34,71 +34,71 @@ public class DBConnection implements Database {
 	}
 	
 
-	public List <Item> getAllProducts() {
+	public List <Product> getAllProducts() {
 		
-		List <Item> items = new ArrayList<Item>();
+		List <Product> products = new ArrayList<Product>();
 		
 		try {
-			items.addAll(getItemsUsingTheFollowingQuery("from Product"));
+			products.addAll(getItemsUsingTheFollowingQuery("from Product"));
 		} catch (HibernateException e) {
 			log.error("Error when getting products from DB", e.getMessage());
 		} catch (Exception e) {
 			log.error("Error when getting products from DB", e.getMessage());
 		}
 		
-		return items;
+		return products;
 	}
 
 	
-	public List<Item> getProductsbyId(String id) {
+	public List<Product> getProductsbyId(String id) {
 		
 		if ( (id == null) || (id.isEmpty())){
 			throw new InvalidParameterException("Product ID cannot be null or empty");
 		}
 
-		List <Item> items = new ArrayList<Item>();
+		List <Product> products = new ArrayList<Product>();
 		
 		try{
-			items.addAll(getItemsUsingTheFollowingQuery("from Product u where u.id like " + id + "%" ));
+			products.addAll(getItemsUsingTheFollowingQuery("from Product u where u.id like " + id + "%" ));
 		} catch (HibernateException e) {
 			log.error("Error when getting products from DB", e);
 		} catch (Exception e) {
 			log.error("Error when getting products from DB", e);
 		}
 
-		return items;
+		return products;
 		
 	}
 
-	public List <Item> getProductsbyDescription(String productDesc) {
+	public List <Product> getProductsbyDescription(String productDesc) {
 		
 		if ( (productDesc == null) || (productDesc.isEmpty())){
 			throw new InvalidParameterException("Product description cannot be null or empty");
 		}
 
-		List <Item> items = new ArrayList<Item>();
+		List <Product> products = new ArrayList<Product>();
 		
 		try{
-			items.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.description like %" + productDesc + "%" ));
+			products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.description like %" + productDesc + "%" ));
 		} catch (HibernateException e) {
 			log.error("Error when getting products from DB", e);
 		} catch (Exception e) {
 			log.error("Error when getting products from DB", e);
 		}
 
-		return items;
+		return products;
 	}
 	
-	public Item getProductById (String id) {
+	public Product getProductById (String id) {
 
 		if ( (id == null) || (id.isEmpty())){
 			throw new InvalidParameterException("Product ID cannot be null or empty");
 		}
 
-		List <Item> items = new ArrayList<Item>();
+		List <Product> products = new ArrayList<Product>();
 		
 		try{
-			items.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.idproduct = " + id));
+			products.addAll(getItemsUsingTheFollowingQuery("from ProductHbm u where u.idproduct = " + id));
 		} catch (HibernateException e) {
 			log.error("Error when getting products from DB", e.getMessage());
 			e.printStackTrace();
@@ -106,11 +106,11 @@ public class DBConnection implements Database {
 			log.error("Error when getting products from DB", e.getMessage());
 			e.printStackTrace();
 		}
-		if (items.isEmpty()){
+		if (products.isEmpty()){
 			throw new NoResultException("Product " + id + " was not found.");
 		}
 		
-		return items.get(0);
+		return products.get(0);
 	}
 	
 	public void save(Sale sale){
@@ -121,10 +121,10 @@ public class DBConnection implements Database {
 			Transaction transaction = session.beginTransaction();
 		    Set <ProductHbm> products = new HashSet<ProductHbm>();
 	        
-		    for(Entry<Item, Integer> productAndStock : sale.getProducts().entrySet()){
+		    for(Entry<Product, Integer> productAndStock : sale.getProducts().entrySet()){
 		    	
-		    	Item item = productAndStock.getKey();
-		    	ProductHbm productHbm = getProductHbm(item);
+		    	Product product = productAndStock.getKey();
+		    	ProductHbm productHbm = getProductHbm(product);
 		    	productHbm.setstock(productAndStock.getValue());
 	        	products.add(productHbm);
 	       }
@@ -148,18 +148,18 @@ public class DBConnection implements Database {
 		}
 	}
 	
-	protected ProductHbm getProductHbm(Item item){
+	protected ProductHbm getProductHbm(Product product){
 
 		ProductHbm productHbm = new ProductHbm();
-    	productHbm.setidproduct(item.getId());
-    	productHbm.setdescription(item.getDescription());
-    	productHbm.setprice(item.getPrice());
+    	productHbm.setidproduct(product.getId());
+    	productHbm.setdescription(product.getDescription());
+    	productHbm.setprice(product.getPrice());
     	
     	return productHbm;
 	}
 	
 	
-	public void save(Item item) throws TerminalException{
+	public void save(Product product) throws TerminalException{
 		
 		Session session = null;
 		
@@ -167,7 +167,7 @@ public class DBConnection implements Database {
 			session = SessionFactoryUtil.getSessionFactory().openSession();
 			Transaction transaction = session.beginTransaction();
 			
-			session.save(item);
+			session.save(product);
 			session.flush();
 			transaction.commit();
 			session.close();
@@ -181,13 +181,13 @@ public class DBConnection implements Database {
 	}
 
     @Override
-    public void remove(Item item) {
+    public void remove(Product product) {
 
     }
 
-    protected List <Item> getItemsUsingTheFollowingQuery(String query) throws HibernateException, Exception{
+    protected List <Product> getItemsUsingTheFollowingQuery(String query) throws HibernateException, Exception{
 		
-		List <Item> existingItems = new ArrayList<Item>();
+		List <Product> existingProducts = new ArrayList<Product>();
 		
 		Session session = SessionFactoryUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -197,18 +197,18 @@ public class DBConnection implements Database {
 		List<ProductHbm> products = hqlQuery.list();
 
 		for( ProductHbm product : products){	
-			Item existingItem = new Item(product.getidproduct(), product.getprice(), product.getdescription());
-			existingItems.add(existingItem);
+			Product existingProduct = new Product(product.getidproduct(), product.getprice(), product.getdescription());
+			existingProducts.add(existingProduct);
 		}
 		
 		session.getTransaction().commit();
 		session.close();
 
-		return existingItems;
+		return existingProducts;
 	}
 
 	
-	public void addProduct(Item item, Integer amount) {
+	public void addProduct(Product product, Integer amount) {
 		// TODO Auto-generated method stub
 		
 	}

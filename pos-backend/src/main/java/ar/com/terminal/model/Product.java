@@ -2,14 +2,14 @@ package ar.com.terminal.model;
 
 import java.security.InvalidParameterException;
 
-public class Item {
+public class Product {
 	
 	private String id;
 	private Float price;
 	private Integer stock;
 	private String description;
 	
-	public Item(String id, Float price, String description){
+	public Product(String id, Float price, String description){
 
         this.id = id;
 		this.price = price;
@@ -69,7 +69,7 @@ public class Item {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Item other = (Item) obj;
+		Product other = (Product) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;

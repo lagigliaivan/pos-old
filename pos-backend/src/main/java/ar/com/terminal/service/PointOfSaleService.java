@@ -1,7 +1,7 @@
 package ar.com.terminal.service;
 
 import ar.com.terminal.Controller;
-import ar.com.terminal.dto.Item;
+import ar.com.terminal.dto.Product;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,10 +14,10 @@ public class PointOfSaleService {
     @GET
     @Path("/item/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Item getItem(@PathParam("id") String id){
+    public Product getItem(@PathParam("id") String id){
 
-        Item item = controller.getItem(id);
+        Product product = controller.getProduct(id);
 
-        return item;
+        return product;
     }
 }

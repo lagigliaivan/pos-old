@@ -3,11 +3,11 @@ package ar.com.terminal.dto;
 /**
  * Created by ivan on 05/09/15.
  */
-public class Item {
+public class Product {
 
     private String id;
     private String description;
-    private String price;
+    private Float price;
 
     public String getId() {
         return id;
@@ -25,15 +25,15 @@ public class Item {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public Item(){
+    public Product(){
 
     }
 }

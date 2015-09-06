@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import ar.com.terminal.db.Database;
-import ar.com.terminal.model.Item;
+import ar.com.terminal.model.Product;
 import ar.com.terminal.model.Sale;
 
 public class Catalog {
@@ -15,36 +15,36 @@ public class Catalog {
 		this.database = database;
 	}
 
-	public Item getItem(String id){
-		Item item = database.getProductById(id);
-        if(item == null){
-            item = new NullItem();
+	public Product getProduct(String id){
+		Product product = database.getProductById(id);
+        if(product == null){
+            product = new NullProduct();
         }
-		return item;
+		return product;
 	}
 
-	public void addItem(Item item){
-		addItem(item, 1);
+	public void addItem(Product product){
+		addCatalog(product, 1);
 	}
 	
-	public void addItem(Item item, Integer amount){
-		database.addProduct(item, amount);
+	public void addCatalog(Product product, Integer amount){
+		database.addProduct(product, amount);
 	}
 
 	public Integer getStock(String id){
 		return database.getStock(id);
 	}
-	public void sell(Date date, Map<Item, Integer> products, Float totalPrice){
+	public void sell(Date date, Map<Product, Integer> products, Float totalPrice){
 		database.save(new Sale(date, products, totalPrice));
 	}
 
-	public void save(Item item) {
+	public void save(Product product) {
 		// TODO Auto-generated method stub
 		
 	}
 
-    public void remove(Item item) {
-        database.remove(item);
+    public void remove(Product product) {
+        database.remove(product);
         return;
     }
 }
