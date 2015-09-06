@@ -2,8 +2,8 @@ package ar.com.terminal;
 
 
 import ar.com.terminal.db.Database;
-import ar.com.terminal.db.dto.Item;
-import ar.com.terminal.db.dto.Sale;
+import ar.com.terminal.model.Item;
+import ar.com.terminal.model.Sale;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,6 +67,7 @@ public class CatalogTest {
 
     @Test
     public void add_an_item_to_the_catalog(){
+
         Item item = new Item("id",0F,"item for testing");
         catalog.addItem(item);
 
@@ -78,6 +79,7 @@ public class CatalogTest {
 
     @Test
     public void remove_an_item_from_the_catalog(){
+
         Item item = new Item("id",0F,"item for testing");
         catalog.addItem(item);
 

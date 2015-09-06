@@ -2,6 +2,7 @@ package ar.com.terminal.db.dto;
 
 import ar.com.terminal.Catalog;
 import ar.com.terminal.db.Database;
+import ar.com.terminal.model.Item;
 import org.junit.Assert;
 import org.junit.Ignore;
 
@@ -44,7 +45,7 @@ public class StockTest {
 		
 		Database database = mock(Database.class);
 		ar.com.terminal.Catalog catalog = new ar.com.terminal.Catalog(database);
-		ar.com.terminal.db.dto.Item product = new ar.com.terminal.db.dto.Item("1",0.0F, "product1");
+		Item product = new Item("1",0.0F, "product1");
 		catalog.addItem(product, 3);
 		
 		catalog.addItem(product);

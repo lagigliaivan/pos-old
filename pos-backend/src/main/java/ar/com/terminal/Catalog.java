@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Map;
 
 import ar.com.terminal.db.Database;
-import ar.com.terminal.db.dto.Item;
-import ar.com.terminal.db.dto.Sale;
+import ar.com.terminal.model.Item;
+import ar.com.terminal.model.Sale;
 
 public class Catalog {
 	

@@ -1,4 +1,4 @@
-package ar.com.terminal.db.dto;
+package ar.com.terminal.model;
 
 import java.security.InvalidParameterException;
 
@@ -10,19 +10,18 @@ public class Item {
 	private String description;
 	
 	public Item(String id, Float price, String description){
-		
-		this.id = id;
+
+        this.id = id;
 		this.price = price;
 		this.description = description;
 		
 		if( id == null || id.isEmpty()){
 			throw new InvalidParameterException("Product ID cannot be null or empty");
 		}
-		
 		if( price == null || price < 0 ){
 			throw new InvalidParameterException("Product price cannot be null or negative");
 		}
-		
+
 		if( description == null || description.isEmpty() ){
 			throw new InvalidParameterException("Product description cannot be null or empty"); 
 		}

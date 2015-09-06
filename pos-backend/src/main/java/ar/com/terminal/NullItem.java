@@ -1,6 +1,6 @@
 package ar.com.terminal;
 
-import ar.com.terminal.db.dto.Item;
+import ar.com.terminal.model.Item;
 
 /**
  * Created by ivan on 30/08/15.

@@ -1,4 +1,4 @@
-package ar.com.terminal;
+package ar.com.terminal.db;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.persistence.NoResultException;
 
-import ar.com.terminal.db.dto.Item;
+import ar.com.terminal.model.Item;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,11 +17,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ar.com.terminal.db.Database;
-import ar.com.terminal.db.ProductHbm;
-import ar.com.terminal.db.SaleHbm;
-import ar.com.terminal.db.SessionFactoryUtil;
-import ar.com.terminal.db.dto.Sale;
+import ar.com.terminal.model.Sale;
 import ar.com.terminal.exception.TerminalException;
 
 

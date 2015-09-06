@@ -1,5 +1,6 @@
 package ar.com.terminal.db.dto;
 
+import ar.com.terminal.model.Item;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -13,7 +14,8 @@ public class ItemTest {
 	
 	@Test
 	public void product_can_be_created_when_parameters_are_ok(){
-		String id = "1";
+
+        String id = "1";
 		Float price = 0.0F;
 		String desc = "producto1";
 		
@@ -28,8 +30,9 @@ public class ItemTest {
 	}
 	
 	@Test
-	public void productCanNotBeCreatedWithNegativeOrNullPrice(){
-		String id = "1";
+	public void product_cannot_be_created_with_negative_or_null_price(){
+
+        String id = "1";
 		String desc = "producto1";
 			
 		try{
@@ -45,7 +48,7 @@ public class ItemTest {
 	}
 	
 	@Test
-	public void productCanNotBeCreatedWithEmptyOrNullName(){
+	public void product_cannot_be_created_with_empty_or_null_name(){
 		String id = "1";
 		Float price = 1F;
 		
@@ -59,11 +62,12 @@ public class ItemTest {
 		
 		Assert.fail();
 	}
-	
-	public void productCanNotBeCreatedWithEmptyOrNullId(){
+
+    @Test
+	public void product_cannot_be_created_with_empty_or_null_id(){
 
 		Float price = 1.0F;
-		String desc = "producto1";
+		String desc = "product_1";
 		
 		try{
 			Item item = new Item(null, price, desc);
@@ -76,5 +80,4 @@ public class ItemTest {
 		Assert.fail();
 		
 	}
-	
 }
