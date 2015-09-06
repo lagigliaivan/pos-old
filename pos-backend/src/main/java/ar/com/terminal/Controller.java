@@ -4,6 +4,9 @@ import ar.com.terminal.db.DBConnection;
 import ar.com.terminal.db.Database;
 import ar.com.terminal.dto.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ivan on 05/09/15.
  */
@@ -37,5 +40,9 @@ public class Controller {
         ar.com.terminal.model.Product newProduct = new ar.com.terminal.model.Product(product.getId(), product.getPrice(), product.getDescription());
 
         catalog.addCatalog(newProduct, 1);
+    }
+
+    public List<Product> getAll(Integer page) {
+        return new ArrayList<>();
     }
 }

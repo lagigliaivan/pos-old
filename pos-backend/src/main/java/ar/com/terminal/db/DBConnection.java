@@ -107,7 +107,9 @@ public class DBConnection implements Database {
 			e.printStackTrace();
 		}
 		if (products.isEmpty()){
-			throw new NoResultException("Product " + id + " was not found.");
+			//throw new NoResultException("Product " + id + " was not found.");
+            System.err.println("Product " + id + " was not found.");
+            return null;
 		}
 		
 		return products.get(0);

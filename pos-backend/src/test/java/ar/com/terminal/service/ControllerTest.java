@@ -9,6 +9,8 @@ import ar.com.terminal.dto.Product;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.core.Is.is;
@@ -55,7 +57,13 @@ public class ControllerTest {
         assertThat(product.getId(), is(NullProduct.name));
         assertThat(product.getPrice(), is(NullProduct.price));
         assertThat(product.getDescription(), is(NullProduct.desc));
+    }
 
+    @Test
+    public void return_a_product_page_of_size_n_when_id_is_not_passed(){
 
+        Integer page = 1;
+        List<Product> products = controller.getAll(page);
+        assertThat(products, is(notNullValue()));
     }
 }
