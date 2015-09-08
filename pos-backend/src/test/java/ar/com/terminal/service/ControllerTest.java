@@ -1,9 +1,9 @@
 package ar.com.terminal.service;
 
-import ar.com.terminal.Catalog;
+import ar.com.terminal.model.Catalog;
 import ar.com.terminal.Controller;
 import ar.com.terminal.DBMock;
-import ar.com.terminal.NullProduct;
+import ar.com.terminal.model.NullProduct;
 import ar.com.terminal.db.Database;
 import ar.com.terminal.dto.Product;
 import org.junit.Before;
@@ -30,7 +30,7 @@ public class ControllerTest {
 
 
     @Test
-    public void return_an_item_if_it_exits(){
+    public void return_a_product_if_it_exits(){
 
         String id = "7798133540489";
         Product product = new Product();
@@ -49,7 +49,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void return_an_empty_item_if_it_does_not_exits(){
+    public void return_an_empty_product_if_it_does_not_exits(){
 
         String id = "7798133540481";
         Product product = controller.getProduct(id);
@@ -60,7 +60,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void return_a_product_page_of_size_n_when_id_is_not_passed(){
+    public void return_a_list_of_products_when_id_is_not_passed(){
 
         Integer page = 1;
         List<Product> products = controller.getAll(page);

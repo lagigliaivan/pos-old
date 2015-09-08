@@ -2,6 +2,8 @@ package ar.com.terminal;
 
 
 import ar.com.terminal.db.Database;
+import ar.com.terminal.model.Catalog;
+import ar.com.terminal.model.NullProduct;
 import ar.com.terminal.model.Product;
 import org.junit.Before;
 import org.junit.Test;

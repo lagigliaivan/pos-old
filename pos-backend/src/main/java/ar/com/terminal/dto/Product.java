@@ -9,6 +9,10 @@ public class Product {
     private String description;
     private Float price;
 
+    public Product(){
+
+    }
+
     public String getId() {
         return id;
     }
@@ -33,7 +37,13 @@ public class Product {
         this.price = price;
     }
 
-    public Product(){
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 }

@@ -1,6 +1,4 @@
-package ar.com.terminal;
-
-import ar.com.terminal.model.Product;
+package ar.com.terminal.model;
 
 /**
  * Created by ivan on 30/08/15.

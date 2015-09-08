@@ -36,10 +36,10 @@ public class PointOfSaleService {
     }
 
     @PUT
-    @Path("/product/{id}")
+    @Path("/product")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Product addProduct(@PathParam("id") String id, Product product){
+    public Product addProduct(Product product){
 
         //Product product = controller.addProduct(id);
 

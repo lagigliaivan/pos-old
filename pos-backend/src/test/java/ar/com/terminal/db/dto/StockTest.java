@@ -1,6 +1,6 @@
 package ar.com.terminal.db.dto;
 
-import ar.com.terminal.Catalog;
+import ar.com.terminal.model.Catalog;
 import ar.com.terminal.db.Database;
 import ar.com.terminal.model.Product;
 import org.junit.Assert;
@@ -32,7 +32,7 @@ public class StockTest {
 	public void returnAmountOfProductCorrectlyWhenAddingAll(){
 		
 		Database database = mock(Database.class);
-		ar.com.terminal.Catalog catalog = new ar.com.terminal.Catalog(database);
+		Catalog catalog = new Catalog(database);
         Product product = new Product("1",0.0F, "product1");
 		catalog.addCatalog(product, 3);
 		Integer amount = catalog.getStock(product.getId());
@@ -44,7 +44,7 @@ public class StockTest {
 	public void returnAmountOfProductCorrectlyWhenAddingThemMultipleTimes(){
 		
 		Database database = mock(Database.class);
-		ar.com.terminal.Catalog catalog = new ar.com.terminal.Catalog(database);
+		Catalog catalog = new Catalog(database);
 		Product product = new Product("1",0.0F, "product1");
 		catalog.addCatalog(product, 3);
 		

@@ -3,6 +3,7 @@ package ar.com.terminal;
 import ar.com.terminal.db.DBConnection;
 import ar.com.terminal.db.Database;
 import ar.com.terminal.dto.Product;
+import ar.com.terminal.model.Catalog;
 
 import java.util.ArrayList;
 import java.util.List;
