@@ -5,8 +5,8 @@ import java.security.InvalidParameterException;
 public class Product {
 	
 	private String id;
-	private Float price;
-	private Integer stock;
+	private Float price = 0.0F;
+	private Integer stock = 0;
 	private String description;
 	
 	public Product(String id, Float price, String description){
@@ -47,8 +47,11 @@ public class Product {
 		return this.stock;
 	}
 	
-	public void setStock(Integer stock) {
-		this.stock = stock;
+	public void setStock(int stock) {
+        if(stock < 0){
+            throw new IllegalArgumentException("Stock cannot be negative.");
+        }
+        this.stock = stock;
 	}
 
 	@Override

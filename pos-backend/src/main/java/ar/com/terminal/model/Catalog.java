@@ -21,29 +21,37 @@ public class Catalog {
 		return product;
 	}
 
-	public void addItem(Product product){
-		addCatalog(product, 1);
-	}
+	public void addProduct(Product product){
+        database.save(product);
+    }
 	
-	public void addCatalog(Product product, Integer amount){
-		database.addProduct(product, amount);
+	public void incrementStock(String productId, Integer amount){
+
+        Product product = database.getProductById(productId);
+
+        if(product != null){
+            Integer stock = product.getStock();
+            stock = stock + amount;
+            product.setStock(stock);
+        }
+
+        database.save(product);
+
 	}
 
-	public Integer getStock(String id){
-		return database.getStock(id);
-	}
-	public void sell(Date date, Map<Product, Integer> products, Float totalPrice){
-		database.save(new Sale(date, products, totalPrice));
+	public Integer getStock(String productId){
+        Product product = database.getProductById(productId);
+		return product.getStock();
 	}
 
-	public void save(Product product) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void remove(String productId) {
 
-    public void remove(Product product) {
-        database.remove(product);
+        database.remove(productId);
         return;
+    }
+
+    public FullProductDescription getFullDescription(String productId) {
+        return database.getFullDescription(productId);
     }
 }
 

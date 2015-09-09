@@ -4,6 +4,7 @@ import ar.com.terminal.db.DBConnection;
 import ar.com.terminal.db.Database;
 import ar.com.terminal.dto.Product;
 import ar.com.terminal.model.Catalog;
+import ar.com.terminal.model.FullProductDescription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,13 @@ public class Controller {
 
         ar.com.terminal.model.Product newProduct = new ar.com.terminal.model.Product(product.getId(), product.getPrice(), product.getDescription());
 
-        catalog.addCatalog(newProduct, 1);
+        catalog.addProduct(newProduct);
+    }
+
+    public FullProductDescription getFullProductInformation(String productId){
+
+        catalog.getFullDescription(productId);
+        return new FullProductDescription();
     }
 
     public List<Product> getAll(Integer page) {

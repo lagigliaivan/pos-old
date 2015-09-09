@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.persistence.NoResultException;
 
+import ar.com.terminal.model.FullProductDescription;
 import ar.com.terminal.model.Product;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -50,7 +51,7 @@ public class DBConnection implements Database {
 	}
 
 	
-	public List<Product> getProductsbyId(String id) {
+	public List<Product> getProductsById(String id) {
 		
 		if ( (id == null) || (id.isEmpty())){
 			throw new InvalidParameterException("Product ID cannot be null or empty");
@@ -70,7 +71,7 @@ public class DBConnection implements Database {
 		
 	}
 
-	public List <Product> getProductsbyDescription(String productDesc) {
+	public List <Product> getProductsByDescription(String productDesc) {
 		
 		if ( (productDesc == null) || (productDesc.isEmpty())){
 			throw new InvalidParameterException("Product description cannot be null or empty");
@@ -114,8 +115,8 @@ public class DBConnection implements Database {
 		
 		return products.get(0);
 	}
-	
-	public void save(Sale sale){
+
+    public void save(Sale sale){
 		Session session = null;
 		
 		try {
@@ -168,8 +169,9 @@ public class DBConnection implements Database {
 		try {
 			session = SessionFactoryUtil.getSessionFactory().openSession();
 			Transaction transaction = session.beginTransaction();
-			
-			session.save(product);
+
+            ProductHbm productHbm = getProductHbm(product);
+			session.save(productHbm);
 			session.flush();
 			transaction.commit();
 			session.close();
@@ -183,8 +185,13 @@ public class DBConnection implements Database {
 	}
 
     @Override
-    public void remove(Product product) {
+    public void remove(String productId) {
 
+    }
+
+    @Override
+    public FullProductDescription getFullDescription(String productId) {
+        return null;
     }
 
     protected List <Product> getItemsUsingTheFollowingQuery(String query) throws HibernateException, Exception{
@@ -209,15 +216,4 @@ public class DBConnection implements Database {
 		return existingProducts;
 	}
 
-	
-	public void addProduct(Product product, Integer amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	public Integer getStock(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

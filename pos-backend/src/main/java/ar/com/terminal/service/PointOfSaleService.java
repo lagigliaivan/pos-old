@@ -2,9 +2,13 @@ package ar.com.terminal.service;
 
 import ar.com.terminal.Controller;
 import ar.com.terminal.dto.Product;
+import ar.com.terminal.model.FullProductDescription;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +16,14 @@ import java.util.List;
 public class PointOfSaleService {
 
     private Controller controller = new Controller();
+
+    public PointOfSaleService(Controller controller){
+        this.controller = controller;
+    }
+
+    public PointOfSaleService(){
+        this.controller = new Controller();
+    }
 
     @GET
     @Path("/product")
@@ -39,11 +51,25 @@ public class PointOfSaleService {
     @Path("/product")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Product addProduct(Product product){
+    public Response.ResponseBuilder addProduct(Product product){
 
-        //Product product = controller.addProduct(id);
+        controller.addProduct(product);
+        URI uri = null;
 
-        System.out.println(product);
-        return product;
+        try {
+            uri = new URI("http://localhost/pos/product/" + product.getId());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return Response.created(uri);
+    }
+
+    @GET
+    @Path("/product/{id}/info")
+    @Produces(MediaType.APPLICATION_JSON)
+    public FullProductDescription getFullProductInformation(@PathParam("id") String id) {
+
+        return controller.getFullProductInformation(id);
     }
 }
