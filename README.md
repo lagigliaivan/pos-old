@@ -6,7 +6,9 @@ This software intends to be useful for those people who are interested in managi
 
 Architecture.
 
-The application is developed in Java. By connecting a bar-code reader, it is possible to see the price of a product previously loaded in a DB.
+The application is developed in Java. By connecting a bar-code reader or reading the bar-code through a cell phone, it is possible to see the price of a product previously loaded in a DB.
+
+The idea is to have this application deployed in a docker image, then uploaded in AWS.
 
 Version.
 
