@@ -6,7 +6,7 @@ This software intends to be useful for those people who are interested in managi
 
 Architecture.
 
-The application is developed in Java and Scala. By connecting a bar-code reader, it is possible to see the price of a product previously loaded in a DB.
+The application is developed in Java. By connecting a bar-code reader, it is possible to see the price of a product previously loaded in a DB.
 
 Version.
 
@@ -14,7 +14,7 @@ Currently the application is in development process, it means, not ready to be u
 
 Compilation process.
 
-It can be used maven 3.0.5 as well as scala ide to compile the project.
+Maven 3.3.3 or higher can be used to compile the project.
 
 DB access.
 
