@@ -1,8 +1,5 @@
 package ar.com.terminal.model;
 
-import java.util.Date;
-import java.util.Map;
-
 import ar.com.terminal.db.Database;
 
 public class Catalog {

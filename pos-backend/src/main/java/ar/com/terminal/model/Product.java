@@ -8,8 +8,13 @@ public class Product {
 	private Float price = 0.0F;
 	private Integer stock = 0;
 	private String description;
-	
-	public Product(String id, Float price, String description){
+    private FullProductDescription fullDescription;
+
+    public FullProductDescription getFullDescription() {
+        return fullDescription;
+    }
+
+    public Product(String id, Float price, String description){
 
         this.id = id;
 		this.price = price;
@@ -85,4 +90,8 @@ public class Product {
 			return false;
 		return true;
 	}
+
+    public void setFullDescription(FullProductDescription fullDescription) {
+        this.fullDescription = fullDescription;
+    }
 }

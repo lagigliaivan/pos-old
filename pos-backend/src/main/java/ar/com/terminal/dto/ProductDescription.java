@@ -1,11 +1,12 @@
-package ar.com.terminal.model;
+package ar.com.terminal.dto;
 
 import java.net.URL;
 
 /**
- * Created by ivan on 08/09/15.
+ * Created by ivan on 10/09/15.
  */
-public class FullProductDescription {
+public class ProductDescription {
+
     private String fullDescription;
     private URL pictureURL;
 

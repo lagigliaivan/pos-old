@@ -1,5 +1,7 @@
 package ar.com.terminal.dto;
 
+import ar.com.terminal.model.FullProductDescription;
+
 /**
  * Created by ivan on 05/09/15.
  */
@@ -8,6 +10,12 @@ public class Product {
     private String id;
     private String description;
     private Float price;
+
+    public ProductDescription getFullDescription() {
+        return productDescription;
+    }
+
+    private ProductDescription productDescription;
 
     public Product(){
 
@@ -57,5 +65,9 @@ public class Product {
         result = 31 * result + description.hashCode();
         result = 31 * result + price.hashCode();
         return result;
+    }
+
+    public void setFullDescription(ProductDescription fullProductDescription) {
+        productDescription = fullProductDescription;
     }
 }

@@ -45,6 +45,7 @@ public class DBMock implements Database {
 
     @Override
     public FullProductDescription getFullDescription(String productId) {
-        return null;
+
+        return getProductById(productId).getFullDescription();
     }
 }
