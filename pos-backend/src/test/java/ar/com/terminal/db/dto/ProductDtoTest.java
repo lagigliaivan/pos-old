@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import java.security.InvalidParameterException;
 
-public class ProductTest {
+public class ProductDtoTest {
 
-	Logger logger = LoggerFactory.getLogger(ProductTest.class);
+	Logger logger = LoggerFactory.getLogger(ProductDtoTest.class);
 	
 	@Test
 	public void product_can_be_created_when_parameters_are_ok(){

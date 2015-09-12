@@ -1,12 +1,16 @@
 package ar.com.terminal.model;
 
 import ar.com.terminal.db.Database;
+import ar.com.terminal.dto.ProfitPolicyDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Catalog {
 	
 	private Database database;
-	
-	public Catalog(Database database){
+
+    public Catalog(Database database){
 		this.database = database;
 	}
 
@@ -49,6 +53,24 @@ public class Catalog {
 
     public FullProductDescription getFullDescription(String productId) {
         return database.getFullDescription(productId);
+    }
+
+    public Float getSuggestedPrice(String id) {
+        return null;
+    }
+
+    public void addProfitPolicy(ProfitPolicy profitPolicy) {
+        database.save(profitPolicy);
+    }
+
+    public List<ProfitPolicy> getProfitPolicies() {
+         List<ProfitPolicy> profitPolicies = database.getProfitPolicies();
+
+        return profitPolicies;
+    }
+
+    public List<Product> getProducts() {
+        return database.getProducts();
     }
 }
 

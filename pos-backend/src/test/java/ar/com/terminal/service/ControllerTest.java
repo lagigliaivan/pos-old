@@ -1,11 +1,11 @@
 package ar.com.terminal.service;
 
+import ar.com.terminal.dto.ProductDto;
 import ar.com.terminal.model.Catalog;
 import ar.com.terminal.Controller;
-import ar.com.terminal.DBMock;
+import ar.com.terminal.db.DBMemory;
 import ar.com.terminal.model.NullProduct;
 import ar.com.terminal.db.Database;
-import ar.com.terminal.dto.Product;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class ControllerTest {
 
     @Before
     public void setup(){
-        database = new DBMock();
+        database = new DBMemory();
         controller = new Controller(new Catalog(database));
     }
 
@@ -33,18 +33,18 @@ public class ControllerTest {
     public void return_a_product_if_it_exits(){
 
         String id = "7798133540489";
-        Product product = new Product();
-        product.setId(id);
-        product.setPrice(10F);
-        product.setDescription("AVE Malbec 750M ml");
+        ProductDto productDto = new ProductDto();
+        productDto.setId(id);
+        productDto.setPrice(10F);
+        productDto.setDescription("AVE Malbec 750M ml");
 
 
-        controller.addProduct(product);
+        controller.addProduct(productDto);
 
-        product = controller.getProduct(id);
+        productDto = controller.getProduct(id);
 
-        assertThat(product, is(notNullValue()));
-        assertThat(product.getId(), is(id));
+        assertThat(productDto, is(notNullValue()));
+        assertThat(productDto.getId(), is(id));
 
     }
 
@@ -52,18 +52,18 @@ public class ControllerTest {
     public void return_an_empty_product_if_it_does_not_exits(){
 
         String id = "7798133540481";
-        Product product = controller.getProduct(id);
+        ProductDto productDto = controller.getProduct(id);
 
-        assertThat(product.getId(), is(NullProduct.name));
-        assertThat(product.getPrice(), is(NullProduct.price));
-        assertThat(product.getDescription(), is(NullProduct.desc));
+        assertThat(productDto.getId(), is(NullProduct.name));
+        assertThat(productDto.getPrice(), is(NullProduct.price));
+        assertThat(productDto.getDescription(), is(NullProduct.desc));
     }
 
     @Test
     public void return_a_list_of_products_when_id_is_not_passed(){
 
         Integer page = 1;
-        List<Product> products = controller.getAll(page);
-        assertThat(products, is(notNullValue()));
+        List<ProductDto> productsDto = controller.getAll(page);
+        assertThat(productsDto, is(notNullValue()));
     }
 }

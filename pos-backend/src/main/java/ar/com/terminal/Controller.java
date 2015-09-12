@@ -2,13 +2,17 @@ package ar.com.terminal;
 
 import ar.com.terminal.db.DBConnection;
 import ar.com.terminal.db.Database;
-import ar.com.terminal.dto.Product;
-import ar.com.terminal.dto.ProductDescription;
+import ar.com.terminal.dto.ProductDescriptionDto;
+import ar.com.terminal.dto.ProductDto;
+import ar.com.terminal.dto.ProfitPolicyDto;
 import ar.com.terminal.model.Catalog;
 import ar.com.terminal.model.FullProductDescription;
+import ar.com.terminal.model.Product;
+import ar.com.terminal.model.ProfitPolicy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ivan on 05/09/15.
@@ -26,56 +30,100 @@ public class Controller {
         this.catalog = catalog;
     }
 
-    public Product getProduct(String id) {
+    public ProductDto getProduct(String id) {
 
-        ar.com.terminal.model.Product product = catalog.getProduct(id);
+        Product product = catalog.getProduct(id);
 
-        Product productDto = new Product();
-        productDto.setId(product.getId());
-        productDto.setPrice(product.getPrice());
-        productDto.setDescription(product.getDescription());
+        ProductDto productDtoDto = getProductDto(product);
 
-        return productDto;
+        return productDtoDto;
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(ProductDto productDto) {
 
-        ar.com.terminal.model.Product newProduct = new ar.com.terminal.model.Product(product.getId(), product.getPrice(), product.getDescription());
-        ProductDescription productDescription = product.getFullDescription();
+        Product newProduct = new Product(productDto.getId(), productDto.getPrice(), productDto.getDescription());
+        ProductDescriptionDto productDescriptionDto = productDto.getFullDescription();
 
-        if(productDescription != null){
+        if(productDescriptionDto != null){
             FullProductDescription fullProductDescription = new FullProductDescription();
-            fullProductDescription.setFullDescription(productDescription.getFullDescription());
-            fullProductDescription.setPictureURL(productDescription.getPictureURL());
+            fullProductDescription.setFullDescription(productDescriptionDto.getFullDescription());
+            fullProductDescription.setPictureURL(productDescriptionDto.getPictureURL());
 
             newProduct.setFullDescription(fullProductDescription);
         }
 
-
         catalog.addProduct(newProduct);
     }
 
-    public Product getProductWithFullInformation(String productId){
+    public ProductDto getProductWithFullInformation(String productId){
 
-        Product product = getProduct(productId);
-        ProductDescription fullProductDescription = getFullProductDescription(productId);
-        product.setFullDescription(fullProductDescription);
+        ProductDto productDto = getProduct(productId);
+        ProductDescriptionDto fullProductDescriptionDto = getFullProductDescription(productId);
+        productDto.setFullDescription(fullProductDescriptionDto);
 
-        return product;
+        return productDto;
     }
 
-    private ProductDescription getFullProductDescription(String productId) {
+    public List<ProductDto> getAll(Integer page) {
+        List<Product> products = catalog.getProducts();
+
+        List<ProductDto> productsDto = products.stream().map(this::getProductDto).collect(Collectors.toList());
+
+        return productsDto;
+    }
+
+    public void addProfitPolicy(ProfitPolicyDto profitPolicyDto) {
+        ProfitPolicy policy = getProfitPolicy(profitPolicyDto);
+        catalog.addProfitPolicy(policy);
+    }
+
+    public List<ProfitPolicyDto> getProfitPolicies() {
+
+        List<ProfitPolicyDto> profitPolicyDtos = new ArrayList<>();
+        List<ProfitPolicy> policies = catalog.getProfitPolicies();
+
+
+        for(ProfitPolicy policy : policies){
+            profitPolicyDtos.add(getProfitPolicyDto(policy));
+
+        }
+
+        return profitPolicyDtos;
+    }
+
+    private ProfitPolicyDto getProfitPolicyDto(ProfitPolicy policy) {
+
+        ProfitPolicyDto policyDto = new ProfitPolicyDto();
+
+        policyDto.setPercentage(policy.getPercentage());
+
+        return policyDto;
+
+    }
+
+    private ProductDto getProductDto(Product product) {
+        ProductDto productDtoDto = new ProductDto();
+        productDtoDto.setId(product.getId());
+        productDtoDto.setPrice(product.getPrice());
+        productDtoDto.setDescription(product.getDescription());
+        return productDtoDto;
+    }
+
+    private ProfitPolicy getProfitPolicy(ProfitPolicyDto profitPolicyDto) {
+        ProfitPolicy policy = new ProfitPolicy();
+        policy.setPercentage(profitPolicyDto.getPercentage());
+
+        return policy;
+    }
+
+    private ProductDescriptionDto getFullProductDescription(String productId) {
 
         FullProductDescription fullProductDescription = catalog.getFullDescription(productId);
-        ProductDescription productDescriptionDto = new ProductDescription();
+        ProductDescriptionDto productDescriptionDtoDto = new ProductDescriptionDto();
 
-        productDescriptionDto.setFullDescription(fullProductDescription.getFullDescription());
-        productDescriptionDto.setPictureURL(fullProductDescription.getPictureURL());
+        productDescriptionDtoDto.setFullDescription(fullProductDescription.getFullDescription());
+        productDescriptionDtoDto.setPictureURL(fullProductDescription.getPictureURL());
 
-        return productDescriptionDto;
-    }
-
-    public List<Product> getAll(Integer page) {
-        return new ArrayList<Product>();
+        return productDescriptionDtoDto;
     }
 }

@@ -11,6 +11,7 @@ import javax.persistence.NoResultException;
 
 import ar.com.terminal.model.FullProductDescription;
 import ar.com.terminal.model.Product;
+import ar.com.terminal.model.ProfitPolicy;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -191,6 +192,21 @@ public class DBConnection implements Database {
 
     @Override
     public FullProductDescription getFullDescription(String productId) {
+        return null;
+    }
+
+    @Override
+    public void save(ProfitPolicy profitPolicy) {
+
+    }
+
+    @Override
+    public List<ProfitPolicy> getProfitPolicies() {
+        return null;
+    }
+
+    @Override
+    public List<Product> getProducts() {
         return null;
     }
 

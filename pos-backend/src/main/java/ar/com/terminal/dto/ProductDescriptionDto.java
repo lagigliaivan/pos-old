@@ -5,11 +5,12 @@ import java.net.URL;
 /**
  * Created by ivan on 10/09/15.
  */
-public class ProductDescription {
+public class ProductDescriptionDto {
 
     private String fullDescription;
     private URL pictureURL;
 
+    public ProductDescriptionDto(){}
     public void setFullDescription(String fullDescription) {
         this.fullDescription = fullDescription;
     }

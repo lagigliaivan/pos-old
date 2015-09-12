@@ -1,23 +1,16 @@
 package ar.com.terminal.dto;
 
-import ar.com.terminal.model.FullProductDescription;
-
 /**
  * Created by ivan on 05/09/15.
  */
-public class Product {
+public class ProductDto {
 
     private String id;
     private String description;
     private Float price;
+    private ProductDescriptionDto productDescriptionDto;
 
-    public ProductDescription getFullDescription() {
-        return productDescription;
-    }
-
-    private ProductDescription productDescription;
-
-    public Product(){
+    public ProductDto(){
 
     }
 
@@ -45,16 +38,20 @@ public class Product {
         this.price = price;
     }
 
+    public ProductDescriptionDto getFullDescription() {
+        return productDescriptionDto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Product product = (Product) o;
+        ProductDto productDto = (ProductDto) o;
 
-        if (!description.equals(product.description)) return false;
-        if (!id.equals(product.id)) return false;
-        if (!price.equals(product.price)) return false;
+        if (!description.equals(productDto.description)) return false;
+        if (!id.equals(productDto.id)) return false;
+        if (!price.equals(productDto.price)) return false;
 
         return true;
     }
@@ -67,7 +64,7 @@ public class Product {
         return result;
     }
 
-    public void setFullDescription(ProductDescription fullProductDescription) {
-        productDescription = fullProductDescription;
+    public void setFullDescription(ProductDescriptionDto fullProductDescriptionDto) {
+        productDescriptionDto = fullProductDescriptionDto;
     }
 }
