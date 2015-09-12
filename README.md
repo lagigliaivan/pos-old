@@ -1,4 +1,4 @@
-POS - Point Of Sell
+POS - Point Of Sale
 
 Goal.
 
