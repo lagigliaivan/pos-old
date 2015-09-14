@@ -3,6 +3,7 @@ package ar.com.terminal.service;
 import ar.com.terminal.Controller;
 import ar.com.terminal.db.DBMemory;
 import ar.com.terminal.db.Database;
+import ar.com.terminal.dto.ListHolder;
 import ar.com.terminal.dto.ProductDto;
 import ar.com.terminal.dto.ProductDescriptionDto;
 import ar.com.terminal.dto.ProfitPolicyDto;
@@ -131,7 +132,10 @@ public class ProductServiceTest {
         List<String> products = new ArrayList<>();
         products.add(product.getId());
 
-        Response response = service.addProductToPolicy(policyDto.getId(), products);
+        ListHolder listHolder = new ListHolder();
+        listHolder.setList(products);
+
+        Response response = service.addProductToPolicy(policyDto.getId(),listHolder);
         assertThat(response.getStatus(), is(201));
 
         List<ProfitPolicyDto> policies = productService.getPoliciesByProduct(product.getId());

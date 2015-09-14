@@ -72,7 +72,7 @@ public class ProductService {
 
     @PUT
     @Path("/")
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Add a product to the catalog.", notes = "Add a product to the catalog.", response = javax.ws.rs.core.Response.class)
     @ApiResponses(value = {@ApiResponse(code = HttpStatus.CREATED_201, message = MSG_OK_201),
