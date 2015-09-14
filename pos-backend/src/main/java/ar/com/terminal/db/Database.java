@@ -23,4 +23,8 @@ public interface Database {
     List<ProfitPolicy> getProfitPolicies();
 
     List<Product> getProducts();
+
+    void save(String policyId, String productId);
+
+    ProfitPolicy getProfitPolicyByProduct(String productId);
 }

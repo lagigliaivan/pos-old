@@ -2,6 +2,7 @@ package ar.com.terminal.service;
 
 import ar.com.terminal.Controller;
 import ar.com.terminal.db.DBMemory;
+import ar.com.terminal.db.Database;
 import ar.com.terminal.dto.ProductDto;
 import ar.com.terminal.dto.ProductDescriptionDto;
 import ar.com.terminal.dto.ProfitPolicyDto;
@@ -10,20 +11,21 @@ import ar.com.terminal.model.NullProduct;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
+import javax.ws.rs.core.Response;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
 
 /**
  * Created by ivan on 06/09/15.
  */
-public class PointOfSaleServiceTest {
+public class ProductServiceTest {
 
     private String id;
 
@@ -34,7 +36,7 @@ public class PointOfSaleServiceTest {
         ProductDto product2 = getProduct("7798130234018", 95.44F, "AVE Malbec 2011");
         ProductDto product3 = getProduct("3123130152018", 135F, "Blend");
 
-        PointOfSaleService service = getPointOfSaleService();
+        ProductService service = getProductService(new DBMemory());
         service.addProduct(product1);
         service.addProduct(product2);
         service.addProduct(product3);
@@ -60,10 +62,10 @@ public class PointOfSaleServiceTest {
 
         ProductDto productDto = getProduct(id, 70F, "AVE Malbec 750Ml");
 
-        PointOfSaleService service = getPointOfSaleService();
+        ProductService service = getProductService(new DBMemory());
         service.addProduct(productDto);
 
-        ProductDto existingProductDto = service.getProduct(id);
+        ProductDto existingProductDto = service.getProduct(id, false);
 
         assertThat(existingProductDto, is(notNullValue()));
         assertThat(existingProductDto, is(productDto));
@@ -73,9 +75,9 @@ public class PointOfSaleServiceTest {
     public void return_an_empty_product_when_id_is_passed_and_product_does_not_exist(){
         id = "78798133540489";
 
-        PointOfSaleService service = getPointOfSaleService();
+        ProductService service = getProductService(new DBMemory());
 
-        ProductDto existingProductDto = service.getProduct(id);
+        ProductDto existingProductDto = service.getProduct(id, false);
 
         assertThat(existingProductDto, is(notNullValue()));
         assertThat(existingProductDto.getId(), is(NullProduct.name));
@@ -100,10 +102,10 @@ public class PointOfSaleServiceTest {
         ProductDto productDto = getProduct(id, 70F, "AVE Malbec 750Ml");
         productDto.setFullDescription(description);
 
-        PointOfSaleService service = getPointOfSaleService();
+        ProductService service = getProductService(new DBMemory());
         service.addProduct(productDto);
 
-        ProductDto fullProductDto = service.getFullProductInformation(id);
+        ProductDto fullProductDto = service.getProduct(id, true);
 
         assertThat(fullProductDto, is(notNullValue()));
 
@@ -113,44 +115,37 @@ public class PointOfSaleServiceTest {
         assertThat(productDescriptionDto.getFullDescription(), is(fullDescription));
         assertThat(productDescriptionDto.getPictureURL(), is(pictureURL));
     }
-
     @Test
-    public void return_an_empty_list_when_there_is_not_available_profit_policies(){
+    public void associate_product_to_a_policy(){
 
-        PointOfSaleService service = getPointOfSaleService();
-        List<ProfitPolicyDto> profitPolicies = service.getAvailableProfitPolicies();
-        assertThat(profitPolicies, is(notNullValue()));
-        assertThat(profitPolicies, empty());
+        ProfitPolicyDto policyDto = getProfitPolicyDto("Default Policy 5%", 5F);
+        ProductDto product = getProduct("12334345454", 55F, "Bonarda Sin Palabras");
+
+        Database database = new DBMemory();
+        PolicyService service = getPolicyService(database);
+        service.addProfitPolicy(policyDto);
+
+        ProductService productService = getProductService(database);
+        productService.addProduct(product);
+
+        List<String> products = new ArrayList<>();
+        products.add(product.getId());
+
+        Response response = service.addProductToPolicy(policyDto.getId(), products);
+        assertThat(response.getStatus(), is(201));
+
+        List<ProfitPolicyDto> policies = productService.getPoliciesByProduct(product.getId());
+        assertThat(policies.isEmpty(), is(false));
+    }
+    @Test
+    public void get_policies_that_apply_to_a_product(){
+
     }
 
-    @Test
-    public void return_all_the_available_profit_policies() {
-
-        PointOfSaleService service = getPointOfSaleService();
-
-        ProfitPolicyDto profitPolicyDto;
-        profitPolicyDto = new ProfitPolicyDto();
-        profitPolicyDto.setPercentage(21.5F);
-        service.addProfitPolicy(profitPolicyDto);
-
-        ProfitPolicyDto profitPolicyDto2 = new ProfitPolicyDto();
-        profitPolicyDto2.setPercentage(5F);
-        service.addProfitPolicy(profitPolicyDto2);
-
-        List<ProfitPolicyDto> profitPolicies = service.getAvailableProfitPolicies();
-
-        assertThat(profitPolicies, is(notNullValue()));
-        assertThat(profitPolicies.isEmpty(), is(false));
-
-        assertThat(profitPolicies.size(), is(2));
-        assertThat(profitPolicies.contains(profitPolicyDto), is(true));
-        assertThat(profitPolicies.contains(profitPolicyDto2), is(true));
-    }
-
-    private PointOfSaleService getPointOfSaleService() {
-        Catalog catalog = new Catalog(new DBMemory());
+    private ProductService getProductService(Database database) {
+        Catalog catalog = new Catalog(database);
         Controller controller = new Controller(catalog);
-        return new PointOfSaleService(controller);
+        return new ProductService(controller);
     }
 
     private ProductDto getProduct(String id, Float price, String desc) {
@@ -159,5 +154,17 @@ public class PointOfSaleServiceTest {
         productDto.setDescription(desc);
         productDto.setPrice(price);
         return productDto;
+    }
+    private ProfitPolicyDto getProfitPolicyDto(String id, Float percentage) {
+        ProfitPolicyDto profitPolicyDto;
+        profitPolicyDto = new ProfitPolicyDto();
+        profitPolicyDto.setId(id);
+        profitPolicyDto.setPercentage(21.5F);
+        return profitPolicyDto;
+    }
+    private PolicyService getPolicyService(Database database) {
+        Catalog catalog = new Catalog(database);
+        Controller controller = new Controller(catalog);
+        return new PolicyService(controller);
     }
 }

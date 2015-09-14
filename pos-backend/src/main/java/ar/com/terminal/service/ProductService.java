@@ -19,9 +19,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("pos")
-@Api(value = "pos", description = "Point of sell service")
-public class PointOfSaleService {
+@Path("pos/product")
+@Api(value = "product", description = "Point of sell service")
+public class ProductService {
 
     public static final String MSG_OK_200 = "OK";
     public static final String MSG_OK_201 = "CREATED";
@@ -32,16 +32,14 @@ public class PointOfSaleService {
     private Controller controller = new Controller(catalog);
 
 
-    public PointOfSaleService(Controller controller){
+    public ProductService(Controller controller){
         this.controller = controller;
     }
 
-    public PointOfSaleService(){
-
-    }
+    public ProductService(){}
 
     @GET
-    @Path("/product")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "List products.", notes = "List all the available products.", response = javax.ws.rs.core.Response.class)
     @ApiResponses(value = {@ApiResponse(code = HttpStatus.OK_200, message = MSG_OK_200),
@@ -54,20 +52,26 @@ public class PointOfSaleService {
     }
 
     @GET
-    @Path("/product/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Returns a product.", notes = "Returns a product according to its id.", response = javax.ws.rs.core.Response.class)
     @ApiResponses(value = {@ApiResponse(code = HttpStatus.OK_200, message = MSG_OK_200),
-            @ApiResponse(code = HttpStatus.INTERNAL_SERVER_ERROR_500, message = MSG_INTERNAL_SERVER_ERROR_500)})
-    public ProductDto getProduct(@PathParam("id") String id){
+            @ApiResponse(code = HttpStatus.NOT_FOUND_404, message = MSG_NOT_FOUND_404)})
+    public ProductDto getProduct(@PathParam("id") String id, @QueryParam("full") boolean fullInfo){
 
-        ProductDto productDto = controller.getProduct(id);
+        ProductDto productDto;
+
+        if(fullInfo){
+          productDto = controller.getProductWithFullInformation(id);
+        }else{
+          productDto = controller.getProduct(id);
+        }
 
         return productDto;
     }
 
     @PUT
-    @Path("/product")
+    @Path("/")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Add a product to the catalog.", notes = "Add a product to the catalog.", response = javax.ws.rs.core.Response.class)
@@ -87,7 +91,7 @@ public class PointOfSaleService {
         return formatResponse(HttpStatus.CREATED_201, uri.toASCIIString(), MediaType.TEXT_PLAIN);
     }
 
-    @GET
+    /*@GET
     @Path("/product/{id}/info")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "List products and their full information.", notes = "List products and their full information.", response = javax.ws.rs.core.Response.class)
@@ -97,26 +101,19 @@ public class PointOfSaleService {
 
         return controller.getProductWithFullInformation(id);
     }
+*/
 
     @GET
-    @Path("/policy")
+    @Path("/{id}/policy")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "List profit policies", notes = "List profit policies.", response = javax.ws.rs.core.Response.class)
+    @ApiOperation(value = "List profit policies associated to a product", notes = "List profit policies associated to a product.", response = javax.ws.rs.core.Response.class)
     @ApiResponses(value = {@ApiResponse(code = HttpStatus.OK_200, message = MSG_OK_200),
-            @ApiResponse(code = HttpStatus.INTERNAL_SERVER_ERROR_500, message = MSG_INTERNAL_SERVER_ERROR_500)})
-    public List<ProfitPolicyDto> getAvailableProfitPolicies() {
-        return controller.getProfitPolicies();
-    }
+            @ApiResponse(code = HttpStatus.NOT_FOUND_404, message = MSG_NOT_FOUND_404)})
+    public List<ProfitPolicyDto> getPoliciesByProduct(@PathParam("id") String productId){
 
-    @PUT
-    @Path("/policy")
-    @Consumes("application/json")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Add a new policy to the catalog.", notes = "Add a new policy to the catalog.", response = javax.ws.rs.core.Response.class)
-    @ApiResponses(value = {@ApiResponse(code = HttpStatus.CREATED_201, message = MSG_OK_201),
-            @ApiResponse(code = HttpStatus.INTERNAL_SERVER_ERROR_500, message = MSG_INTERNAL_SERVER_ERROR_500)})
-    public void addProfitPolicy(@ApiParam(value = "Message to add. \"id\" will be ignored", required = true) ProfitPolicyDto policy ) {
-        controller.addProfitPolicy(policy);
+        List<ProfitPolicyDto> profitPolicy = new ArrayList<>();
+        profitPolicy.add(controller.getProfitPolicyByProduct(productId));
+        return profitPolicy;
     }
 
     protected javax.ws.rs.core.Response formatResponse(int statusCode, Object body, String type) {

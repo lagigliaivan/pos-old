@@ -85,8 +85,6 @@ public class CatalogTest {
     @Test
     public void return_the_stock_of_a_product(){
 
-        Database database = new DBMemory();
-        Catalog catalog = new Catalog(database);
         Product product = new Product("1",0.0F, "product1");
         catalog.addProduct(product);
         catalog.incrementStock(product.getId(), 3);
@@ -97,7 +95,21 @@ public class CatalogTest {
 
     @Test
     public void return_all_the_policies(){
+       ProfitPolicy policy = new ProfitPolicy("Default policy 5%");
+       ProfitPolicy policy1 = new ProfitPolicy("Policy 10%");
+       ProfitPolicy policy2 = new ProfitPolicy("Policy 21%");
 
+       catalog.addProfitPolicy(policy);
+       catalog.addProfitPolicy(policy1);
+       catalog.addProfitPolicy(policy2);
+
+       assertThat(catalog.getProfitPolicies(), is(notNullValue()));
+       assertThat(catalog.getProfitPolicies().isEmpty(), is(false));
+       assertThat(catalog.getProfitPolicies().size(), is(3));
+
+       assertThat(catalog.getProfitPolicies().contains(policy), is(true));
+       assertThat(catalog.getProfitPolicies().contains(policy1), is(true));
+       assertThat(catalog.getProfitPolicies().contains(policy2), is(true));
     }
 
     @Test
@@ -108,7 +120,7 @@ public class CatalogTest {
         Product product = new Product(id,85.50F,"Dominicano de Barrancas Malbec");
 
         catalog.addProduct(product);
-        catalog.addProfitPolicy(new ProfitPolicy());
+        catalog.addProfitPolicy(new ProfitPolicy("Default policy"));
 
         Float salePrice = catalog.getSuggestedPrice(id);
 

@@ -5,6 +5,7 @@ package ar.com.terminal.dto;
  */
 public class ProfitPolicyDto {
     private Float percentage = 0F;
+    private String id = "";
 
     public void setPercentage(Float percentage) {
         this.percentage = percentage;
@@ -21,6 +22,7 @@ public class ProfitPolicyDto {
 
         ProfitPolicyDto that = (ProfitPolicyDto) o;
 
+        if (!id.equals(that.id)) return false;
         if (!percentage.equals(that.percentage)) return false;
 
         return true;
@@ -28,6 +30,16 @@ public class ProfitPolicyDto {
 
     @Override
     public int hashCode() {
-        return percentage.hashCode();
+        int result = percentage.hashCode();
+        result = 31 * result + id.hashCode();
+        return result;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

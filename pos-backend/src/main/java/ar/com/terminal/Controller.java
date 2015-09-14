@@ -79,16 +79,20 @@ public class Controller {
 
     public List<ProfitPolicyDto> getProfitPolicies() {
 
-        List<ProfitPolicyDto> profitPolicyDtos = new ArrayList<>();
+        List<ProfitPolicyDto> profitPoliciesDto = new ArrayList<>();
         List<ProfitPolicy> policies = catalog.getProfitPolicies();
 
 
         for(ProfitPolicy policy : policies){
-            profitPolicyDtos.add(getProfitPolicyDto(policy));
+            profitPoliciesDto.add(getProfitPolicyDto(policy));
 
         }
 
-        return profitPolicyDtos;
+        return profitPoliciesDto;
+    }
+
+    public void addProductToPolicy(String policyId, List<String> productsId) {
+        catalog.addProductToPolicy(policyId, productsId);
     }
 
     private ProfitPolicyDto getProfitPolicyDto(ProfitPolicy policy) {
@@ -96,6 +100,7 @@ public class Controller {
         ProfitPolicyDto policyDto = new ProfitPolicyDto();
 
         policyDto.setPercentage(policy.getPercentage());
+        policyDto.setId(policy.getId());
 
         return policyDto;
 
@@ -110,9 +115,8 @@ public class Controller {
     }
 
     private ProfitPolicy getProfitPolicy(ProfitPolicyDto profitPolicyDto) {
-        ProfitPolicy policy = new ProfitPolicy();
+        ProfitPolicy policy = new ProfitPolicy(profitPolicyDto.getId());
         policy.setPercentage(profitPolicyDto.getPercentage());
-
         return policy;
     }
 
@@ -125,5 +129,10 @@ public class Controller {
         productDescriptionDtoDto.setPictureURL(fullProductDescription.getPictureURL());
 
         return productDescriptionDtoDto;
+    }
+
+    public ProfitPolicyDto getProfitPolicyByProduct(String productId) {
+        ProfitPolicy policy = catalog.getProfitPolicyByProduct(productId);
+        return getProfitPolicyDto(policy);
     }
 }

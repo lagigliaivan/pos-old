@@ -7,14 +7,18 @@ import ar.com.terminal.model.ProfitPolicy;
 import ar.com.terminal.model.Sale;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ivan on 06/09/15.
  */
 public class DBMemory implements Database {
-    private List<Product> products = new ArrayList<Product>();
-    private List<ProfitPolicy> profitPolicies = new ArrayList<ProfitPolicy>();
+
+    private Map<String, Product> products = new HashMap<>();
+    private Map<String, ProfitPolicy> profitPolicies = new HashMap<>();
+    private Map<String, String> productPolicyAssoc = new HashMap<>();
 
     private static final DBMemory instance = new DBMemory();
     public static Database getInstance(){
@@ -23,16 +27,7 @@ public class DBMemory implements Database {
 
     @Override
     public Product getProductById(String id) {
-
-        final Product[] product = new Product[1];
-
-        products.forEach((Product it) -> {
-            if (it.getId().equals(id)) {
-                product[0] = it;
-            }
-        });
-
-        return product[0];
+       return products.get(id);
     }
 
     @Override
@@ -42,13 +37,12 @@ public class DBMemory implements Database {
 
     @Override
     public void save(Product product) {
-        products.add(product);
+        products.put(product.getId(), product);
     }
 
     @Override
     public void remove(String productId) {
-        Product product = getProductById(productId);
-        products.remove(product);
+        products.remove(productId);
     }
 
     @Override
@@ -59,16 +53,27 @@ public class DBMemory implements Database {
 
     @Override
     public void save(ProfitPolicy profitPolicy) {
-        profitPolicies.add(profitPolicy);
+        profitPolicies.put(profitPolicy.getId(), profitPolicy);
     }
 
     @Override
     public List<ProfitPolicy> getProfitPolicies() {
-        return profitPolicies;
+        return new ArrayList<>(profitPolicies.values());
     }
 
     @Override
     public List<Product> getProducts() {
-        return products;
+        return new ArrayList<>(products.values());
+    }
+
+    @Override
+    public void save(String policyId, String productId) {
+        productPolicyAssoc.put(productId, policyId);
+    }
+
+    @Override
+    public ProfitPolicy getProfitPolicyByProduct(String productId) {
+        String profitPolicyId = productPolicyAssoc.get(productId);
+        return profitPolicies.get(profitPolicyId);
     }
 }

@@ -46,9 +46,7 @@ public class Catalog {
 	}
 
     public void remove(String productId) {
-
         database.remove(productId);
-        return;
     }
 
     public FullProductDescription getFullDescription(String productId) {
@@ -71,6 +69,15 @@ public class Catalog {
 
     public List<Product> getProducts() {
         return database.getProducts();
+    }
+
+    public void addProductToPolicy(String policyId, List<String> productsId) {
+        productsId.forEach((productId) -> {database.save(policyId, productId);});
+
+    }
+
+    public ProfitPolicy getProfitPolicyByProduct(String productId) {
+        return database.getProfitPolicyByProduct(productId);
     }
 }
 

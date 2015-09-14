@@ -1,11 +1,8 @@
 package ar.com.terminal;
 
-import ar.com.terminal.service.PointOfSaleService;
-import org.apache.log4j.spi.LoggerFactory;
+import ar.com.terminal.service.ProductService;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 
 /**
@@ -19,7 +16,7 @@ public class Main {
 
 
         Swagger swagger = new Swagger();
-        swagger.build(MICRO_SERVICES_NAME, "This service allows you to add/remove/list different items in a DB and track their existence", PointOfSaleService.class.getPackage().getName());
+        swagger.build(MICRO_SERVICES_NAME, "This service allows you to add/remove/list different items in a DB and track their existence", ProductService.class.getPackage().getName());
 
         final HandlerList handlers = new HandlerList();
         // Handler for Swagger UI, static handler.
@@ -30,7 +27,7 @@ public class Main {
         }
 
         // Handler for Entity Browser and Swagger
-        handlers.addHandler(swagger.buildContextHandler(PointOfSaleService.class.getPackage().getName()));
+        handlers.addHandler(swagger.buildContextHandler(ProductService.class.getPackage().getName()));
 
         /*ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");*/

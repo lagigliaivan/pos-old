@@ -210,6 +210,16 @@ public class DBConnection implements Database {
         return null;
     }
 
+    @Override
+    public void save(String policyId, String productId) {
+
+    }
+
+    @Override
+    public ProfitPolicy getProfitPolicyByProduct(String productId) {
+        return null;
+    }
+
     protected List <Product> getItemsUsingTheFollowingQuery(String query) throws HibernateException, Exception{
 		
 		List <Product> existingProducts = new ArrayList<Product>();
