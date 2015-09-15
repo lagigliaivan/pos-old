@@ -8,6 +8,7 @@ public class ProductDto {
     private String id;
     private String description;
     private Float price;
+    private Float suggestedPrice;
     private ProductDescriptionDto productDescriptionDto;
 
     public ProductDto(){
@@ -66,5 +67,13 @@ public class ProductDto {
 
     public void setFullDescription(ProductDescriptionDto fullProductDescriptionDto) {
         productDescriptionDto = fullProductDescriptionDto;
+    }
+
+    public Float getSuggestedPrice() {
+        return suggestedPrice;
+    }
+
+    public void setSuggestedPrice(Float suggestedPrice) {
+        this.suggestedPrice = suggestedPrice;
     }
 }

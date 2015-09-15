@@ -15,14 +15,27 @@ public class Catalog {
 	}
 
 	public Product getProduct(String id){
-		Product product = database.getProductById(id);
+
+        Product product = database.getProductById(id);
         if(product == null){
             product = new NullProduct();
         }
-		return product;
+        ProfitPolicy policy = database.getProfitPolicyByProduct(product.getId());
+
+        if(policy != null) {
+            Float suggestedPrice = calculateSuggestedPrice(policy.getPercentage(), product.getPrice());
+            product.setSuggestedPrice(suggestedPrice);
+        }
+
+        return product;
 	}
 
-	public void addProduct(Product product){
+    private Float calculateSuggestedPrice(final Float percentage, final Float price) {
+        Float increment = ((percentage * price)/100f) + price;
+        return increment;
+    }
+
+    public void addProduct(final Product product){
         database.save(product);
     }
 	
@@ -51,10 +64,6 @@ public class Catalog {
 
     public FullProductDescription getFullDescription(String productId) {
         return database.getFullDescription(productId);
-    }
-
-    public Float getSuggestedPrice(String id) {
-        return null;
     }
 
     public void addProfitPolicy(ProfitPolicy profitPolicy) {

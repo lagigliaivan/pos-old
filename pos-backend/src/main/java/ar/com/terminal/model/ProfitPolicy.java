@@ -8,8 +8,9 @@ public class ProfitPolicy {
     private String id;
     private Float percentage = 5F;
 
-    public ProfitPolicy(String id){
+    public ProfitPolicy(String id, Float percentage){
         this.id = id;
+        this.percentage = percentage;
     }
 
     public void setPercentage(Float percentage) {

@@ -31,7 +31,7 @@ public class ProductServiceTest {
     private String id;
 
     @Test
-    public void return_a_list_of_products(){
+    public void return_a_list_of_products_when_get_all(){
 
         ProductDto product1 = getProduct("7798130150018", 100F, "Dominicano de barrancas");
         ProductDto product2 = getProduct("7798130234018", 95.44F, "AVE Malbec 2011");
@@ -71,6 +71,7 @@ public class ProductServiceTest {
         assertThat(existingProductDto, is(notNullValue()));
         assertThat(existingProductDto, is(productDto));
     }
+
 
     @Test
     public void return_an_empty_product_when_id_is_passed_and_product_does_not_exist(){
@@ -119,18 +120,18 @@ public class ProductServiceTest {
     @Test
     public void associate_product_to_a_policy(){
 
-        ProfitPolicyDto policyDto = getProfitPolicyDto("Default Policy 5%", 5F);
-        ProductDto product = getProduct("12334345454", 55F, "Bonarda Sin Palabras");
-
         Database database = new DBMemory();
         PolicyService service = getPolicyService(database);
+
+        ProfitPolicyDto policyDto = getProfitPolicyDto("Default Policy 5%", 5F);
         service.addProfitPolicy(policyDto);
 
         ProductService productService = getProductService(database);
-        productService.addProduct(product);
+        ProductDto productDto = getProduct("12334345454", 55F, "Bonarda Sin Palabras");
+        productService.addProduct(productDto);
 
         List<String> products = new ArrayList<>();
-        products.add(product.getId());
+        products.add(productDto.getId());
 
         ListHolder listHolder = new ListHolder();
         listHolder.setList(products);
@@ -138,12 +139,37 @@ public class ProductServiceTest {
         Response response = service.addProductToPolicy(policyDto.getId(),listHolder);
         assertThat(response.getStatus(), is(201));
 
-        List<ProfitPolicyDto> policies = productService.getPoliciesByProduct(product.getId());
+        List<ProfitPolicyDto> policies = productService.getPoliciesByProduct(productDto.getId());
         assertThat(policies.isEmpty(), is(false));
+        assertThat(policies.contains(policyDto), is(true));
     }
-    @Test
-    public void get_policies_that_apply_to_a_product(){
 
+    @Test
+    public void return_a_product_whit_suggested_price_when_policy_applies() {
+        Database database = new DBMemory();
+        PolicyService policyService = getPolicyService(database);
+
+        ProfitPolicyDto policyDto = getProfitPolicyDto("Default Policy 5%", 5F);
+        policyService.addProfitPolicy(policyDto);
+
+        ProductService productService = getProductService(database);
+        ProductDto productDto = getProduct("12334345454", 55F, "Bonarda Sin Palabras");
+        productService.addProduct(productDto);
+
+
+        List<String> products = new ArrayList<>();
+        products.add(productDto.getId());
+
+        ListHolder listHolder = new ListHolder();
+        listHolder.setList(products);
+
+        policyService.addProductToPolicy(policyDto.getId(), listHolder);
+
+        ProductDto product = productService.getProduct(productDto.getId(), false);
+        assertThat(product, is(productDto));
+        assertThat(product.getPrice(), is(productDto.getPrice()));
+        assertThat(product.getSuggestedPrice(), is(notNullValue()));
+        assertThat(product.getSuggestedPrice(), is(policyDto.getPercentage() * productDto.getPrice() / 100 + productDto.getPrice()));
     }
 
     private ProductService getProductService(Database database) {

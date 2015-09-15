@@ -27,7 +27,16 @@ public class DBMemory implements Database {
 
     @Override
     public Product getProductById(String id) {
-       return products.get(id);
+
+        return products.get(id);
+    }
+
+    private Product cloneProduct(Product product) {
+        Product productToReturn = new Product(product.getId(), product.getPrice(), product.getDescription());
+        productToReturn.setFullDescription(product.getFullDescription());
+        productToReturn.setStock(product.getStock());
+        productToReturn.setSuggestedPrice(product.getSuggestedPrice());
+        return productToReturn;
     }
 
     @Override
@@ -36,10 +45,13 @@ public class DBMemory implements Database {
     }
 
     @Override
-    public void save(Product product) {
-        products.put(product.getId(), product);
-    }
+    public void save(final Product product) {
+        if (product != null) {
+            Product cloneProduct = cloneProduct(product);
+            products.put(cloneProduct.getId(), cloneProduct);
 
+        }
+    }
     @Override
     public void remove(String productId) {
         products.remove(productId);

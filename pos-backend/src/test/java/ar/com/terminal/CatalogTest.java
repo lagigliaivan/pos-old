@@ -10,6 +10,9 @@ import ar.com.terminal.model.ProfitPolicy;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -95,9 +98,9 @@ public class CatalogTest {
 
     @Test
     public void return_all_the_policies(){
-       ProfitPolicy policy = new ProfitPolicy("Default policy 5%");
-       ProfitPolicy policy1 = new ProfitPolicy("Policy 10%");
-       ProfitPolicy policy2 = new ProfitPolicy("Policy 21%");
+       ProfitPolicy policy = new ProfitPolicy("Default policy 5%", 5f);
+       ProfitPolicy policy1 = new ProfitPolicy("Policy 10%", 10f);
+       ProfitPolicy policy2 = new ProfitPolicy("Policy 21%", 21f);
 
        catalog.addProfitPolicy(policy);
        catalog.addProfitPolicy(policy1);
@@ -118,11 +121,22 @@ public class CatalogTest {
         id = "7798130150018";
 
         Product product = new Product(id,85.50F,"Dominicano de Barrancas Malbec");
+        ProfitPolicy policy = new ProfitPolicy("Default policy", 5f);
+        product.setSuggestedPrice( ((product.getPrice()*policy.getPercentage())/100) + product.getPrice() );
 
         catalog.addProduct(product);
-        catalog.addProfitPolicy(new ProfitPolicy("Default policy"));
+        catalog.addProfitPolicy(policy);
 
-        Float salePrice = catalog.getSuggestedPrice(id);
+        List<String> products = new ArrayList<>(1);
+        products.add(product.getId());
+
+        catalog.addProductToPolicy(policy.getId(), products);
+
+        Product productAndPrice = catalog.getProduct(product.getId());
+
+        assertThat(productAndPrice, is(notNullValue()));
+        assertThat(productAndPrice.getPrice(), is(product.getPrice()));
+        assertThat(productAndPrice.getSuggestedPrice(), is(product.getSuggestedPrice()));
 
     }
 }

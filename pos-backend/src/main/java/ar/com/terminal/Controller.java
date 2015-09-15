@@ -111,12 +111,12 @@ public class Controller {
         productDtoDto.setId(product.getId());
         productDtoDto.setPrice(product.getPrice());
         productDtoDto.setDescription(product.getDescription());
+        productDtoDto.setSuggestedPrice(product.getSuggestedPrice());
         return productDtoDto;
     }
 
     private ProfitPolicy getProfitPolicy(ProfitPolicyDto profitPolicyDto) {
-        ProfitPolicy policy = new ProfitPolicy(profitPolicyDto.getId());
-        policy.setPercentage(profitPolicyDto.getPercentage());
+        ProfitPolicy policy = new ProfitPolicy(profitPolicyDto.getId(), profitPolicyDto.getPercentage());
         return policy;
     }
 
